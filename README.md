@@ -25,8 +25,5 @@ Part 2: Update forum to phpbb 3.1.2
 
  > Next: [https://github.com/8sun/freestylepoker/blob/master/.md](Integration)
 
-  ```
-  CODE
-  ```  
 
   
