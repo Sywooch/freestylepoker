@@ -10,7 +10,7 @@ Part 1: Install
 
 - Create and migration Databases
 
-Part 2: Update forum to phpbb 3.1.2:
+Part 2: Update forum to phpbb 3.1.2
 ---------------------------------
 
 - Download **phpbb 3.1.2 rus** [http://www.phpbbguru.net/files/base/phpbb31-ru/](http://www.phpbbguru.net/files/base/phpbb31-ru/)
@@ -22,6 +22,8 @@ Part 2: Update forum to phpbb 3.1.2:
 - Go in browser on URL: `http://domain.loc/forum/install/database_update.php`
 
 - Update database
+
+ > Next: [https://github.com/8sun/freestylepoker/blob/master/.md](Integration)
 
   ```
   CODE
