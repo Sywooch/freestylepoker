@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* acp_forums [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: forums.php 9896 2009-07-31 12:46:15Z Kellanved $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -43,6 +44,10 @@ $lang = array_merge($lang, array(
 	'AUTO_PRUNE_FREQ_EXPLAIN'	=> 'Время в днях между выполнением автоочистки.',
 	'AUTO_PRUNE_VIEWED'			=> 'Автоочистка по времени просмотра',
 	'AUTO_PRUNE_VIEWED_EXPLAIN'	=> 'Количество дней с последнего просмотра, по прошествии которых тема будет удалена.',
+	'AUTO_PRUNE_SHADOW_FREQ'	=> 'Частота автоочистки ссылок на перенесённые темы',
+	'AUTO_PRUNE_SHADOW_DAYS'	=> 'Возраст ссылок на перенесённые темы для автоочистки',
+	'AUTO_PRUNE_SHADOW_DAYS_EXPLAIN'	=> 'Количество дней, по прошествии которых ссылка на перенесённую темы будет удалена.',
+	'AUTO_PRUNE_SHADOW_FREQ_EXPLAIN'	=> 'Время в днях между выполнением автоочистки.',
 
 	'CONTINUE'						=> 'Продолжить',
 	'COPY_PERMISSIONS'				=> 'Копировать права доступа из',
@@ -102,6 +107,8 @@ $lang = array_merge($lang, array(
 	'FORUM_PASSWORD_OLD'				=> 'Данный пароль форума использует устаревший метод шифрования и должен быть изменён.',
 	'FORUM_PASSWORD_MISMATCH'			=> 'Введённые пароли не совпадают.',
 	'FORUM_PRUNE_SETTINGS'				=> 'Параметры очистки форума',
+	'FORUM_PRUNE_SHADOW'				=> 'Включить автоочистку ссылок на перенесённые темы',
+	'FORUM_PRUNE_SHADOW_EXPLAIN'			=> 'Автоматическая очистка форумов от ссылок на темы, перенесённые в другие форумы. Задайте частоту автоочистки и возраст перенесённых тем ниже.',
 	'FORUM_RESYNCED'					=> 'Форум «%s» успешно синхронизирован',
 	'FORUM_RULES_EXPLAIN'				=> 'Правила форума отображаются на каждой странице в пределах данного форума.',
 	'FORUM_RULES_LINK'					=> 'Ссылка на правила форума',
@@ -156,5 +163,3 @@ $lang = array_merge($lang, array(
 
 	'UNLOCKED'			=> 'Открыт',
 ));
-
-?>

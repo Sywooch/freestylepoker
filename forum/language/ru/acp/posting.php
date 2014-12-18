@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* posting [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: posting.php 9902 2009-08-01 11:07:48Z acydburn $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -46,6 +47,7 @@ $lang = array_merge($lang, array(
 
 	'BBCODE_ADDED'				=> 'BBCode успешно добавлен.',
 	'BBCODE_EDITED'				=> 'BBCode успешно изменён.',
+	'BBCODE_DELETED'			=> 'BBCode успешно удалён.',
 	'BBCODE_NOT_EXIST'			=> 'Выбранный BBCode не существует.',
 	'BBCODE_HELPLINE'			=> 'Подсказка',
 	'BBCODE_HELPLINE_EXPLAIN'	=> 'Данное поле содержит текст, который появится при наведении указателя мыши на кнопку с BBCode.',
@@ -86,7 +88,7 @@ $lang = array_merge($lang, array(
 		'LOCAL_URL'		=> 'Локальный адрес URL. URL должен быть относительным к странице темы и не должен содержать протокола или имени сервера, как ссылки, начинающиеся с «%s»',
 		'RELATIVE_URL'	=> 'Относительный адрес URL. Можно использовать для подстановки отдельных частей адреса URL, но с осторожностью: полный адрес URL является правильным относительным адресом URL. Если требуется использовать относительные адреса URL конференции, применяйте лексему LOCAL_URL.',
 		'COLOR'			=> 'Цвет HTML. Цвет может быть задан в числовом формате <samp>#FF1234</samp> или <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">ключевым словом цвета CSS</a>. Например, <samp>fuchsia</samp> или <samp>InactiveBorder</samp>.'
-	)
+	),
 ));
 
 // Smilies and topic icons
@@ -115,20 +117,26 @@ $lang = array_merge($lang, array(
 	'EXPORT_ICONS'				=> 'Экспортировать и загрузить файл icons.pak',
 	'EXPORT_ICONS_EXPLAIN'		=> '%sПосле щелчка по этой ссылке конфигурация установленных значков будет упакована в файл <samp>icons.pak</samp>, который после загрузки можно использовать для создания архивов <samp>.zip</samp> или <samp>.tgz</samp>, содержащих все ваши значки вместе с конфигурационным файлом <samp>icons.pak</samp>%s.',
 	'EXPORT_SMILIES'			=> 'Экспортировать и загрузить файл smilies.pak',
-	'EXPORT_SMILIES_EXPLAIN'	=> '%sПосле щелчка по этой ссылке конфигурация установленных смайликов будет упакована в файл <samp>smilies.pak</samp>, который после загрузки можно использовать для создания архивов <samp>.zip</samp> или <samp>.tgz</samp>, содержащих все ваши смайлики вместе с конфигурационным файлом <samp>smilies.pak</samp>.',
+	'EXPORT_SMILIES_EXPLAIN'	=> '%sПосле щелчка по этой ссылке конфигурация установленных смайликов будет упакована в файл <samp>smilies.pak</samp>, который после загрузки можно использовать для создания архивов <samp>.zip</samp> или <samp>.tgz</samp>, содержащих все ваши смайлики вместе с конфигурационным файлом <samp>smilies.pak</samp>%s.',
 
 	'FIRST'			=> 'Первый',
 
 	'ICONS_ADD'				=> 'Добавить значок',
-	'ICONS_NONE_ADDED'		=> 'Значки не были добавлены.',
-	'ICONS_ONE_ADDED'		=> 'Указанный значок успешно добавлен.',
-	'ICONS_ADDED'			=> 'Указанные значки успешно добавлены.',
+	'ICONS_ADDED'			=> array(
+		0	=> 'Значки не были добавлены.',
+		1	=> 'Указанный значок успешно добавлен.',
+		2	=> 'Указанные значки успешно добавлены.',
+		3	=> 'Указанные значки успешно добавлены.',
+	),
 	'ICONS_CONFIG'			=> 'Настройки значков',
 	'ICONS_DELETED'			=> 'Значок успешно удалён.',
 	'ICONS_EDIT'			=> 'Изменить значок',
-	'ICONS_ONE_EDITED'		=> 'Указанный значок успешно обновлён.',
-	'ICONS_NONE_EDITED'		=> 'Значки не были обновлены.',
-	'ICONS_EDITED'			=> 'Указанные значки успешно обновлены.',
+	'ICONS_EDITED'			=> array(
+		0	=> 'Значки не были обновлены.',
+		1	=> 'Указанный значок успешно обновлён.',
+		2	=> 'Указанные значки успешно обновлены.',
+		3	=> 'Указанные значки успешно обновлены.',
+	),
 	'ICONS_HEIGHT'			=> 'Высота значка',
 	'ICONS_IMAGE'			=> 'Рисунок значка',
 	'ICONS_IMPORTED'		=> 'Пакет значков успешно установлен.',
@@ -160,9 +168,12 @@ $lang = array_merge($lang, array(
 
 	'SELECT_PACKAGE'			=> 'Выберите файл пакета',
 	'SMILIES_ADD'				=> 'Добавить смайлик',
-	'SMILIES_NONE_ADDED'		=> 'Смайлики не были добавлены.',
-	'SMILIES_ONE_ADDED'			=> 'Указанный смайлик успешно добавлен.',
-	'SMILIES_ADDED'				=> 'Указанные смайлики успешно добавлены.',
+	'SMILIES_ADDED'				=> array(
+		0	=> 'Смайлики не были добавлены.',
+		1	=> 'Указанный смайлик успешно добавлен.',
+		2	=> 'Указанные смайлики успешно добавлены.',
+		3	=> 'Указанные смайлики успешно добавлены.',
+	),
 	'SMILIES_CODE'				=> 'Код смайлика',
 	'SMILIES_CONFIG'			=> 'Настройки смайликов',
 	'SMILIES_DELETED'			=> 'Смайлик успешно удалён.',
@@ -170,9 +181,12 @@ $lang = array_merge($lang, array(
 	'SMILIE_NO_CODE'			=> 'Смайлик «%s» не был добавлен, так как для него не задан код.',
 	'SMILIE_NO_EMOTION'			=> 'Смайлик «%s» не был добавлен, так как для него не задана эмоция.',
 	'SMILIE_NO_FILE'			=> 'Смайлик «%s» не был добавлен, так как для него отсутствует файл.',
-	'SMILIES_NONE_EDITED'		=> 'Смайлики не были обновлены.',
-	'SMILIES_ONE_EDITED'		=> 'Указанный смайлик успешно обновлён.',
-	'SMILIES_EDITED'			=> 'Указанные смайлики успешно обновлены.',
+	'SMILIES_EDITED'			=> array(
+		0	=> 'Смайлики не были обновлены.',
+		1	=> 'Указанный смайлик успешно обновлён.',
+		2	=> 'Указанные смайлики успешно обновлены.',
+		3	=> 'Указанные смайлики успешно обновлены.',
+	),
 	'SMILIES_EMOTION'			=> 'Эмоция',
 	'SMILIES_HEIGHT'			=> 'Высота смайлика',
 	'SMILIES_IMAGE'				=> 'Рисунок смайлика',
@@ -184,8 +198,11 @@ $lang = array_merge($lang, array(
 	'SMILIES_URL'				=> 'Файл смайлика',
 	'SMILIES_WIDTH'				=> 'Ширина смайлика',
 
-	'TOO_MANY_SMILIES'			=> 'Достигнут предел в количестве %d смайликов.',
-
+	'TOO_MANY_SMILIES'			=> array(
+		1	=> 'Достигнут предел в количестве смайликов: %d.',
+		2	=> 'Достигнут предел в количестве смайликов: %d.',
+		3	=> 'Достигнут предел в количестве смайликов: %d.',
+	),
 	'WRONG_PAK_TYPE'	=> 'Указанный пакет не содержит подходящих данных.',
 ));
 
@@ -276,5 +293,3 @@ $lang = array_merge($lang, array(
 
 	'USED_IN_REPORTS'		=> 'Используется в жалобах',
 ));
-
-?>

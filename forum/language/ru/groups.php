@@ -1,12 +1,13 @@
 <?php
 /** 
 *
-* groups [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: groups.php,v 1.22 2007/10/04 15:07:24 acydburn Exp $
-* @copyright (c) 2005 phpBB Group 
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License 
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -54,7 +55,7 @@ $lang = array_merge($lang, array(
 	'GROUP_IS_FREE'						=> 'Это общедоступная группа, любой пользователь может вступить в неё.', 
 	'GROUP_IS_HIDDEN'					=> 'Это скрытая группа, только члены этой группы могут просматривать список входящих в неё пользователей.',
 	'GROUP_IS_OPEN'						=> 'Это открытая группа, любой пользователь может подать просьбу о вступлении.',
-	'GROUP_IS_SPECIAL'					=> 'Это специальная группа, управляемая администратором форума.', 
+	'GROUP_IS_SPECIAL'					=> 'Это специальная группа, управляемая администратором конференции.', 
 	'GROUP_JOIN'						=> 'Вступить в группу',
 	'GROUP_JOIN_CONFIRM'				=> 'Вы уверены, что хотите вступить в выбранную группу?',
 	'GROUP_JOIN_PENDING'				=> 'Запрос на вступление в группу',
@@ -92,5 +93,3 @@ $lang = array_merge($lang, array(
 	'USER_GROUP_DEMOTE_CONFIRM'			=> 'Вы уверены, что хотите отказаться от лидерства в выбранной группе?',
 	'USER_GROUP_DEMOTED'				=> 'Вы прекратили быть лидером группы.',
 ));
-
-?>

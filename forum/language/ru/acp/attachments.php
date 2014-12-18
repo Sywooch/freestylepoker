@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* acp_attachments [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: attachments.php 8946 2008-09-26 18:32:05Z toonarmy $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -62,6 +63,7 @@ $lang = array_merge($lang, array(
 	'ATTACH_MAX_PM_FILESIZE_EXPLAIN'	=> 'Максимальный размер каждого файла, вложенного в личное сообщение. Значение 0 соответствует неограниченному размеру.',
 	'ATTACH_ORPHAN_URL'					=> 'Потерянные вложения',
 	'ATTACH_POST_ID'					=> 'ID сообщения',
+	'ATTACH_POST_TYPE'					=> 'Тип сообщения',
 	'ATTACH_QUOTA'						=> 'Общая квота вложений',
 	'ATTACH_QUOTA_EXPLAIN'				=> 'Максимально доступное дисковое пространство для вложений. Значение 0 соответствует неограниченному размеру.',
 	'ATTACH_TO_POST'					=> 'Прикрепить файл к сообщению',
@@ -107,6 +109,9 @@ $lang = array_merge($lang, array(
 	'EXT_GROUP_REAL_MEDIA'			=> 'Файлы Real Media',
 	'EXT_GROUP_WINDOWS_MEDIA'		=> 'Файлы Windows Media',
 
+	'FILES_GONE'			=> 'Некоторые вложения из выбранных для удаления не существуют. Возможно, они уже были удалены ранее. Существующие вложения успешно удалены.',
+	'FILES_STATS_WRONG'		=> 'Возможно, статистика вложений неверна и требует синхронизации. Правильные значения: количество вложений = %1$d, общий размер вложений = %2$s.<br />Нажмите %3$sздесь%4$s для синхронизации статистики вложений.',
+
 	'GO_TO_EXTENSIONS'		=> 'Перейти на страницу управления расширениями',
 	'GROUP_NAME'			=> 'Имя группы',
 
@@ -130,6 +135,7 @@ $lang = array_merge($lang, array(
 	'NOT_ALLOWED_IN_PM'			=> 'Группа расширений разрешена только в сообщениях',
 	'NOT_ALLOWED_IN_PM_POST'	=> 'Группа расширений запрещена',
 	'NOT_ASSIGNED'				=> 'Не назначена',
+	'NO_ATTACHMENTS'			=> 'Не найдено вложений за указанный период.',
 	'NO_EXT_GROUP'				=> 'Нет',
 	'NO_EXT_GROUP_NAME'			=> 'Не указано имя группы',
 	'NO_EXT_GROUP_SPECIFIED'	=> 'Не указана группа расширений.',
@@ -143,8 +149,9 @@ $lang = array_merge($lang, array(
 	'ORDER_ALLOW_DENY'		=> 'Разрешить',
 	'ORDER_DENY_ALLOW'		=> 'Запретить',
 
-	'REMOVE_ALLOWED_IPS'	=> 'Удаление или удаление из исключённых <em>разрешённых</em> IP-адресов или узлов',
-	'REMOVE_DISALLOWED_IPS'	=> 'Удаление или удаление из исключённых <em>запрещённых</em> IP-адресов или узлов',
+	'REMOVE_ALLOWED_IPS'			=> 'Удаление или удаление из исключённых <em>разрешённых</em> IP-адресов или узлов',
+	'REMOVE_DISALLOWED_IPS'			=> 'Удаление или удаление из исключённых <em>запрешённых</em> IP-адресов или узлов',
+	'RESYNC_FILES_STATS_CONFIRM'	=> 'Вы действительно хотите синхронизировать статистику вложений?',
 
 	'SEARCH_IMAGICK'				=> 'Найти Imagemagick',
 	'SECURE_ALLOW_DENY'				=> 'Список разрешённых и запрещённых',
@@ -166,9 +173,7 @@ $lang = array_merge($lang, array(
 	'UPLOADING_FILE_TO'				=> 'Загрузка файла «%1$s» в сообщение под номером %2$d…',
 	'UPLOAD_DENIED_FORUM'			=> 'У вас нет прав на загрузку файлов в форум «%s».',
 	'UPLOAD_DIR'					=> 'Папка для хранения вложений',
-	'UPLOAD_DIR_EXPLAIN'			=> 'Примечание: если вы измените эту папку, в то время как в ней уже имеются загруженные файлы, то вам придётся вручную скопировать эти файлы в новую папку.',
+	'UPLOAD_DIR_EXPLAIN'			=> 'Примечание: если вы измените эту папку в то время, как в ней уже имеются загруженные файлы, то вам придётся вручную скопировать эти файлы в новую папку.',
 	'UPLOAD_ICON'					=> 'Значок вложения',
 	'UPLOAD_NOT_DIR'				=> 'Указанный путь для загрузки файлов не является папкой.',
 ));
-
-?>

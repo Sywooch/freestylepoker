@@ -23,11 +23,17 @@ Part 2: Update forum to phpbb 3.1.2
 
 - Update database
 
-- Add `.htaccess`
+- Add `.htaccess` **before*** _Frontend redirect_
 ```
 # Forum redirect
     RewriteCond %{REQUEST_URI} ^/forum
     RewriteRule ^forum/(.*)$ forum/$1 [L]
+```
+
+- Add alias `\common\config\aliases.php`:
+
+```
+Yii::setAlias('phpbb', dirname(dirname(__DIR__)) . '/forum/phpbb');
 ```
 
  > **All change:** In the folder `docs`, you can find all the detailed information about the settings and changes

@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* acp_ban [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: ban.php 9727 2009-07-07 13:33:53Z nickvergessen $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -74,12 +75,10 @@ $lang = array_merge($lang, array(
 	'PERMANENT'		=> 'Бессрочно',
 
 	'UNTIL'						=> 'До даты',
-	'USER_BAN'					=> 'Заблокировать доступ одному или нескольким пользователям',
+	'USER_BAN'					=> 'Заблокировать по имени пользователя',
 	'USER_BAN_EXCLUDE_EXPLAIN'	=> 'Исключить введённых пользователей из чёрного списка.',
 	'USER_BAN_EXPLAIN'			=> 'Вводите каждое имя на новой строке. Используйте ссылку <span style="text-decoration: underline;">Найти пользователя</span> для поиска и автоматического добавления пользователей.',
 	'USER_NO_BANNED'			=> 'Чёрный список пользователей пуст',
-	'USER_UNBAN'				=> 'Разблокировать доступ пользователям или удалить пользователей из белого списка',
+	'USER_UNBAN'				=> 'Разблокировать или удалить имя пользователя из белого списка',
 	'USER_UNBAN_EXPLAIN'		=> 'За один раз можно разблокировать (или удалить из белого списка) несколько имён, выбрав их с помощью соответствующей комбинации мыши и клавиатуры вашего компьютера и браузера. Имена из белого списка выделены особым цветом.',
 ));
-
-?>

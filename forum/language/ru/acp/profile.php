@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* acp_profile [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: profile.php 9916 2009-08-03 15:46:56Z Kellanved $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -38,8 +39,11 @@ if (empty($lang) || !is_array($lang))
 // Custom profile fields
 $lang = array_merge($lang, array(
 	'ADDED_PROFILE_FIELD'	=> 'Дополнительное поле успешно добавлено в профиль.',
-	'ALPHA_ONLY'			=> 'Только буквенно-цифровые',
-	'ALPHA_SPACERS'			=> 'Только буквенно-цифровые и разделители',
+	'ALPHA_DOTS'			=> 'Только латинские буквенные символы, цифры и точки',
+	'ALPHA_ONLY'			=> 'Только латинские буквенные символы и цифры',
+	'ALPHA_SPACERS'			=> 'Только латинские буквенные символы, цифры и разделители',
+	'ALPHA_UNDERSCORE'		=> 'Только латинские буквенные символы, цифры и подчёркивание',
+	'ALPHA_PUNCTUATION'		=> 'Только латинские буквенные символы, цифры, запятые, точки, подчёркивание и тире, начинающиеся с датинской буквы',
 	'ALWAYS_TODAY'			=> 'Всегда текущая дата',
 
 	'BOOL_ENTRIES_EXPLAIN'	=> 'Введите возможные варианты',
@@ -66,6 +70,10 @@ $lang = array_merge($lang, array(
 	'DISPLAY_AT_PROFILE_EXPLAIN'	=> 'Пользователь может изменить значение поля в личном разделе.',
 	'DISPLAY_AT_REGISTER'			=> 'В форме регистрации',
 	'DISPLAY_AT_REGISTER_EXPLAIN'	=> 'Если включено, поле можно заполнить при регистрации.',
+	'DISPLAY_ON_MEMBERLIST'			=> 'Отображать в списке пользователей',
+	'DISPLAY_ON_MEMBERLIST_EXPLAIN'	=> 'Если включено, поле будет отображено на странице списка пользователей.',
+	'DISPLAY_ON_PM'					=> 'Отображать при просмотре личных сообщений',
+	'DISPLAY_ON_PM_EXPLAIN'			=> 'Если включено, данное поле будет отображено в минипрофиле при просмотре личных сообщений.',
 	'DISPLAY_ON_VT'					=> 'На страницах тем',
 	'DISPLAY_ON_VT_EXPLAIN'			=> 'При включении данной опции поле будет отображаться на страницах тем под аватарами пользователей.',
 	'DISPLAY_PROFILE_FIELD'			=> 'Отображать поле для всех',
@@ -79,20 +87,26 @@ $lang = array_merge($lang, array(
 	'EVERYTHING_OK'					=> 'Всё в порядке',
 
 	'FIELD_BOOL'				=> 'Логическое поле (Да или Нет)',
+	'FIELD_CONTACT_DESC'		=> 'Описание контакта',
+	'FIELD_CONTACT_URL'			=> 'Ссылка на контакт',
 	'FIELD_DATE'				=> 'Дата',
 	'FIELD_DESCRIPTION'			=> 'Описание поля',
 	'FIELD_DESCRIPTION_EXPLAIN'	=> 'Подсказка к полю, показываемая пользователю',
 	'FIELD_DROPDOWN'			=> 'Раскрывающийся список',
+	'FIELD_GOOGLEPLUS'			=> 'Google+',
 	'FIELD_IDENT'				=> 'Идентификатор поля',
 	'FIELD_IDENT_ALREADY_EXIST'	=> 'Поле с таким идентификатором уже существует. Введите другой идентификатор.',
 	'FIELD_IDENT_EXPLAIN'		=> 'Название поля для его обозначения в базе данных и файлах шаблонов.',
 	'FIELD_INT'					=> 'Число',
+	'FIELD_IS_CONTACT'			=> 'Отображать поле как контактную информацию',
+	'FIELD_IS_CONTACT_EXPLAIN'	=> 'Поле контакта отображается в разделе контактов профиля пользователя, а также в минипрофилях при просмотре тем и личных сообщений. Можно использовать лексему строки <samp>%s</samp>, которая будет заменена на значение, указанное пользователем.',
 	'FIELD_LENGTH'				=> 'Размер поля ввода',
 	'FIELD_NOT_FOUND'			=> 'Поле не найдено.',
 	'FIELD_STRING'				=> 'Однострочное текстовое поле',
 	'FIELD_TEXT'				=> 'Многострочное текстовое поле',
 	'FIELD_TYPE'				=> 'Тип поля',
 	'FIELD_TYPE_EXPLAIN'		=> 'Вы не сможете изменять тип поля.',
+	'FIELD_URL'					=> 'URL (ссылка)',
 	'FIELD_VALIDATION'			=> 'Допустимые символы',
 	'FIRST_OPTION'				=> 'Первый вариант',
 
@@ -104,6 +118,12 @@ $lang = array_merge($lang, array(
 	'ISO_LANGUAGE'				=> 'Язык [%s]',
 
 	'LANG_SPECIFIC_OPTIONS'		=> 'Настройки для языка [<strong>%s</strong>]',
+
+	'LETTER_NUM_DOTS'			=> 'Любые буквенные символы, цифры и точки',
+	'LETTER_NUM_ONLY'			=> 'Любые буквенные символы и цифры',
+	'LETTER_NUM_PUNCTUATION'	=> 'Любые буквенные символы, цифры, запятые, точки, подчёркивание и тире, начинающиеся с любой буквы',
+	'LETTER_NUM_SPACERS'		=> 'Любые буквенные символы, цифры и разделители',
+	'LETTER_NUM_UNDERSCORE'		=> 'Любые буквенные символы, цифры и подчёркивание',
 
 	'MAX_FIELD_CHARS'		=> 'Максимальное число символов',
 	'MAX_FIELD_NUMBER'		=> 'Максимально допустимое число',
@@ -154,5 +174,3 @@ $lang = array_merge($lang, array(
 
 	'VISIBILITY_OPTION'				=> 'Видимость поля',
 ));
-
-?>

@@ -9,6 +9,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use Yii;
+use vova07\users\behaviors\PhpBBUserBahavior;
 
 /**
  * Class User
@@ -44,6 +45,14 @@ class User extends ActiveRecord implements IdentityInterface
      * Default role
      */
     const ROLE_DEFAULT = 'user';
+    
+    /**
+     * Переменные необходимые для интеграции с форумом
+     * @var string $password_reg - старый пароль (при смене пароля пользователем)
+     * @var string $password_new - новый пароль
+     */
+    public $password_reg;
+    public $password_new;
 
     /**
      * @inheritdoc
@@ -172,12 +181,21 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    /**
+     * Поведение PhpBBUserBahavior необходимо для интеграции с форумом
+     */
+    public function behaviors() {
         return [
             'timestampBehavior' => [
                 'class' => TimestampBehavior::className(),
-            ]
+            ],
+            'PhpBBUserBahavior' => [
+                'class' => PhpBBUserBahavior::className(),
+                'userAttr' => 'username',
+                'newpassAttr' => 'password_new',
+                'passAttr' => 'password',
+                'emailAttr' => 'email',
+            ],
         ];
     }
 
@@ -218,6 +236,9 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
+        // Костыль для получения пароля в чистом виде (не хэшированный) 
+        $this->password_reg = $password;
+        
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
@@ -348,6 +369,9 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
+        // Костыль для получения пароля в чистом виде (не хэшированный) 
+        $this->password_new = $password;
+        
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 

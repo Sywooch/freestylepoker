@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* memberlist [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: memberlist.php 9933 2009-08-06 09:12:21Z marshalrusty $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -47,11 +48,13 @@ $lang = array_merge($lang, array(
 
 	'BEFORE'				=> 'до',
 
-	'CC_EMAIL'				=> 'Выслать мне копию этого сообщения.',
-	'CONTACT_USER'			=> 'Контактная информация',
+	'CC_SENDER'				=> 'Выслать мне копию этого сообщения.',
+	'CONTACT_ADMIN'			=> 'Отправить сообщение администрации',
 
 	'DEST_LANG'				=> 'Язык',
 	'DEST_LANG_EXPLAIN'		=> 'Выберите язык получателя сообщения (если доступен).',
+
+	'EDIT_PROFILE'			=> 'Редактировать профиль',
 
 	'EMAIL_BODY_EXPLAIN'	=> 'Сообщение будет отправлено в виде простого текста, не включайте в него HTML или BBCode. В качестве обратного адреса будет показываться ваш адрес email.',
 	'EMAIL_DISABLED'		=> 'Извините, но все функции, связанные с отправкой email, были отключены.',
@@ -61,6 +64,8 @@ $lang = array_merge($lang, array(
 	'EMPTY_MESSAGE_EMAIL'	=> 'Вы должны ввести текст сообщения для отправки.',
 	'EMPTY_MESSAGE_IM'		=> 'Вы должны ввести текст сообщения для отправки.',
 	'EMPTY_NAME_EMAIL'		=> 'Вы должны ввести настоящее имя получателя.',
+	'EMPTY_SENDER_EMAIL'	=> 'Вы должны ввести правильный адрес email.',
+	'EMPTY_SENDER_NAME'		=> 'Вы должны указать имя.',
 	'EMPTY_SUBJECT_EMAIL'	=> 'Вы должны указать тему сообщения.',
 	'EQUAL_TO'				=> 'равно',
 
@@ -72,16 +77,10 @@ $lang = array_merge($lang, array(
 	'HIDE_MEMBER_SEARCH'	=> 'Скрыть поиск пользователей',
 
 	'IM_ADD_CONTACT'		=> 'Добавить в список контактов',
-	'IM_AIM'				=> 'Учтите, что для этого вам необходима установленная программа AOL Instant Messenger.',
-	'IM_AIM_EXPRESS'		=> 'AIM Express',
 	'IM_DOWNLOAD_APP'		=> 'Скачать приложение',
-	'IM_ICQ'				=> 'Учтите, что пользователь мог отключить приём мгновенных сообщений от неизвестных контактов.',
 	'IM_JABBER'				=> 'Учтите, что пользователь мог отключить приём мгновенных сообщений от неизвестных контактов.',
 	'IM_JABBER_SUBJECT'		=> 'Это автоматически сгенерированное сообщение, на него не надо отвечать! Сообщение от пользователя %1$s с %2$s.',
 	'IM_MESSAGE'			=> 'Ваше сообщение',
-	'IM_MSNM'				=> 'Учтите, что для этого вам необходима установленная программа Windows Messenger.',
-	'IM_MSNM_BROWSER'		=> 'Ваш браузер не поддерживает эту функцию.',
-	'IM_MSNM_CONNECT'		=> 'Клиент MSNM не отвечает.\nДля продолжения необходимо установить связь с клиентом.',
 	'IM_NAME'				=> 'Ваше имя',
 	'IM_NO_DATA'			=> 'Для этого пользователя отсутствует контактная информация.',
 	'IM_NO_JABBER'			=> 'Извините, отправка напрямую сообщений пользователям Jabber не поддерживается конференцией. Чтобы связаться с этим пользователем, вам необходимо воспользоваться клиентом Jabber.',
@@ -93,15 +92,20 @@ $lang = array_merge($lang, array(
 
 	'LAST_ACTIVE'				=> 'Последнее посещение',
 	'LESS_THAN'					=> 'меньше',
-	'LIST_USER'					=> 'Пользователей: 1',
-	'LIST_USERS'				=> 'Пользователей: %d',
-	'LOGIN_EXPLAIN_LEADERS'		=> 'Для просмотра списка нашей команды вы должны быть авторизованы.',
+	'LIST_USERS'				=> array(
+		1	=> '%d пользователь',
+		2	=> '%d пользователя',
+		3	=> '%d пользователей',
+	),
+	'LOGIN_EXPLAIN_TEAM'		=> 'Для просмотра списка нашей команды вы должны быть авторизованы.',
 	'LOGIN_EXPLAIN_MEMBERLIST'	=> 'Для просмотра списка пользователей вы должны быть авторизованы.',
 	'LOGIN_EXPLAIN_SEARCHUSER'	=> 'Для поиска пользователей вы должны быть авторизованы.',
 	'LOGIN_EXPLAIN_VIEWPROFILE'	=> 'Для просмотра профилей вы должны быть авторизованы.',
 
 	'MORE_THAN'				=> 'больше',
 
+	'NO_CONTACT_FORM'		=> 'Форма для связи с администрацией отключена.',
+	'NO_CONTACT_PAGE'		=> 'Страница для связи с администрацией отключена.',
 	'NO_EMAIL'				=> 'Вам не разрешено посылать email этому пользователю.',
 	'NO_VIEW_USERS'			=> 'У вас нет доступа к списку пользователей.',
 
@@ -117,12 +121,12 @@ $lang = array_merge($lang, array(
 
 	'SELECT_MARKED'			=> 'Выбрать отмеченных',
 	'SELECT_SORT_METHOD'	=> 'Поле сортировки',
-	'SEND_AIM_MESSAGE'		=> 'Отправить AIM-сообщение',
+	'SENDER_EMAIL_ADDRESS'	=> 'Ваш адрес email',
+	'SENDER_NAME'			=> 'Ваше имя',
 	'SEND_ICQ_MESSAGE'		=> 'Отправить ICQ-сообщение',
 	'SEND_IM'				=> 'Отправить мгновенное сообщение',
 	'SEND_JABBER_MESSAGE'	=> 'Отправить Jabber-сообщение',
 	'SEND_MESSAGE'			=> 'Отправить',
-	'SEND_MSNM_MESSAGE'		=> 'Отправить MSNM/WLM-сообщение',
 	'SEND_YIM_MESSAGE'		=> 'Отправить YIM-сообщение',
 	'SORT_EMAIL'			=> 'email',
 	'SORT_LAST_ACTIVE'		=> 'Последнее посещение',
@@ -135,14 +139,17 @@ $lang = array_merge($lang, array(
 	'USER_LAST_REMINDED'	=> array(
 		0		=> 'Нет напоминаний, отправленных в это время',
 		1		=> 'Отправлено %1$d напоминание<br />» %2$s',
+		2		=> 'Отправлено %1$d напоминания<br />» %2$s',
+		3		=> 'Отправлено %1$d напоминаний<br />» %2$s',
 	),
 	'USER_ONLINE'			=> 'В сети',
 	'USER_PRESENCE'			=> 'Присутствие на конференции',
+	'USERS_PER_PAGE'		=> 'Пользователей на странице',
 
 	'VIEWING_PROFILE'		=> 'Профиль пользователя %s',
-	'VISITED'				=> 'Последнее посещение',
-
-	'WWW'					=> 'Сайт',
+	'VIEW_FACEBOOK_PROFILE'	=> 'Просмотр профиля Facebook',
+	'VIEW_SKYPE_PROFILE'	=> 'Просмотр профиля Skype',
+	'VIEW_TWITTER_PROFILE'	=> 'Просмотр профиля Twitter',
+	'VIEW_YOUTUBE_CHANNEL'	=> 'Просмотр профиля YouTube',
+	'VIEW_GOOGLEPLUS_PROFILE' => 'Просмотр профиля Google+',
 ));
-
-?>

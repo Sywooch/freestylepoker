@@ -1,10 +1,13 @@
 <?php
 /**
 *
-* @package acp
-* @version $Id$
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This file is part of the phpBB Forum Software package.
+*
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -16,9 +19,6 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-/**
-* @package acp
-*/
 class acp_email
 {
 	var $u_action;
@@ -26,7 +26,7 @@ class acp_email
 	function main($id, $mode)
 	{
 		global $config, $db, $user, $auth, $template, $cache;
-		global $phpbb_root_path, $phpbb_admin_path, $phpEx, $table_prefix;
+		global $phpbb_root_path, $phpbb_admin_path, $phpEx, $table_prefix, $phpbb_dispatcher;
 
 		$user->add_lang('acp/email');
 		$this->tpl_name = 'acp_email';
@@ -72,11 +72,15 @@ class acp_email
 				if ($usernames)
 				{
 					// If giving usernames the admin is able to email inactive users too...
-					$sql = 'SELECT username, user_email, user_jabber, user_notify_type, user_lang
-						FROM ' . USERS_TABLE . '
-						WHERE ' . $db->sql_in_set('username_clean', array_map('utf8_clean_string', explode("\n", $usernames))) . '
-							AND user_allow_massemail = 1
-						ORDER BY user_lang, user_notify_type'; // , SUBSTRING(user_email FROM INSTR(user_email, '@'))
+					$sql_ary = array(
+						'SELECT'	=> 'username, user_email, user_jabber, user_notify_type, user_lang',
+						'FROM'		=> array(
+							USERS_TABLE		=> '',
+						),
+						'WHERE'		=> $db->sql_in_set('username_clean', array_map('utf8_clean_string', explode("\n", $usernames))) . '
+							AND user_allow_massemail = 1',
+						'ORDER_BY'	=> 'user_lang, user_notify_type',
+					);
 				}
 				else
 				{
@@ -123,8 +127,18 @@ class acp_email
 							),
 						);
 					}
-					$sql = $db->sql_build_query('SELECT', $sql_ary);
 				}
+				/**
+				* Modify sql query to change the list of users the email is sent to
+				*
+				* @event core.acp_email_modify_sql
+				* @var	array	sql_ary		Array which is used to build the sql query
+				* @since 3.1.2-RC1
+				*/
+				$vars = array('sql_ary');
+				extract($phpbb_dispatcher->trigger_event('core.acp_email_modify_sql', compact($vars)));
+
+				$sql = $db->sql_build_query('SELECT', $sql_ary);
 				$result = $db->sql_query($sql);
 				$row = $db->sql_fetchrow($result);
 
@@ -201,7 +215,7 @@ class acp_email
 					$messenger->set_mail_priority($priority);
 
 					$messenger->assign_vars(array(
-						'CONTACT_EMAIL' => $config['board_contact'],
+						'CONTACT_EMAIL' => phpbb_get_board_contact($config, $phpEx),
 						'MESSAGE'		=> htmlspecialchars_decode($message))
 					);
 
@@ -281,5 +295,3 @@ class acp_email
 
 	}
 }
-
-?>

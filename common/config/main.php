@@ -17,10 +17,24 @@ return [
         ]
     ],
     'components' => [
+//        'user' => [
+//            'class' => 'yii\web\User',
+//            'identityClass' => 'vova07\users\models\User',
+//            'loginUrl' => ['/users/guest/login']
+//        ],
+        'phpBB' => [
+            'class' => 'nill\forum\phpBB',
+            'path' => dirname(dirname(__DIR__)). '\forum',
+        ],
         'user' => [
-            'class' => 'yii\web\User',
-            'identityClass' => 'vova07\users\models\User',
-            'loginUrl' => ['/users/guest/login']
+            'class' => 'nill\forum\PhpBBWebUser',
+            'loginUrl'=>['/login'],
+            'identityClass' => 'vova07\users\models\frontend\User',
+            // enable cookie-based authentication
+            //'allowAutoLogin' => true,
+        ],
+        'request' => [
+            'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'http://' . $_SERVER['HTTP_HOST'] : '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

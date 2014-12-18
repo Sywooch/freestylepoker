@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* viewtopic [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: viewtopic.php 9972 2009-08-14 08:42:46Z Kellanved $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -36,6 +37,7 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
+	'APPROVE'								=> 'Одобрить',
 	'ATTACHMENT'						=> 'Вложение',
 	'ATTACHMENT_FUNCTIONALITY_DISABLED'	=> 'Функция вложений отключена.',
 
@@ -48,19 +50,23 @@ $lang = array_merge($lang, array(
 	'BUMP_TOPIC'			=> 'Поднять тему',
 
 	'CODE'					=> 'Код',
-	'COLLAPSE_QR'			=> 'Скрыть быстрый ответ',
 
 	'DELETE_TOPIC'			=> 'Удалить тему',
+	'DELETED_INFORMATION'	=> 'Удалено %2$s пользователем %1$s',
+	'DISAPPROVE'					=> 'Отклонить',
 	'DOWNLOAD_NOTICE'		=> 'У вас нет необходимых прав для просмотра вложений в этом сообщении.',
 
-	'EDITED_TIMES_TOTAL'	=> 'Последний раз редактировалось %1$s %2$s, всего редактировалось %3$d раз(а).',
-	'EDITED_TIME_TOTAL'		=> 'Последний раз редактировалось %1$s %2$s, всего редактировалось %3$d раз.',
-	'EMAIL_TOPIC'			=> 'Сообщить другу',
+	'EDITED_TIMES_TOTAL'	=> array(
+		1	=> 'Последний раз редактировалось %2$s %3$s, всего редактировалось %1$d раз.',
+		2	=> 'Последний раз редактировалось %2$s %3$s, всего редактировалось %1$d раза.',
+		3	=> 'Последний раз редактировалось %2$s %3$s, всего редактировалось %1$d раз.',
+	),
+	'EMAIL_TOPIC'			=> 'Отправить тему по email',
 	'ERROR_NO_ATTACHMENT'	=> 'Выбранного вложения больше не существует.',
 
 	'FILE_NOT_FOUND_404'	=> 'Файл <strong>%s</strong> не существует.',
 	'FORK_TOPIC'			=> 'Копировать тему',
-	'FULL_EDITOR'			=> 'Стандартный ответ',
+	'FULL_EDITOR'			=> 'Стандартный ответ &amp; предпросмотр',
 
 	'LINKAGE_FORBIDDEN'		=> 'Вы не авторизованы для просмотра или скачивания файлов.',
 	'LOGIN_NOTIFY_TOPIC'	=> 'Вы получили уведомление о новом сообщении в теме. Авторизуйтесь для его просмотра.',
@@ -70,8 +76,11 @@ $lang = array_merge($lang, array(
 	'MAKE_GLOBAL'				=> 'Сделать важной',
 	'MAKE_NORMAL'				=> 'Сделать обычной',
 	'MAKE_STICKY'				=> 'Сделать прилепленной',
-	'MAX_OPTIONS_SELECT'		=> 'Можно выбрать до <strong>%d</strong> вариантов ответа',
-	'MAX_OPTION_SELECT'			=> 'Можно выбрать только <strong>1</strong> вариант ответа',
+	'MAX_OPTIONS_SELECT'		=> array(
+		1	=> 'Можно выбрать до <strong>%d</strong> варианта ответа',
+		2	=> 'Можно выбрать до <strong>%d</strong> вариантов ответа',
+		3	=> 'Можно выбрать до <strong>%d</strong> вариантов ответа',
+	),
 	'MISSING_INLINE_ATTACHMENT'	=> 'Вложение <strong>%s</strong> больше недоступно',
 	'MOVE_TOPIC'				=> 'Переместить тему',
 
@@ -85,6 +94,7 @@ $lang = array_merge($lang, array(
 	'POLL_ENDED_AT'			=> 'Опрос закончился %s',
 	'POLL_RUN_TILL'			=> 'Опрос проводится до %s',
 	'POLL_VOTED_OPTION'		=> 'Вы голосовали за этот вариант',
+	'POST_DELETED_RESTORE'	=> 'Данное сообщение удалено, но может быть восстановлено.',
 	'PRINT_TOPIC'			=> 'Версия для печати',
 
 	'QUICK_MOD'				=> 'Быстрые действия',
@@ -92,11 +102,13 @@ $lang = array_merge($lang, array(
 	'QUOTE'					=> 'Цитата',
 
 	'REPLY_TO_TOPIC'		=> 'Ответить на тему',
+	'RESTORE'				=> 'Восстановить',
+	'RESTORE_TOPIC'			=> 'Восстановить тему',
 	'RETURN_POST'			=> '%sВернуться к сообщению%s',
 
-	'SHOW_QR'				=> 'Быстрый ответ',
 	'SUBMIT_VOTE'			=> 'Проголосовать',
 
+	'TOPIC_TOOLS'			=> 'Управление темой',
 	'TOTAL_VOTES'			=> 'Всего голосов',
 
 	'UNLOCK_TOPIC'			=> 'Открыть тему',
@@ -105,13 +117,12 @@ $lang = array_merge($lang, array(
 	'VIEW_NEXT_TOPIC'		=> 'След. тема',
 	'VIEW_PREVIOUS_TOPIC'	=> 'Пред. тема',
 	'VIEW_RESULTS'			=> 'Результаты голосования',
-	'VIEW_TOPIC_POST'		=> '1 сообщение',
-	'VIEW_TOPIC_POSTS'		=> 'Сообщений: %d',
+	'VIEW_TOPIC_POSTS'		=> array(
+		1	=> '%d сообщение',
+		2	=> '%d сообщения',
+		3	=> '%d сообщений',
+	),
 	'VIEW_UNREAD_POST'		=> 'Первое новое сообщение',
-	'VISIT_WEBSITE'			=> 'WWW',
 	'VOTE_SUBMITTED'		=> 'Спасибо, ваш голос учтён.',
 	'VOTE_CONVERTED'		=> 'Изменение голосов в сконвертированных опросах не поддерживается.',
-
 ));
-
-?>

@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* captcha_qa [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: captcha_qa.php 9966 2009-08-12 15:12:03Z Kellanved $
-* @copyright (c) 2009 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -61,5 +62,3 @@ $lang = array_merge($lang, array(
  	'QA_LAST_QUESTION'			=> 'Нельзя удалить все вопросы, пока текстовое подтверждение выбрано в качестве используемого на конференции.',
 
 ));
-
-?>

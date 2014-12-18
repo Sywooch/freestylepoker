@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* acp_users [Russian]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: users.php 9767 2009-07-17 11:27:50Z toonarmy $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -52,6 +53,7 @@ $lang = array_merge($lang, array(
 	'CANNOT_FORCE_REACT_FOUNDER'	=> 'Вы не можете требовать повторной активации учётной записи основателя.',
 	'CANNOT_FORCE_REACT_YOURSELF'	=> 'Вы не можете требовать повторной активации собственной учётной записи.',
 	'CANNOT_REMOVE_ANONYMOUS'		=> 'Вы не можете удалить учётную запись гостя.',
+	'CANNOT_REMOVE_FOUNDER'			=> 'Вы не можете удалить учётную запись основателя.',
 	'CANNOT_REMOVE_YOURSELF'		=> 'Вы не можете удалить собственную учётную запись.',
 	'CANNOT_SET_FOUNDER_IGNORED'	=> 'Вы не можете сделать игнорируемых пользователей основателями.',
 	'CANNOT_SET_FOUNDER_INACTIVE'	=> 'Вы должны активировать пользователей, чтобы сделать их основателями. Только активированным пользователям можно повысить статус.',
@@ -139,5 +141,3 @@ $lang = array_merge($lang, array(
 	'USER_WARNING_LOG_DELETED'		=> 'Информация недоступна. Возможно, данная запись была удалена из журнала.',
 	'USER_TOOLS'					=> 'Основные инструменты',
 ));
-
-?>
