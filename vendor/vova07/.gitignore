@@ -1,3 +1,4 @@
 *
 !.gitignore
-! yii2-start-users-module/
+!/yii2-start-users-module
+!yii2-start-users-module/
