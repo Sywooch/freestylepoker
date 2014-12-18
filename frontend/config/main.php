@@ -2,7 +2,7 @@
 
 return [
     'id' => 'app-frontend',
-    'name' => 'Yii2-Start',
+    'name' => 'Freestylepoker',
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'site/default/index',
     'modules' => [

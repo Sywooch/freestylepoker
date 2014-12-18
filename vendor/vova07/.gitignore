@@ -1,3 +1,8 @@
 *
 !.gitignore
 !/yii2-start-users-module
+!/yii2-fileapi-widget
+!/yii2-start-base
+!/yii2-start-rbac-module
+!/yii2-start-site-module
+!/yii2-start-themes
