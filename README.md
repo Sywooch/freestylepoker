@@ -25,7 +25,7 @@ Part 2: Update forum to phpbb 3.1.2
 
  > **All change:** In the folder `docs`, you can find all the detailed information about the settings and changes
 
--------
+-
 #### Docs list
 - [Users module](https://github.com/8sun/freestylepoker/blob/master/docs/users.md)
 - [Integration](https://github.com/8sun/freestylepoker/blob/master/docs/integration.md)
