@@ -23,6 +23,13 @@ Part 2: Update forum to phpbb 3.1.2
 
 - Update database
 
+- Add `.htaccess`
+```
+# Forum redirect
+    RewriteCond %{REQUEST_URI} ^/forum
+    RewriteRule ^forum/(.*)$ forum/$1 [L]
+```
+
  > **All change:** In the folder `docs`, you can find all the detailed information about the settings and changes
 
 -
