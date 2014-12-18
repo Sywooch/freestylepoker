@@ -1,3 +1,6 @@
+# Netbeans
+/nbproject
+
 # yii console command
 /yii
 
