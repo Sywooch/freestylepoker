@@ -23,7 +23,7 @@ Part 2: Update forum to phpbb 3.1.2
 
 - Update database
 
- > Next: [https://github.com/8sun/freestylepoker/blob/master/.md](Integration)
+ > Next: [Integration](https://github.com/8sun/freestylepoker/blob/master/docs/integration.md)
 
 
   
