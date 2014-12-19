@@ -111,7 +111,7 @@ class User extends \nill\users\models\User
 
             $auth = Yii::$app->authManager;
             $role = $auth->getRole(self::ROLE_DEFAULT);
-            //$auth->assign($role, $this->id);
+            $auth->assign($role, $this->id);
 
             if ($this->module->requireEmailConfirmation === true) {
                 $this->send();

@@ -184,15 +184,10 @@ and
     }
 ```
 
-- Comment `\vendor\nill\users\models\frontend\User.php`
-in method `afterSave`:
+- Comment or delete in `\vendor\nill\users\models\frontend\PasswordForm.php`
+- Comment or delete in `\vendor\nill\users\models\frontend\Email.php`
 
-```
-//$auth->assign($role, $this->id);
-```
-
-- Comment `\vendor\nill\users\models\frontend\PasswordForm.php`
-- Comment `\vendor\nill\users\models\frontend\Email.php`
+this string
 
 ```
 use nill\users\models\User;
