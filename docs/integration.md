@@ -10,10 +10,10 @@ Part 1: Download and set phpBB-component-class
 
 - Download and unpack files to created directory
 
-Part 2: Add component and setting config
+Part 2: Add component and set config
 ----------------------------------------
 
-- Add component to config `/common/congig/main.php`:
+- Add component to config `/common/config/main.php`
 
 ```
         'phpBB' => [
@@ -59,13 +59,12 @@ Part 3: Change User Model
 ```
 namespace vova07\users\behaviors;
 
-use yii\log\Logger;
 use yii\db\ActiveRecord;
 
 /**
  * Поведение расширяющее модель User
  * Используется для изменений данных от пользователя,
- * а так же для сквозной регистрации
+ * а так же для сквозной регистрации в phpBB 3.1.x
  */
 class PhpBBUserBahavior extends \yii\base\Behavior {
 
@@ -80,40 +79,25 @@ class PhpBBUserBahavior extends \yii\base\Behavior {
      */
     public function events() {
         return [
-            ActiveRecord::EVENT_AFTER_UPDATE => 'afterSave',
-            ActiveRecord::EVENT_AFTER_INSERT => 'afterSave',
-            ActiveRecord::EVENT_BEFORE_UPDATE => 'beforeSave',
-            ActiveRecord::EVENT_BEFORE_INSERT => 'beforeSave',
+            ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
+            ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
             ActiveRecord::EVENT_BEFORE_UPDATE => 'confirm',
-            ActiveRecord::EVENT_BEFORE_INSERT => 'confirm',
         ];
     }
 
-    private $_isNew;
-
-    public function beforeSave($event) {
-        $this->_isNew = $this->owner->isNew;
+    /**
+     * Это метот регистрации новых пользователей
+     */
+    public function afterInsert($event) {
+        \Yii::$app->phpBB->userAdd($this->owner->{$this->userAttr}, $this->owner->{$this->passAttr}, $this->owner->{$this->emailAttr}, 2);
     }
 
-    public function afterSave($event) {
-        // Разные способы получить нужные атрибуты прямо из модели
-        //$user=$this->owner->getAttributes(['username']);
-        //$password=$this->owner->password_new;
-        //$email=$this->owner->email;
-        if ($this->owner->act == false) {
-            if ($this->owner->{$this->passAttr}) {
-                if ($this->owner->isNew) {
-                    \Yii::$app->phpBB->userAdd($this->owner->{$this->userAttr}, $this->owner->{$this->passAttr}, $this->owner->{$this->emailAttr}, 2);
-                }
-            } else if ($this->owner->{$this->newpassAttr}) {
-                if (!$this->owner->isNew) {
-                    \Yii::$app->phpBB->changePassword($this->owner->{$this->userAttr}, $this->owner->{$this->newpassAttr});
-                }
-            }
-            // Возможно следует пренести сюда confirm()
-            else if ($this->owner->{$this->emailAttr}) {
-                \Yii::trace($this->owner->{$this->emailAttr}, 'X__EMAIL');
-            }
+    /**
+     * Это метод для смены пароля
+     */
+    public function afterUpdate($event) {
+        if ($this->owner->{$this->newpassAttr}) {
+            \Yii::$app->phpBB->changePassword($this->owner->{$this->userAttr}, $this->owner->{$this->newpassAttr});
         }
     }
 
@@ -139,7 +123,7 @@ class PhpBBUserBahavior extends \yii\base\Behavior {
 }
 ```
 
-- Add this code in begin User class:
+- Add this code to the top User class:
 
 `use vova07\users\behaviors\PhpBBUserBahavior;`
 
