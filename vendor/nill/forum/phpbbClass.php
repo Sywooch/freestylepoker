@@ -2,6 +2,8 @@
 
 namespace nill\forum;
 
+use nill\forum\phpBBUserValidation;
+
 /*
   PHPBB Forum manipulation Class
   By Felix Manea (felix.manea@gmail.com)
@@ -10,67 +12,10 @@ namespace nill\forum;
   NOTE: You are required to leave this header intact.
  */
 
-class dbr extends \phpbb\auth\provider\base {
-
-    /**
-     * Database Authentication Constructor
-     *
-     * @param    phpbb_db_driver    $db
-     */
-    public function __construct(\phpbb\db\driver\driver_interface $db) {
-        $this->db = $db;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function login($username, $password) {
-        // Auth plugins get the password untrimmed.
-        // For compatibility we trim() here.
-        $password = trim($password);
-
-        // do not allow empty password
-        if (!$password) {
-            return array(
-                'status' => LOGIN_ERROR_PASSWORD,
-                'error_msg' => 'NO_PASSWORD_SUPPLIED',
-                'user_row' => array('user_id' => ANONYMOUS),
-            );
-        }
-
-        if (!$username) {
-            return array(
-                'status' => LOGIN_ERROR_USERNAME,
-                'error_msg' => 'LOGIN_ERROR_USERNAME',
-                'user_row' => array('user_id' => ANONYMOUS),
-            );
-        }
-
-        //$username_clean = utf8_clean_string($username);
-        $username_clean = $username;
-
-        $sql = 'SELECT user_id, username, user_password, user_passchg, user_email, user_type, user_login_attempts
-            FROM ' . USERS_TABLE . "
-            WHERE username_clean = '" . $this->db->sql_escape($username_clean) . "'";
-        $result = $this->db->sql_query($sql);
-        $row = $this->db->sql_fetchrow($result);
-        $this->db->sql_freeresult($result);
-
-        // Successful login... set user_login_attempts to zero...
-        return array(
-            'status' => LOGIN_SUCCESS,
-            'error_msg' => false,
-            'user_row' => $row,
-        );
-    }
-
-}
-
 class phpbbClass {
 
     //various table fields
-    var $table_fields = array();
-    public $dire;
+    public $table_fields = array();
 
     //constructor
     public function __construct($path, $php_extension = "php") {
@@ -78,8 +23,6 @@ class phpbbClass {
         define('IN_PHPBB', true);
         $phpbb_root_path = $path;
         $phpEx = $php_extension;
-        $this->dire = "x";
-        $dire = "xx";
     }
 
     //initialize phpbb
@@ -88,12 +31,11 @@ class phpbbClass {
         if ($prepare_for_login && !defined("IN_LOGIN"))
             define("IN_LOGIN", true);
         require_once($phpbb_root_path . 'common.' . $phpEx);
-        //include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+
         //session management
         $request->enable_super_globals();
         $user->session_begin();
-//		$auth->acl($user->data);
-//                $this->bbauth = new phpbb_ext_imkingdavid_authext_auth_provider_db2($db);
+//	$auth->acl($user->data);
 //                
     }
 
@@ -106,9 +48,6 @@ class phpbbClass {
         //general info
         $this->init(true);
 
-//                $dbr=new dbr($db);
-//                $dbr->login($phpbb_vars["username"], $phpbb_vars["password"]);
-
         if (!isset($phpbb_vars["autologin"]))
             $phpbb_vars["autologin"] = false;
         if (!isset($phpbb_vars["viewonline"]))
@@ -118,8 +57,8 @@ class phpbbClass {
 
         //validate and authenticate
         //$validation = login_db($phpbb_vars["username"], $phpbb_vars["password"]);
-        $dbr = new dbr($db);
-        $validation = $dbr->login($phpbb_vars["username"], $phpbb_vars["password"]);
+        $valid = new phpBBUserValidation($db);
+        $validation = $valid->login($phpbb_vars["username"], $phpbb_vars["password"]);
         if ($validation['status'] == 3 && $auth->login($phpbb_vars["username"], $phpbb_vars["password"], $phpbb_vars["autologin"], $phpbb_vars["viewonline"], $phpbb_vars["admin"]))
             $phpbb_result = "SUCCESS";
 
