@@ -1,13 +1,14 @@
 Integration
 ============
 
-Part 1: Create phpBB class
+Part 1: Download and set phpBB-component-class 
 --------------------------
 
 - Add folder `/vendor/nill/forum/`
 
-- Download and unpack files to it directory
 [Github: yii2-integration-phpBB3.1](https://github.com/8sun/yii2-integration-phpBB3.1)
+
+- Download and unpack files to created directory
 
 Part 2: Add component and setting config
 ----------------------------------------
