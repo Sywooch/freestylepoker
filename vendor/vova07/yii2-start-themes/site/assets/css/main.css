@@ -1103,10 +1103,16 @@ background-color: #000;
 body {
 padding-top: 80px;
 color: #34495e;
-background: #FF4D00;
+background: #A2EDFF;
 font-family: arial;
 font-weight: 300;
+height: auto !important;  
+height: 100%;  
+min-height: 100%;  
+position: relative;  
 }
+html {height: 100%;} 
+#content {padding-bottom: 136px;}
 #footer {
 padding-top: 30px;
 padding-bottom: 30px;
@@ -1128,3 +1134,10 @@ display: inline-block;
 border-radius: 10px;
 box-shadow: 1px 1px 11px -2px #000;
 }
+#content:after { 
+  content: ".";  
+  display: block;  
+  height: 0;  
+  visibility: hidden;  
+  clear: both;  
+}  

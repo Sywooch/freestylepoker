@@ -8,10 +8,10 @@
  * @var \nill\users\models\Profile $profile Profile
  * @var array $roleArray Roles array
  * @var array $statusArray Statuses array
- * @var \nill\themes\admin\widgets\Box $box Box widget instance
+ * @var \vova07\themes\admin\widgets\Box $box Box widget instance
  */
 
-use nill\themes\admin\widgets\Box;
+use vova07\themes\admin\widgets\Box;
 use nill\users\Module;
 
 $this->title = Module::t('users', 'BACKEND_CREATE_TITLE');

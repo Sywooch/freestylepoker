@@ -10,8 +10,8 @@
  * @var array $statusArray Statuses array
  */
 
-use nill\themes\admin\widgets\Box;
-use nill\themes\admin\widgets\GridView;
+use vova07\themes\admin\widgets\Box;
+use vova07\themes\admin\widgets\GridView;
 use nill\users\Module;
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;

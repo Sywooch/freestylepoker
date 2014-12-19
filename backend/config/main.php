@@ -4,7 +4,7 @@ Yii::setAlias('backend', dirname(__DIR__));
 
 return [
     'id' => 'app-backend',
-    'name' => 'Yii2-Start',
+    'name' => 'Freestylepoker',
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'admin/default/index',
     'modules' => [
@@ -12,7 +12,7 @@ return [
             'class' => 'vova07\admin\Module'
         ],
         'users' => [
-            'controllerNamespace' => 'vova07\users\controllers\backend'
+            'controllerNamespace' => 'nill\users\controllers\backend'
         ],
         'blogs' => [
             'controllerNamespace' => 'vova07\blogs\controllers\backend'

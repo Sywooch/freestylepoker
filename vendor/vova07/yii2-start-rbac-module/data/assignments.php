@@ -6,6 +6,9 @@ return [
     2 => [
         'user',
     ],
+    3 => [
+        'superadmin',
+    ],
     4 => [
         'user',
     ],

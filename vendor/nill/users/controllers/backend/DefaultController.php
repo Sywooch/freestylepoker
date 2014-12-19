@@ -2,7 +2,7 @@
 
 namespace nill\users\controllers\backend;
 
-use nill\admin\components\Controller;
+use vova07\admin\components\Controller;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 use nill\users\models\backend\User;
 use nill\users\models\backend\UserSearch;

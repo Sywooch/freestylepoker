@@ -15,6 +15,11 @@ echo Menu::widget(
         ],
         'items' => [
             [
+                'label' => Yii::t('vova07/themes/site', 'Видео'),
+                'url' => ['/video/'],
+                'visible' => Yii::$app->user->isGuest
+            ],
+            [
                 'label' => Yii::t('vova07/themes/site', 'Sign In'),
                 'url' => ['/users/guest/login'],
                 'visible' => Yii::$app->user->isGuest

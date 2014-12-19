@@ -6,6 +6,9 @@ return [
     'language' => 'ru_RU',
     'sourceLanguage' => 'en_US',
     'modules' => [
+        'video' => [
+            'class' => 'app\modules\video\Module',
+        ],
         'users' => [
             'class' => 'nill\users\Module',
             'robotEmail' => 'no-reply@domain.com',
@@ -67,5 +70,6 @@ return [
         ],
         'db' => require(__DIR__ . '/db.php')
     ],
+    'bootstrap' => require(__DIR__ . '/bootstrap.php'),
     'params' => require(__DIR__ . '/params.php')
 ];
