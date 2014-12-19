@@ -2,7 +2,6 @@ Users module
 ============
 
 ####Change User Model
---------------------
 
 - Add behaviors `\vendor\nill\users\behaviors` PhpBBUserBahavior.php:
 
