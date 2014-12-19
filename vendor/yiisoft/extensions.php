@@ -87,14 +87,24 @@ return array(
             '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
         ),
     ),
-    'vova07/yii2-start-users-module' =>
+//    'vova07/yii2-start-users-module' =>
+//    array(
+//        'name' => 'vova07/yii2-start-users-module',
+//        'version' => '0.2.3.0',
+//        'alias' =>
+//        array(
+//            '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
+//        ),
+//        'bootstrap' => 'vova07\\users\\Bootstrap',
+//    ),
+    'nill/users' =>
     array(
-        'name' => 'vova07/yii2-start-users-module',
+        'name' => 'vova07/users',
         'version' => '0.2.3.0',
         'alias' =>
         array(
-            '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
+            '@nill/users' => $vendorDir . '/nill/users',
         ),
-        'bootstrap' => 'vova07\\users\\Bootstrap',
+        'bootstrap' => 'nill\\users\\Bootstrap',
     ),
 );

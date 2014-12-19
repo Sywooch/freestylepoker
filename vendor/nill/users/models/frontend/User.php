@@ -1,13 +1,13 @@
 <?php
 
-namespace vova07\users\models\frontend;
+namespace nill\users\models\frontend;
 
-use vova07\users\Module;
+use nill\users\Module;
 use Yii;
 
 /**
  * Class User
- * @package vova07\users\models\frontend
+ * @package nill\users\models\frontend
  * User is the model behind the signup form.
  *
  * @property string $username Username
@@ -17,7 +17,7 @@ use Yii;
  *
  * @property Profile $profile Profile
  */
-class User extends \vova07\users\models\User
+class User extends \nill\users\models\User
 {
     /**
      * @var string $password Password
@@ -111,7 +111,7 @@ class User extends \vova07\users\models\User
 
             $auth = Yii::$app->authManager;
             $role = $auth->getRole(self::ROLE_DEFAULT);
-            $auth->assign($role, $this->id);
+            //$auth->assign($role, $this->id);
 
             if ($this->module->requireEmailConfirmation === true) {
                 $this->send();

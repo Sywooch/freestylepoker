@@ -54,7 +54,7 @@ Part 2: Add component and set config
 Part 3: Change User Model
 ----------------------------------------
 
-- Add behaviors `\vendor\vova07\yii2-start-users-module\behaviors` PhpBBUserBahavior.php:
+- Add behaviors `\vendor\nill\users\behaviors` PhpBBUserBahavior.php:
 
 ```
 namespace vova07\users\behaviors;
@@ -184,11 +184,18 @@ and
     }
 ```
 
-- Comment `\vendor\vova07\yii2-start-users-module\models\frontend\User.php`
+- Comment `\vendor\nill\users\models\frontend\User.php`
 in method `afterSave`:
 
 ```
 //$auth->assign($role, $this->id);
+```
+
+- Comment `\vendor\nill\users\models\frontend\PasswordForm.php`
+- Comment `\vendor\nill\users\models\frontend\Email.php`
+
+```
+use nill\users\models\User;
 ```
 
 Part 4: Change forum settings

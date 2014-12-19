@@ -2,19 +2,21 @@
 
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-    'timeZone' => 'Europe/Moscow',
+    'timeZone' => 'Europe/Kiev',
+    'language' => 'ru_RU',
+    'sourceLanguage' => 'en_US',
     'modules' => [
         'users' => [
-            'class' => 'vova07\users\Module',
+            'class' => 'nill\users\Module',
             'robotEmail' => 'no-reply@domain.com',
             'robotName' => 'Robot'
         ],
-        'blogs' => [
-            'class' => 'vova07\blogs\Module'
-        ],
-        'comments' => [
-            'class' => 'vova07\comments\Module'
-        ]
+//        'blogs' => [
+//            'class' => 'vova07\blogs\Module'
+//        ],
+//        'comments' => [
+//            'class' => 'vova07\comments\Module'
+//        ]
     ],
     'components' => [
 //        'user' => [
@@ -29,7 +31,7 @@ return [
         'user' => [
             'class' => 'nill\forum\PhpBBWebUser',
             'loginUrl'=>['/login'],
-            'identityClass' => 'vova07\users\models\frontend\User',
+            'identityClass' => 'nill\users\models\frontend\User',
             // enable cookie-based authentication
             //'allowAutoLogin' => true,
         ],
