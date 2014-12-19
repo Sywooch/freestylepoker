@@ -59,6 +59,16 @@ return array(
             '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
         ),
     ),
+    'vova07/yii2-start-admin-module' =>
+    array(
+        'name' => 'vova07/yii2-start-admin-module',
+        'version' => '0.1.0.0',
+        'alias' =>
+        array(
+            '@vova07/admin' => $vendorDir . '/vova07/yii2-start-admin-module',
+        ),
+        'bootstrap' => 'vova07\\admin\\Bootstrap',
+    ),
     'vova07/yii2-start-themes' =>
     array(
         'name' => 'vova07/yii2-start-themes',
@@ -99,7 +109,7 @@ return array(
 //    ),
     'nill/users' =>
     array(
-        'name' => 'vova07/users',
+        'name' => 'nill/users',
         'version' => '0.2.3.0',
         'alias' =>
         array(
