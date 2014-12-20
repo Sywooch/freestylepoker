@@ -86,6 +86,8 @@ class User extends \nill\users\models\User
             // E-mail
             ['email', 'string', 'max' => 100],
             ['email', 'email'],
+            ['gold', 'number'],
+            ['gold', 'string'],
             // Repassword
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             // Role
@@ -117,6 +119,7 @@ class User extends \nill\users\models\User
             $labels,
             [
                 'password' => Module::t('users', 'ATTR_PASSWORD'),
+                'gold' => Module::t('users', 'F$P'),
                 'repassword' => Module::t('users', 'ATTR_REPASSWORD')
             ]
         );

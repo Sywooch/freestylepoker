@@ -2,7 +2,9 @@
 
 namespace app\modules\video\models;
 
+use nill\users\models\User;
 use Yii;
+use yii\base\UserException;
 
 /**
  * This is the model class for table "yii2_start_video".
@@ -11,23 +13,34 @@ use Yii;
  * @property string $embed
  * @property string $description
  */
-class Video extends \yii\db\ActiveRecord
-{
+class Video extends \yii\db\ActiveRecord {
+
+    public $gold;
+    public $stat;
+
+    public function __construct($config = array()) {
+        parent::__construct($config);
+
+        $user_id = Yii::$app->user->id;
+        $user = User::findOne($user_id);
+        $this->gold = $user->gold;
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%video}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['title', 'embed', 'description'], 'required'],
+            [['val'], 'integer'],
+            [['val'], 'number'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 128],
             [['embed'], 'string', 'max' => 256]
@@ -37,13 +50,76 @@ class Video extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'title' => 'Title',
             'embed' => 'Embed',
+            'val' => 'F$P',
             'description' => 'Description',
         ];
     }
+
+    /**
+     * 
+     * @param type $id
+     * @return boolean
+     * 
+     * Функция проверяет было ли видео уже куплено пользователем
+     */
+    public function isBuy($id) {
+
+        $if_buy_video = VideoUsr::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
+
+        if ($if_buy_video->id === NULL) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function buy($id) {
+        // Проверка авторизации
+        if (!Yii::$app->user->isGuest) {
+
+            // Проверка было ли видео куплено ранее
+            $isBuy = $this->isBuy($id);
+            if ($isBuy === false) {
+
+                // Определяем стоимость видео
+                $val = self::findOne($id)->val;
+                
+                // Получаем из конструктора сумму пользователя
+                $gold = $this->gold;
+                
+                // Если сумма больше или равна стоимости
+                if ($gold >= $val) {
+                    
+                    // Вычитаем
+                    $buy = $gold - $val;
+                    
+                    // Создаем экземпляр модели Видео-Пользователь
+                    $videousr = new VideoUsr();
+                    
+                    // Присваевам атрибуты и сохраняем (делаем запись)
+                    $videousr->video_id = $id;
+                    $videousr->user_id = Yii::$app->user->id;
+                    $videousr->save();
+
+                    // Получаем запись из модели текущего пользователя
+                    // Присваевам резултат вычитания полю gold
+                    $user = User::findOne(Yii::$app->user->id);
+                    $user->gold = $buy;
+                    $user->save();
+                    
+                    return 'Ваш пароль: 43Xs12fkGbt4Fu';
+                } else {
+                    return 'Недостаточно F$P';
+                }
+            } else {
+                 throw new UserException('Ошибка, видео уже куплено');
+            }
+        }
+    }
+
 }

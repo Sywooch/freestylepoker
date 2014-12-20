@@ -12,10 +12,9 @@ use yii\filters\VerbFilter;
 /**
  * VideoController implements the CRUD actions for Video model.
  */
-class VideoController extends Controller
-{
-    public function behaviors()
-    {
+class VideoController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -30,14 +29,13 @@ class VideoController extends Controller
      * Lists all Video models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new VideoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -46,11 +44,25 @@ class VideoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+    public function actionView($id) {
+
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $buy = $model->buy($model->id);
+            $isBuy = $model->isBuy($model->id);
+            return $this->render('view', [
+                        'model' => $model,
+                        'buy' => $buy,
+                        'isBuy' => $isBuy,
+            ]);
+        } else {
+            $isBuy = $model->isBuy($model->id);
+            return $this->render('view', [
+                        'model' => $model,
+                        'isBuy' => $isBuy,
+            ]);
+        }
     }
 
     /**
@@ -60,12 +72,12 @@ class VideoController extends Controller
      * @return Video the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Video::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

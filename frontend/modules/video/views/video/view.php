@@ -1,7 +1,7 @@
 <?php
 
-use yii\widgets\DetailView;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
@@ -21,8 +21,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h5 class=""><?= $model->title ?></h5>
                     </div>
                     <div class="col-xs-5">
-                    <h3 class=""><?= \Yii::t('ru','Description'); ?><hr></h3>
-                        <?= $model->description ?>
+                        <h3 class=""><?= \Yii::t('ru', 'Description'); ?><hr></h3>
+                        <?= $model->description ?> 
+                        <div class="gold">
+                            Цена:<b> <?= $model->val ?> </b>F$P <br>
+                            У вас: <b><?= $model->gold ?></b> F$P <br>
+                            <br><?= $buy ?>
+                        </div>
+                        <div class="gold">
+                            <?php
+                            $options = [
+                                'class' => 'btn btn-primary',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#myModal',
+                                'title' => 'Купить доступ к просмотру'
+                            ];
+
+                            if (Yii::$app->user->isGuest || $isBuy==true) {
+                                Html::addCssClass($options, 'disabled');
+                            }
+
+                            echo Html::button('Купить', $options);
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div><!--/.blog-item-->
@@ -30,5 +51,24 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!--/.col-md-8-->
 </div><!--/.row-->
 
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Купить видео "<?= $model->title ?>"</h4>
+            </div>
+            <div class="modal-body">
+                Вы действительно желаете купить это видео?
+            </div>
+            <div class="modal-footer">
+                <?php $form = ActiveForm::begin(); ?>
+                <?= $form->field($model, 'val')->hiddenInput()->label(false); ?>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                <?= Html::submitButton('Да, несомненно', ['class' => 'btn btn-primary']) ?>
+                <?php ActiveForm::end(); ?>
+            </div>
+        </div>
+    </div>
 </div>

@@ -17,7 +17,6 @@ echo Menu::widget(
             [
                 'label' => Yii::t('vova07/themes/site', 'Видео'),
                 'url' => ['/video/'],
-                'visible' => Yii::$app->user->isGuest
             ],
             [
                 'label' => Yii::t('vova07/themes/site', 'Sign In'),

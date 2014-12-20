@@ -1141,3 +1141,6 @@ box-shadow: 1px 1px 11px -2px #000;
   visibility: hidden;  
   clear: both;  
 }  
+.gold {
+    padding-top: 20px;
+}

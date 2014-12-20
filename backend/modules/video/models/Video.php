@@ -29,6 +29,8 @@ class Video extends \yii\db\ActiveRecord
         return [
             [['title', 'embed', 'description'], 'required'],
             [['description'], 'string'],
+            [['val'], 'integer'],
+            [['val'], 'number'],
             [['title'], 'string', 'max' => 128],
             [['embed'], 'string', 'max' => 256]
         ];
@@ -43,6 +45,7 @@ class Video extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'embed' => 'Embed',
+            'val' => 'F$P',
             'description' => 'Description',
         ];
     }
