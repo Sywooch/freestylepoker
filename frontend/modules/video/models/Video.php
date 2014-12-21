@@ -60,7 +60,7 @@ class Video extends \yii\db\ActiveRecord {
      * 
      * Функция проверяет было ли видео уже куплено пользователем
      */
-    public function isBuy($id) {
+    public function getIsBuy($id) {
 
         $if_buy_video = VideoUsr::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
 
@@ -76,7 +76,7 @@ class Video extends \yii\db\ActiveRecord {
         if (!Yii::$app->user->isGuest) {
 
             // Проверка было ли видео куплено ранее
-            $isBuy = $this->isBuy($id);
+            $isBuy = $this->getisBuy($id);
             if ($isBuy === false) {
 
                 // Определяем стоимость видео

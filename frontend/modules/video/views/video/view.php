@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'title' => 'Купить доступ к просмотру'
                             ];
 
-                            if (Yii::$app->user->isGuest || $model->isBuy($model->id)==true) {
+                            if (Yii::$app->user->isGuest || $model->getIsBuy($model->id)==true) {
                                 Html::addCssClass($options, 'disabled');
                             }
 

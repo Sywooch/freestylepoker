@@ -19,7 +19,7 @@ class VideoSearch extends Video
     {
         return [
             [['id'], 'integer'],
-            [['embed', 'description'], 'safe'],
+            [['title', 'embed', 'description'], 'safe'],
         ];
     }
 
@@ -56,6 +56,7 @@ class VideoSearch extends Video
         ]);
 
         $query->andFilterWhere(['like', 'embed', $this->embed])
+            ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;

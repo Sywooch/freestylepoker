@@ -140,6 +140,25 @@ class VideoController extends Controller {
 
         return $this->redirect(['index']);
     }
+    
+    /**
+     * Delete multiple posts page.
+     *
+     * @return mixed
+     * @throws \yii\web\HttpException
+     */
+    public function actionBatchDelete()
+    {
+        if (($ids = Yii::$app->request->post('ids')) !== null) {
+            $models = $this->findModel($ids);
+            foreach ($models as $model) {
+                $model->delete();
+            }
+            return $this->redirect(['index']);
+        } else {
+            throw new HttpException(400);
+        }
+    }
 
     /**
      * Finds the Video model based on its primary key value.
@@ -148,11 +167,17 @@ class VideoController extends Controller {
      * @return Video the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
-        if (($model = Video::findOne($id)) !== null) {
+    protected function findModel($id)
+    {
+        if (is_array($id)) {
+            $model = VideoUsr::findAll($id);
+        } else {
+            $model = VideoUsr::findOne($id);
+        }
+        if ($model !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new HttpException(404);
         }
     }
 
