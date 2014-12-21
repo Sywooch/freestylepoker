@@ -86,6 +86,7 @@ class User extends \nill\users\models\User
             // E-mail
             ['email', 'string', 'max' => 100],
             ['email', 'email'],
+            // Gold
             ['gold', 'number'],
             ['gold', 'string'],
             // Repassword
@@ -103,8 +104,8 @@ class User extends \nill\users\models\User
     public function scenarios()
     {
         return [
-            'admin-create' => ['username', 'email', 'password', 'repassword', 'status_id', 'role'],
-            'admin-update' => ['username', 'email', 'password', 'repassword', 'status_id', 'role']
+            'admin-create' => ['username', 'gold', 'email', 'password', 'repassword', 'status_id', 'role'],
+            'admin-update' => ['username', 'gold', 'email', 'password', 'repassword', 'status_id', 'role']
         ];
     }
 
