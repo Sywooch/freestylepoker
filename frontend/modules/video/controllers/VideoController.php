@@ -49,18 +49,13 @@ class VideoController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $buy = $model->buy($model->id);
-            $isBuy = $model->isBuy($model->id);
+            $model->buy($model->id);
             return $this->render('view', [
                         'model' => $model,
-                        'buy' => $buy,
-                        'isBuy' => $isBuy,
             ]);
         } else {
-            $isBuy = $model->isBuy($model->id);
             return $this->render('view', [
                         'model' => $model,
-                        'isBuy' => $isBuy,
             ]);
         }
     }

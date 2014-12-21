@@ -17,14 +17,7 @@ class Video extends \yii\db\ActiveRecord {
 
     public $gold;
     public $stat;
-
-    public function __construct($config = array()) {
-        parent::__construct($config);
-
-        $user_id = Yii::$app->user->id;
-        $user = User::findOne($user_id);
-        $this->gold = $user->gold;
-    }
+    public $message;
 
     /**
      * @inheritdoc
@@ -88,19 +81,20 @@ class Video extends \yii\db\ActiveRecord {
 
                 // Определяем стоимость видео
                 $val = self::findOne($id)->val;
-                
-                // Получаем из конструктора сумму пользователя
-                $gold = $this->gold;
-                
+
+                // Получаем Модель и сумму пользователя
+                $user = User::findOne(Yii::$app->user->id);
+                $gold = $user->gold;
+
                 // Если сумма больше или равна стоимости
                 if ($gold >= $val) {
-                    
+
                     // Вычитаем
                     $buy = $gold - $val;
-                    
+
                     // Создаем экземпляр модели Видео-Пользователь
                     $videousr = new VideoUsr();
-                    
+
                     // Присваевам атрибуты и сохраняем (делаем запись)
                     $videousr->video_id = $id;
                     $videousr->user_id = Yii::$app->user->id;
@@ -108,16 +102,15 @@ class Video extends \yii\db\ActiveRecord {
 
                     // Получаем запись из модели текущего пользователя
                     // Присваевам резултат вычитания полю gold
-                    $user = User::findOne(Yii::$app->user->id);
                     $user->gold = $buy;
                     $user->save();
-                    
-                    return 'Ваш пароль: 43Xs12fkGbt4Fu';
+
+                    return $this->message = 'Ваш пароль: 43Xs12fkGbt4Fu';
                 } else {
-                    return 'Недостаточно F$P';
+                    return $this->message = 'Недостаточно F$P';
                 }
             } else {
-                 throw new UserException('Ошибка, видео уже куплено');
+                throw new UserException('Ошибка, видео уже куплено');
             }
         }
     }

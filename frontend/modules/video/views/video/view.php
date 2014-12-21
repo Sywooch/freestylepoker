@@ -25,8 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $model->description ?> 
                         <div class="gold">
                             Цена:<b> <?= $model->val ?> </b>F$P <br>
-                            У вас: <b><?= $model->gold ?></b> F$P <br>
-                            <br><?= $buy ?>
+                            <br><?= $model->message ?>
                         </div>
                         <div class="gold">
                             <?php
@@ -37,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'title' => 'Купить доступ к просмотру'
                             ];
 
-                            if (Yii::$app->user->isGuest || $isBuy==true) {
+                            if (Yii::$app->user->isGuest || $model->isBuy($model->id)==true) {
                                 Html::addCssClass($options, 'disabled');
                             }
 
