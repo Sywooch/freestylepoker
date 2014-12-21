@@ -91,6 +91,7 @@ return [
             'administrateUsers',
             'administrateBlogs',
             'administrateComments',
+            'administrateVideo',
         ],
     ],
     'administrateUsers' => [
@@ -304,5 +305,31 @@ return [
         'type' => 2,
         'description' => 'Can delete own comments',
         'ruleName' => 'author',
+    ],
+    'administrateVideo' => [
+        'type' => 2,
+        'description' => 'Can administrate all "Video" module',
+        'children' => [
+            'BViewVideo',
+            'BCreateVideo',
+            'BUpdateVideo',
+            'BDeleteVideo',
+            'ViewVideo',
+        ],
+    ],
+    'BViewVideo' => [
+        'type' => 2,
+    ],
+    'BCreateVideo' => [
+        'type' => 2,
+    ],
+    'BUpdateVideo' => [
+        'type' => 2,
+    ],
+    'BDeleteVideo' => [
+        'type' => 2,
+    ],
+    'ViewVideo' => [
+        'type' => 2,
     ],
 ];
