@@ -5,39 +5,50 @@
  *
  * @var \yii\web\View $this View
  */
-
 use vova07\themes\admin\widgets\Menu;
 
 echo Menu::widget(
-    [
-        'options' => [
-            'class' => 'sidebar-menu'
-        ],
-        'items' => [
-            [
-                'label' => Yii::t('vova07/themes/admin', 'Dashboard'),
-                'url' => Yii::$app->homeUrl,
-                'icon' => 'fa-dashboard',
-                'active' => Yii::$app->request->url === Yii::$app->homeUrl
+        [
+            'options' => [
+                'class' => 'sidebar-menu'
             ],
-            [
-                'label' => Yii::t('vova07/themes/admin', 'Видео'),
-                'url' => ['/video/'],
-                'icon' => 'fa-dashboard',
-                'active' => Yii::$app->request->url === Yii::$app->homeUrl
-            ],
-            [
-                'label' => Yii::t('vova07/themes/admin', 'Users'),
-                'url' => ['/users/default/index'],
-                'icon' => 'fa-group',
-                'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers'),
-            ],
-            [
-                'label' => Yii::t('vova07/themes/admin', 'Videos'),
-                'url' => ['/video/'],
-                'icon' => 'fa-video-camera',
-                'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers'),
-            ],
+            'items' => [
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Dashboard'),
+                    'url' => Yii::$app->homeUrl,
+                    'icon' => 'fa-dashboard',
+                    'active' => Yii::$app->request->url === Yii::$app->homeUrl
+                ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Видео'),
+                    'url' => ['/video/'],
+                    'icon' => 'fa-dashboard',
+                    'active' => Yii::$app->request->url === Yii::$app->homeUrl
+                ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Users'),
+                    'url' => ['/users/default/index'],
+                    'icon' => 'fa-group',
+                    'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers'),
+                ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Videos'),
+                    'url' => '#',
+                    'icon' => 'fa-video-camera',
+                    'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers') || Yii::$app->user->can('BViewPermissions'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Videos'),
+                            'url' => ['/video/video/index'],
+                            'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers'),
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Video Users'),
+                            'url' => ['/video/videousr/index'],
+                            'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewPermissions')
+                        ]
+                    ]
+                ],
 //            [
 //                'label' => Yii::t('vova07/themes/admin', 'Blogs'),
 //                'url' => ['/blogs/default/index'],
@@ -62,29 +73,29 @@ echo Menu::widget(
 //                    ]
 //                ]
 //            ],
-//            [
-//                'label' => Yii::t('vova07/themes/admin', 'Access control'),
-//                'url' => '#',
-//                'icon' => 'fa-gavel',
-//                'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles') || Yii::$app->user->can('BViewPermissions') || Yii::$app->user->can('BViewRules'),
-//                'items' => [
-//                    [
-//                        'label' => Yii::t('vova07/themes/admin', 'Permissions'),
-//                        'url' => ['/rbac/permissions/index'],
-//                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewPermissions')
-//                    ],
-//                    [
-//                        'label' => Yii::t('vova07/themes/admin', 'Roles'),
-//                        'url' => ['/rbac/roles/index'],
-//                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles')
-//                    ],
-//                    [
-//                        'label' => Yii::t('vova07/themes/admin', 'Rules'),
-//                        'url' => ['/rbac/rules/index'],
-//                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRules')
-//                    ]
-//                ]
-//            ],
+            [
+                'label' => Yii::t('vova07/themes/admin', 'Access control'),
+                'url' => '#',
+                'icon' => 'fa-gavel',
+                'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles') || Yii::$app->user->can('BViewPermissions') || Yii::$app->user->can('BViewRules'),
+                'items' => [
+                    [
+                        'label' => Yii::t('vova07/themes/admin', 'Permissions'),
+                        'url' => ['/rbac/permissions/index'],
+                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewPermissions')
+                    ],
+                    [
+                        'label' => Yii::t('vova07/themes/admin', 'Roles'),
+                        'url' => ['/rbac/roles/index'],
+                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles')
+                    ],
+                    [
+                        'label' => Yii::t('vova07/themes/admin', 'Rules'),
+                        'url' => ['/rbac/rules/index'],
+                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRules')
+                    ]
+                ]
+            ],
+            ]
         ]
-    ]
 );
