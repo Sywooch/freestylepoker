@@ -50,9 +50,7 @@ class VideoController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $model->buy($model->id);
-            return $this->render('view', [
-                        'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('view', [
                         'model' => $model,

@@ -17,6 +17,7 @@ class Bootstrap implements BootstrapInterface {
         $app->getUrlManager()->addRules(
                 [
                     'video' => 'video/video/index',
+                    'videousr' => 'video/videousr/index',
                     'video/<_a:(create|contacts|captcha)>' => 'video/video/<_a>'
                 ]
         );
