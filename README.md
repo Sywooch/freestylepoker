@@ -42,3 +42,5 @@ Yii::setAlias('phpbb', dirname(dirname(__DIR__)) . '/forum/phpbb');
 #### Docs list
 - [Users module](https://github.com/8sun/freestylepoker/blob/master/docs/users.md)
 - [Integration](https://github.com/8sun/freestylepoker/blob/master/docs/integration.md)
+- [Comments](https://github.com/8sun/freestylepoker/blob/master/docs/comments.md)
+- [Video module](https://github.com/8sun/freestylepoker/blob/master/docs/video-module.md)

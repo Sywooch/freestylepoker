@@ -68,4 +68,4 @@ Part 3: Change forum settings
 ```
 
 - Change `frm_config` field `cookie_domain` on your domain: 
-***example*** - `domain.loc`
+**example** - `domain.loc`
