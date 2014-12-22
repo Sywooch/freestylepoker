@@ -5,6 +5,7 @@ namespace app\modules\video\models;
 use nill\users\models\User;
 use Yii;
 use yii\base\UserException;
+use app\modules\video\models\VideoUsr;
 
 /**
  * This is the model class for table "yii2_start_video".
@@ -114,5 +115,9 @@ class Video extends \yii\db\ActiveRecord {
             }
         }
     }
-
+     public function getVideoUsr()
+    {
+        // VideoUsr has_many Video via Video.video_id -> id
+        return $this->hasMany(VideoUsr::className(), ['video_id' => 'id']);
+    }
 }

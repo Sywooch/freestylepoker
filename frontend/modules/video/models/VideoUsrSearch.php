@@ -41,10 +41,9 @@ class VideoUsrSearch extends VideoUsr
      */
     public function search($params)
     {
-        $query = VideoUsr::find()->where(['user_id'=>Yii::$app->user->id]);
-        
-        // has
-        $q=$this->hasMany(Video::className(), ['video_id' => 'id']);
+        $query = Video::find()
+                ->joinWith(['videoUsr'])
+                ->where(['user_id'=>Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

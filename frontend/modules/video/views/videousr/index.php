@@ -28,7 +28,8 @@ $gridConfig = [
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
-        'video_id',
+        'title',
+        'val',
     ]
 ];
 
