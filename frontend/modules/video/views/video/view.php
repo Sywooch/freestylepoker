@@ -19,6 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-xs-7">
                         <?= $model->embed ?>
                         <h5 class=""><?= $model->title ?></h5>
+                        <?php if (Yii::$app->base->hasExtension('comments') && Yii::$app->user->can('viewComments')) :
+                        echo \vova07\comments\widgets\Comments::widget(
+                            [
+                                'model' => $model,
+                                'jsOptions' => [
+                                    'offset' => 80
+                                ]
+                            ]
+                        );
+                    endif; ?>
                     </div>
                     <div class="col-xs-5">
                         <h3 class=""><?= \Yii::t('ru', 'Description'); ?><hr></h3>

@@ -117,16 +117,16 @@ return array(
         ),
         'bootstrap' => 'vova07\\themes\\Bootstrap',
     ),
-//    'vova07/yii2-start-comments-module' =>
-//    array(
-//        'name' => 'vova07/yii2-start-comments-module',
-//        'version' => '0.1.0.0',
-//        'alias' =>
-//        array(
-//            '@vova07/comments' => $vendorDir . '/vova07/yii2-start-comments-module',
-//        ),
-//        'bootstrap' => 'vova07\\comments\\Bootstrap',
-//    ),
+    'vova07/yii2-start-comments-module' =>
+    array(
+        'name' => 'vova07/yii2-start-comments-module',
+        'version' => '0.1.0.0',
+        'alias' =>
+        array(
+            '@vova07/comments' => $vendorDir . '/vova07/yii2-start-comments-module',
+        ),
+        'bootstrap' => 'vova07\\comments\\Bootstrap',
+    ),
     'yiisoft/yii2-debug' =>
     array(
         'name' => 'yiisoft/yii2-debug',

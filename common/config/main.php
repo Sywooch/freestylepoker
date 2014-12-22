@@ -17,9 +17,9 @@ return [
 //        'blogs' => [
 //            'class' => 'vova07\blogs\Module'
 //        ],
-//        'comments' => [
-//            'class' => 'vova07\comments\Module'
-//        ]
+        'comments' => [
+            'class' => 'vova07\comments\Module'
+        ]
     ],
     'components' => [
 //        'user' => [

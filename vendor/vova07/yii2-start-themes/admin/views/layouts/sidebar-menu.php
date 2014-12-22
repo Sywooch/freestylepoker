@@ -55,24 +55,24 @@ echo Menu::widget(
 //                'icon' => 'fa-book',
 //                'visible' => Yii::$app->user->can('administrateBlogs') || Yii::$app->user->can('BViewBlogs'),
 //            ],
-//            [
-//                'label' => Yii::t('vova07/themes/admin', 'Comments'),
-//                'url' => ['/comments/default/index'],
-//                'icon' => 'fa-comments',
-//                'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels') || Yii::$app->user->can('BViewComments'),
-//                'items' => [
-//                    [
-//                        'label' => Yii::t('vova07/themes/admin', 'Comments'),
-//                        'url' => ['/comments/default/index'],
-//                        'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewComments'),
-//                    ],
-//                    [
-//                        'label' => Yii::t('vova07/themes/admin', 'Models management'),
-//                        'url' => ['/comments/models/index'],
-//                        'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels'),
-//                    ]
-//                ]
-//            ],
+            [
+                'label' => Yii::t('vova07/themes/admin', 'Comments'),
+                'url' => ['/comments/default/index'],
+                'icon' => 'fa-comments',
+                'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels') || Yii::$app->user->can('BViewComments'),
+                'items' => [
+                    [
+                        'label' => Yii::t('vova07/themes/admin', 'Comments'),
+                        'url' => ['/comments/default/index'],
+                        'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewComments'),
+                    ],
+                    [
+                        'label' => Yii::t('vova07/themes/admin', 'Models management'),
+                        'url' => ['/comments/models/index'],
+                        'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels'),
+                    ]
+                ]
+            ],
             [
                 'label' => Yii::t('vova07/themes/admin', 'Access control'),
                 'url' => '#',
