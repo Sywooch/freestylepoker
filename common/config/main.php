@@ -29,7 +29,7 @@ return [
 //        ],
         'phpBB' => [
             'class' => 'nill\forum\phpBB',
-            'path' => dirname(dirname(__DIR__)). '\forum',
+            'path' => dirname(dirname(__DIR__)). '/forum',
         ],
         'user' => [
             'class' => 'nill\forum\PhpBBWebUser',
