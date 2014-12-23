@@ -43,7 +43,7 @@ $gridConfig = [
                 'bodyOptions' => [
                     'class' => 'table-responsive'
                 ],
-                'buttonsTemplate' => $boxButtons,
+                //'buttonsTemplate' => $boxButtons,
                 'grid' => $gridId
             ]
         ); ?>
