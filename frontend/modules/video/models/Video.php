@@ -30,7 +30,7 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['title', 'embed', 'description', 'user_id'], 'required'],
+            [['title', 'embed', 'description', 'author_id'], 'required'],
             [['val'], 'integer'],
             [['val'], 'number'],
             [['description'], 'string'],
@@ -64,14 +64,14 @@ class Video extends \yii\db\ActiveRecord {
             'embed',
             'val',
             'description',
-            'user_id',
+            'author_id',
         ];
         $scenarios['admin-update'] = [
             'title',
             'embed',
             'val',
             'description',
-            'user_id',
+            'author_id',
         ];
 
         return $scenarios;
@@ -155,6 +155,6 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 }

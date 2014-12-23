@@ -61,7 +61,7 @@ class VideoSearch extends Video {
 
         $query->andFilterWhere(['like', 'title', $this->title])
                 ->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'user_id', $this->user_id]);
+                ->andFilterWhere(['like', 'author_id', $this->author_id]);
 
         return $dataProvider;
     }
