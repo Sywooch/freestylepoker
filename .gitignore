@@ -34,3 +34,6 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 /forum/cache/
+/cache/
+/frontend/web/assets/
+/backend/web/assets/
