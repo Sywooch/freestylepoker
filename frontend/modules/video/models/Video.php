@@ -88,7 +88,7 @@ class Video extends \yii\db\ActiveRecord {
 
         $if_buy_video = VideoUsr::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
 
-        if ($if_buy_video->id === NULL) {
+        if (!isset($if_buy_video->id)) {
             return false;
         } else {
             return true;
