@@ -170,9 +170,9 @@ class VideoController extends Controller {
     protected function findModel($id)
     {
         if (is_array($id)) {
-            $model = VideoUsr::findAll($id);
+            $model = Video::findAll($id);
         } else {
-            $model = VideoUsr::findOne($id);
+            $model = Video::findOne($id);
         }
         if ($model !== null) {
             return $model;

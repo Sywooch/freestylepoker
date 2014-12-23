@@ -16,8 +16,6 @@ use app\modules\video\models\VideoUsr;
  */
 class Video extends \yii\db\ActiveRecord {
 
-    public $gold;
-    public $stat;
     public $message;
 
     /**
@@ -32,7 +30,7 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['title', 'embed', 'description'], 'required'],
+            [['title', 'embed', 'description', 'user_id'], 'required'],
             [['val'], 'integer'],
             [['val'], 'number'],
             [['description'], 'string'],
@@ -52,6 +50,31 @@ class Video extends \yii\db\ActiveRecord {
             'val' => 'F$P',
             'description' => 'Description',
         ];
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['admin-create'] = [
+            'title',
+            'embed',
+            'val',
+            'description',
+            'user_id',
+        ];
+        $scenarios['admin-update'] = [
+            'title',
+            'embed',
+            'val',
+            'description',
+            'user_id',
+        ];
+
+        return $scenarios;
     }
 
     /**
@@ -115,9 +138,23 @@ class Video extends \yii\db\ActiveRecord {
             }
         }
     }
-     public function getVideoUsr()
+     
+    /**
+     * 
+     * @return type
+     */
+    public function getVideoUsr()
     {
         // VideoUsr has_many Video via Video.video_id -> id
         return $this->hasMany(VideoUsr::className(), ['video_id' => 'id']);
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

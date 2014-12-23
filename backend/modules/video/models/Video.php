@@ -13,6 +13,7 @@ use Yii;
  */
 class Video extends \yii\db\ActiveRecord
 {
+    //public $user_id;
     /**
      * @inheritdoc
      */
@@ -48,5 +49,36 @@ class Video extends \yii\db\ActiveRecord
             'val' => 'F$P',
             'description' => 'Description',
         ];
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['admin-create'] = [
+            'title',
+            'embed',
+            'val',
+            'description',
+            'user_id',
+        ];
+        $scenarios['admin-update'] = [
+            'title',
+            'embed',
+            'val',
+            'description',
+            'user_id',
+        ];
+
+        return $scenarios;
+    }
+    
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        
+        return $this->user_id=Yii::$app->user->id;     
     }
 }

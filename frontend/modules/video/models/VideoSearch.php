@@ -10,13 +10,12 @@ use app\modules\video\models\Video;
 /**
  * VideoSearch represents the model behind the search form about `app\modules\video\models\Video`.
  */
-class VideoSearch extends Video
-{
+class VideoSearch extends Video {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['title'], 'string'],
             [['embed', 'description'], 'safe'],
@@ -26,8 +25,7 @@ class VideoSearch extends Video
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,9 +37,12 @@ class VideoSearch extends Video
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = Video::find();
+    public function search($params) {
+        $query = Video::find()
+                ->with(['user']);
+//        
+//        $query = User::find()
+//                ->innerJoinWith('video');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,8 +60,10 @@ class VideoSearch extends Video
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+                ->andFilterWhere(['like', 'description', $this->description])
+                ->andFilterWhere(['like', 'user_id', $this->user_id]);
 
         return $dataProvider;
     }
+
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace app\modules\video\models;
-use app\modules\video\models\Video;
 use Yii;
 
 /**

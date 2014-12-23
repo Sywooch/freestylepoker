@@ -12,6 +12,7 @@ use yii\helpers\Html;
     <h3>
     <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]); ?>
     </h3>
+<?= $model->user->username ?>
 </div>
 <div>
     <?= $model->description; ?>
