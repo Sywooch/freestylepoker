@@ -12,7 +12,6 @@ use Yii;
  */
 class VideoUsr extends \yii\db\ActiveRecord
 {
-    public $id;
     /**
      * @inheritdoc
      */
