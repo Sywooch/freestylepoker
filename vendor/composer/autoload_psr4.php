@@ -24,5 +24,8 @@ return array(
     'vova07\\blogs\\' => array($vendorDir . '/vova07/yii2-start-blogs-module'),
     'vova07\\base\\' => array($vendorDir . '/vova07/yii2-start-base'),
     'vova07\\admin\\' => array($vendorDir . '/vova07/yii2-start-admin-module'),
+    'kartik\\plugins\\depdrop\\' => array($vendorDir . '/kartik-v/dependent-dropdown'),
+    'kartik\\depdrop\\' => array($vendorDir . '/kartik-v/yii2-widget-depdrop'),
+    'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
 );
