@@ -137,6 +137,9 @@ class Video extends \yii\db\ActiveRecord {
                 throw new UserException('Ошибка, видео уже куплено');
             }
         }
+        else {
+                throw new UserException('Ошибка, Вы не авторизированы');
+            }
     }
      
     /**

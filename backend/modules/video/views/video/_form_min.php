@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,13 +13,11 @@ use yii\helpers\Url;
 
 <?php
 $form = ActiveForm::begin([
-            'enableAjaxValidation' => true
-    ]);
+            'enableAjaxValidation' => true]);
 ?>
 
-<div class="col-sm-12">
-    <?= $form->field($model, 'section')->checkbox() ?>
-</div>
+<?= $form->field($model, 'section')->hiddenInput(['value' => 0])->label(false) ?>
+
 <div class="col-sm-6">
     <?= $form->field($model, 'title') ?>
 </div>
@@ -100,7 +99,9 @@ $form = ActiveForm::begin([
 </div>
 
 <div class="form-group">
-    <?= Html::submitButton($model->isNewRecord ? Yii::t('ru', 'Create') : Yii::t('ru', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>
+
+

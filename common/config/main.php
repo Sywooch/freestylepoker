@@ -9,6 +9,9 @@ return [
         'video' => [
             'class' => 'app\modules\video\Module',
         ],
+        'fsp' => [
+            'class' => 'nill\fsp\Module',
+        ],
         'users' => [
             'class' => 'nill\users\Module',
             'robotEmail' => 'no-reply@domain.com',

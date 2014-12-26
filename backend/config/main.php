@@ -8,6 +8,9 @@ return [
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'admin/default/index',
     'modules' => [
+        'fsp' => [
+            'class' => 'nill\fsp\Module',
+        ],
         'admin' => [
             'class' => 'vova07\admin\Module'
         ],

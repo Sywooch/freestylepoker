@@ -3,60 +3,107 @@
 namespace app\modules\video\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "yii2_start_video".
+ * This is the model class for table "{{%video}}".
  *
  * @property integer $id
+ * @property string $title
  * @property string $embed
  * @property string $description
+ * @property integer $val
+ * @property integer $author_id
+ * @property string $author
+ * @property integer $section
+ * @property string $alias
+ * @property string $ids
+ * @property string $date
+ * @property integer $duration
+ * @property string $conspects
+ * @property integer $id_training
+ * @property string $password
+ * @property integer $type_id
+ * @property integer $limit_id
+ * @property string $tags
+ * @property string $preview
+ * @property integer $comments
+ * @property integer $gp
+ *
+ * @property VideoType $type
+ * @property VideoLimits $limit
  */
-class Video extends \yii\db\ActiveRecord
-{
-    //public $user_id;
+class Video extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%video}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['title', 'embed', 'description'], 'required'],
-            [['description'], 'string'],
-            [['val'], 'integer'],
-            [['val'], 'number'],
-            [['title'], 'string', 'max' => 128],
-            [['embed'], 'string', 'max' => 256]
+            [['title', 'embed', 'author_id', 'section', 'alias', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
+            [['description', 'conspects', 'tags'], 'string'],
+            [['val', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
+            [['date'], 'safe'],
+            [['title', 'ids'], 'string', 'max' => 128],
+            [['embed', 'alias', 'password', 'preview'], 'string', 'max' => 256]
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'embed' => 'Embed',
-            'val' => 'F$P',
-            'description' => 'Description',
+            'id' => Yii::t('ru', 'ID'),
+            'title' => Yii::t('ru', 'Title'),
+            'embed' => Yii::t('ru', 'Embed'),
+            'description' => Yii::t('ru', 'Description'),
+            'val' => Yii::t('ru', 'Val'),
+            'author_id' => Yii::t('ru', 'Author ID'),
+            'author' => Yii::t('ru', 'Author'),
+            'section' => Yii::t('ru', 'Section'),
+            'alias' => Yii::t('ru', 'Alias'),
+            'ids' => Yii::t('ru', 'Ids'),
+            'date' => Yii::t('ru', 'Date'),
+            'duration' => Yii::t('ru', 'Duration'),
+            'conspects' => Yii::t('ru', 'Conspects'),
+            'id_training' => Yii::t('ru', 'Id Training'),
+            'password' => Yii::t('ru', 'Password'),
+            'type_id' => Yii::t('ru', 'Type ID'),
+            'limit_id' => Yii::t('ru', 'Limit ID'),
+            'tags' => Yii::t('ru', 'Tags'),
+            'preview' => Yii::t('ru', 'Preview'),
+            'comments' => Yii::t('ru', 'Comments'),
+            'gp' => Yii::t('ru', 'Gp'),
         ];
     }
-    
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType() {
+        return $this->hasOne(VideoType::className(), ['id' => 'type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLimit() {
+        return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id']);
+    }
+
     /**
      * 
      * @return string
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = [
             'title',
@@ -64,6 +111,22 @@ class Video extends \yii\db\ActiveRecord
             'val',
             'description',
             'user_id',
+            'author_id',
+            'author',
+            'section',
+            'alias',
+            'ids',
+            'date',
+            'duration',
+            'conspects',
+            'id_training',
+            'password',
+            'type_id',
+            'limit_id',
+            'tags',
+            'preview',
+            'comments',
+            'gp',
         ];
         $scenarios['admin-update'] = [
             'title',
@@ -71,14 +134,61 @@ class Video extends \yii\db\ActiveRecord
             'val',
             'description',
             'user_id',
+            'author_id',
+            'author',
+            'section',
+            'alias',
+            'ids',
+            'date',
+            'duration',
+            'conspects',
+            'id_training',
+            'password',
+            'type_id',
+            'limit_id',
+            'tags',
+            'preview',
+            'comments',
+            'gp',
         ];
 
         return $scenarios;
     }
-    
+
     public function beforeSave($insert) {
         parent::beforeSave($insert);
-        
-        return $this->user_id=Yii::$app->user->id;     
+
+        return $this->author_id = Yii::$app->user->id;
     }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getTyper() {
+        $models = VideoType::find()->asArray()->all();
+        $a = [0 => 'Select...'];
+        $b = ArrayHelper::map($models, 'id', 'name');
+        $x = ArrayHelper::merge($a, $b);
+        return $x;
+    }
+    
+    public function getData($cat_id) {
+        $models = VideoLimits::find()->where(['type_id' => $cat_id])->asArray()->all();
+        $b = ArrayHelper::map($models, 'id', 'name');
+        return $b;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getLimited($cat_id) {
+        $models = VideoLimits::find()->where(['type_id' => $cat_id])->asArray()->all();
+        foreach ($models as $key => $value) {
+            $data[] = ['id' => $value['id'], 'name' => $value['name']];
+        }
+        return $data;
+    }
+
 }

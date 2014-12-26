@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="blog-item">
                 <div class="blog-content row">
                     <div class="col-xs-7">
-                        <?= $model->embed ?>
+                        <iframe width="640" height="400" src="<?= $model->embed ?>" frameborder="0" allowfullscreen></iframe>
                         <h5 class=""><?= $model->title ?></h5>
                         <?php
                         if (Yii::$app->base->hasExtension('comments') && Yii::$app->user->can('viewComments')) :

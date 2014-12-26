@@ -6,26 +6,24 @@
  * @var \yii\web\View $this View
  * @var string $content Content
  */
-
 use vova07\themes\admin\widgets\Alert;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-
 ?>
 <?php $this->beginPage(); ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
     <head>
-        <?= $this->render('//layouts/head') ?>
+<?= $this->render('//layouts/head') ?>
     </head>
     <body class="skin-blue">
-    <?php $this->beginBody(); ?>
+<?php $this->beginBody(); ?>
 
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="<?= Yii::$app->homeUrl ?>" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                <?= Yii::$app->name ?>
+<?= Yii::$app->name ?>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -47,29 +45,29 @@ use yii\widgets\Breadcrumbs;
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <?php if (Yii::$app->user->identity->profile->avatar_url) : ?>
+<?php if (Yii::$app->user->identity->profile->avatar_url) : ?>
                                         <?= Html::img(Yii::$app->user->identity->profile->urlAttribute('avatar_url'), ['class' => 'img-circle', 'alt' => Yii::$app->user->identity->username]) ?>
                                     <?php endif; ?>
                                     <p>
-                                        <?= Yii::$app->user->identity->profile->fullName ?> - <?= Yii::$app->user->identity->role ?>
+                                    <?= Yii::$app->user->identity->profile->fullName ?> - <?= Yii::$app->user->identity->role ?>
                                         <small><?= Yii::t('vova07/themes/admin', 'Member since') ?> <?= Yii::$app->user->identity->created ?></small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <?= Html::a(
-                                            Yii::t('vova07/themes/admin', 'Profile'),
-                                            ['/users/default/update', 'id' => Yii::$app->user->id],
-                                            ['class' => 'btn btn-default btn-flat']
-                                        ) ?>
+<?=
+Html::a(
+        Yii::t('vova07/themes/admin', 'Profile'), ['/users/default/update', 'id' => Yii::$app->user->id], ['class' => 'btn btn-default btn-flat']
+)
+?>
                                     </div>
                                     <div class="pull-right">
-                                        <?= Html::a(
-                                            Yii::t('vova07/themes/admin', 'Sign out'),
-                                            ['/users/user/logout'],
-                                            ['class' => 'btn btn-default btn-flat']
-                                        ) ?>
+<?=
+Html::a(
+        Yii::t('vova07/themes/admin', 'Sign out'), ['/users/user/logout'], ['class' => 'btn btn-default btn-flat']
+)
+?>
                                     </div>
                                 </li>
                             </ul>
@@ -85,14 +83,14 @@ use yii\widgets\Breadcrumbs;
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        <?php if (Yii::$app->user->identity->profile->avatar_url) : ?>
+<?php if (Yii::$app->user->identity->profile->avatar_url) : ?>
                             <div class="pull-left image">
-                                <?= Html::img(Yii::$app->user->identity->profile->urlAttribute('avatar_url'), ['class' => 'img-circle', 'alt' => Yii::$app->user->identity->username]) ?>
+                            <?= Html::img(Yii::$app->user->identity->profile->urlAttribute('avatar_url'), ['class' => 'img-circle', 'alt' => Yii::$app->user->identity->username]) ?>
                             </div>
-                        <?php endif; ?>
+                            <?php endif; ?>
                         <div class="pull-left info">
                             <p>
-                                <?= Yii::t('vova07/themes/admin', 'Hello, {name}', ['name' => Yii::$app->user->identity->profile->name]) ?>
+<?= Yii::t('vova07/themes/admin', 'Hello, {name}', ['name' => Yii::$app->user->identity->profile->name]) ?>
                             </p>
                             <a>
                                 <i class="fa fa-circle text-success"></i> <?= Yii::t('vova07/themes/admin', 'Online') ?>
@@ -100,7 +98,7 @@ use yii\widgets\Breadcrumbs;
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <?= $this->render('//layouts/sidebar-menu') ?>
+<?= $this->render('//layouts/sidebar-menu') ?>
                 </section>
                 <!-- /.sidebar -->
             </aside>
@@ -110,22 +108,24 @@ use yii\widgets\Breadcrumbs;
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        <?= $this->title ?>
+<?= $this->title ?>
                         <?php if (isset($this->params['subtitle'])) : ?>
                             <small><?= $this->params['subtitle'] ?></small>
                         <?php endif; ?>
                     </h1>
-                    <?= Breadcrumbs::widget(
-                        [
-                            'homeLink' => [
-                                'label' => '<i class="fa fa-dashboard"></i> ' . Yii::t('vova07/themes/admin', 'Home'),
-                                'url' => '/'
-                            ],
-                            'encodeLabels' => false,
-                            'tag' => 'ol',
-                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
-                        ]
-                    ) ?>
+                        <?=
+                        Breadcrumbs::widget(
+                                [
+                                    'homeLink' => [
+                                        'label' => '<i class="fa fa-dashboard"></i> ' . Yii::t('vova07/themes/admin', 'Home'),
+                                        'url' => '/'
+                                    ],
+                                    'encodeLabels' => false,
+                                    'tag' => 'ol',
+                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
+                                ]
+                        )
+                        ?>
                 </section>
 
                 <!-- Main content -->
@@ -136,7 +136,7 @@ use yii\widgets\Breadcrumbs;
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-    <?php $this->endBody(); ?>
+        <?php $this->endBody(); ?>
     </body>
 </html>
 <?php $this->endPage(); ?>

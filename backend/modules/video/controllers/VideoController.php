@@ -5,12 +5,13 @@ namespace app\modules\video\controllers;
 use Yii;
 use app\modules\video\models\Video;
 use app\modules\video\models\VideoSearch;
-
-
 //use yii\web\Controller;
 use vova07\admin\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii\helpers\Json;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -21,14 +22,13 @@ class VideoController extends Controller {
      * RBAC
      * @return array
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         $behaviors = parent::behaviors();
 
         $behaviors['access']['rules'] = [
             [
                 'allow' => true,
-                'actions' => ['index', 'view'],
+                'actions' => ['index', 'view', 'subcat'],
                 'roles' => ['BViewVideo']
             ]
         ];
@@ -57,6 +57,7 @@ class VideoController extends Controller {
             'actions' => [
                 'index' => ['get'],
                 'create' => ['get', 'post'],
+                'subcat' => ['get', 'post'],
                 'update' => ['get', 'put', 'post'],
                 'delete' => ['post', 'delete'],
                 'batch-delete' => ['post', 'delete']
@@ -97,7 +98,7 @@ class VideoController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
-        
+
         $model = new Video(['scenario' => 'admin-create']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -120,12 +121,17 @@ class VideoController extends Controller {
         $model = $this->findModel($id);
         $model->setScenario('admin-update');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (!Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        } 
+        elseif ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        else {
             return $this->render('update', [
-                        'model' => $model,
-            ]);
+                    'model' => $model,
+        ]);
         }
     }
 
@@ -140,15 +146,14 @@ class VideoController extends Controller {
 
         return $this->redirect(['index']);
     }
-    
+
     /**
      * Delete multiple posts page.
      *
      * @return mixed
      * @throws \yii\web\HttpException
      */
-    public function actionBatchDelete()
-    {
+    public function actionBatchDelete() {
         if (($ids = Yii::$app->request->post('ids')) !== null) {
             $models = $this->findModel($ids);
             foreach ($models as $model) {
@@ -167,8 +172,7 @@ class VideoController extends Controller {
      * @return Video the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (is_array($id)) {
             $model = Video::findAll($id);
         } else {
@@ -179,6 +183,20 @@ class VideoController extends Controller {
         } else {
             throw new HttpException(404);
         }
+    }
+
+    public function actionSubcat() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];      
+                $out = Video::getLimited($cat_id); 
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
     }
 
 }

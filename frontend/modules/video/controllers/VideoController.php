@@ -50,10 +50,15 @@ class VideoController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $model->buy($model->id);
-            Yii::$app->session->setFlash(
-                'success',
-                yii::t('ru', 'Сообщение об успешной покупке')
-            );
+            if (!Yii::$app->user->isGuest) {
+                Yii::$app->session->setFlash(
+                        'success', yii::t('ru', 'Сообщение об успешной покупке')
+                );
+            } else {
+                Yii::$app->session->setFlash(
+                        'success', yii::t('ru', 'Вы не авторизированы')
+                );
+            }
 //          return $this->refresh();
 //          return $this->redirect(['view', 'id' => $model->id]);
             return $this->render('view', [
