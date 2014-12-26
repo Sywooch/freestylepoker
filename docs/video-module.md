@@ -11,6 +11,8 @@ All Events **_form** - `video/video/update` or `video/video/create` implements i
 >BUG POST: 2: `vendor\bower\jquery-ui\ui\i18n\datepicker-ru` **copy** `datepicker-ru_RU`
 
 vendor\bower\jquery-ui\ui\i18n
+
 Configuration
 -------------
+- Add kartik-v DepDrop for dependent-dropdown @dropDownList()
 
