@@ -25,7 +25,8 @@ class ThemeAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/AdminLTE/app.js'
+        'js/AdminLTE/app.js',
+        'js/custom.js'
     ];
 
     /**
