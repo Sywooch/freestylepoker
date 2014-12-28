@@ -20,12 +20,6 @@ echo Menu::widget(
                     'active' => Yii::$app->request->url === Yii::$app->homeUrl
                 ],
                 [
-                    'label' => Yii::t('vova07/themes/admin', 'Видео'),
-                    'url' => ['/video/'],
-                    'icon' => 'fa-dashboard',
-                    'active' => Yii::$app->request->url === Yii::$app->homeUrl
-                ],
-                [
                     'label' => Yii::t('vova07/themes/admin', 'Users'),
                     'url' => ['/users/default/index'],
                     'icon' => 'fa-group',

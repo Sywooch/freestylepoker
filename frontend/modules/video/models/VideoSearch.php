@@ -23,7 +23,7 @@ class VideoSearch extends Video {
 
     public function rules() {
         return [
-            [['title', 'author', 'val1', 'val2', 'val', 'cup', 'ons','tags'], 'string'],
+            [['title', 'author', 'val1', 'val2', 'val', 'cup', 'ons', 'tags'], 'string'],
             [['embed', 'description'], 'safe'],
         ];
     }
@@ -45,16 +45,38 @@ class VideoSearch extends Video {
      */
     public function search($params) {
 
-            $query = Video::find()->addGroupBy(['sortOrder']);
-            //->joinWith(['videoUsr'])->where(['user_id'=>Yii::$app->user->id]);
-            //->with(['videoUsr']);
+        // COOKIES SET
+        $cookies = \Yii::$app->response->cookies;
+
+        if (!empty(Yii::$app->request->get('cc'))) {
+
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'ccx',
+                'value' => Yii::$app->request->get('cc'),
+            ]));
+        }
+
+        // COOKIES GET
+        $cookies = \Yii::$app->request->cookies;
+//      echo \Yii::$app->request->cookies->getValue('ccx'); 
+
+        if (($cookie = $cookies->get('ccx')) !== null) {
+            $ccx = $cookie->value;
+        }
+        if (!empty(Yii::$app->request->get('cc'))) {
+            $ccx = Yii::$app->request->get('cc');
+        }
+
+        $query = Video::find()->addGroupBy(['sortOrder']);
+        //->joinWith(['videoUsr'])->where(['user_id'=>Yii::$app->user->id]);
+        //->with(['videoUsr']);
 //        
 //        $query = User::find()
 //                ->innerJoinWith('video');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => $x = (!empty(Yii::$app->request->get('cc'))) ? Yii::$app->request->get('cc') : 2,
+                'pageSize' => $x = (!empty($ccx)) ? $ccx : 2,
             ]
         ]);
 
@@ -67,18 +89,21 @@ class VideoSearch extends Video {
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
+                ->orFilterWhere(['like', 'description', $this->title])
+                ->orFilterWhere(['like', 'author', $this->title])
+                ->orFilterWhere(['like', 'tags', $this->title])
                 ->andFilterWhere(['like', 'description', $this->description])
                 ->andFilterWhere(['like', 'author', $this->author])
                 ->andFilterWhere(['like', 'tags', $this->tags])
                 ->andFilterWhere(['between', 'val', $this->val1, $this->val2]);
 
         if ($this->cup && !Yii::$app->user->isGuest) {
-            $query->joinWith(['videoUsr'])->andFilterWhere([VideoUsr::tableName().'.user_id' => Yii::$app->user->id]);
+            $query->joinWith(['videoUsr'])->andFilterWhere([VideoUsr::tableName() . '.user_id' => Yii::$app->user->id]);
         }
-        
+
         if ($this->ons && !Yii::$app->user->isGuest) {
             //$query->joinWith(['videoon'])->andFilterWhere(['{{%video_on}}.user_id' => Yii::$app->user->id]);
-            $query->joinWith(['videoon'])->andFilterWhere([Videoon::tableName().'.user_id' => Yii::$app->user->id]);
+            $query->joinWith(['videoon'])->andFilterWhere([Videoon::tableName() . '.user_id' => Yii::$app->user->id]);
         }
 
         return $dataProvider;

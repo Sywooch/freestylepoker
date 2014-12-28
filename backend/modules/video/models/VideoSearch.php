@@ -55,13 +55,18 @@ class VideoSearch extends Video
 //            'asc' => [VideoType::tableName() . '.name' => SORT_ASC],
 //            'desc' => [VideoType::tableName() . '.name' => SORT_DESC]
 //        ];
-
+        
+        
+        if(!empty($this->date)) {
+            $date=Yii::$app->formatter->asTimestamp($this->date);
+        }
+        
         $query->andFilterWhere([
             'id' => $this->id,
             'val' => $this->val,
             'author_id' => $this->author_id,
             'section' => $this->section,
-            'date' => Yii::$app->formatter->asTimestamp($this->date),
+            'date' => $date,
             'duration' => $this->duration,
             'id_training' => $this->id_training,
             'comments' => $this->comments,

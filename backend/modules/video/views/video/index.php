@@ -48,18 +48,18 @@ $gridConfig = [
                 [
                     'attribute' => 'date',
                     'format' => 'date',
-                    'filter' => DatePicker::widget(
-                            [
-                                'model' => $searchModel,
-                                'attribute' => 'date',
-                                'options' => [
-                                    'class' => 'form-control'
-                                ],
-                                'clientOptions' => [
-                                    'dateFormat' => 'dd.mm.yy',
-                                ]
-                            ]
-                    )
+//                    'filter' => DatePicker::widget(
+//                            [
+//                                'model' => $searchModel,
+//                                'attribute' => 'date',
+//                                'options' => [
+//                                    'class' => 'form-control'
+//                                ],
+//                                'clientOptions' => [
+//                                    'dateFormat' => 'dd.mm.yy',
+//                                ]
+//                            ]
+//                    )
                 ],
                 'id_training',
                 [
