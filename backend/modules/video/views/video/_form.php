@@ -83,7 +83,7 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'val') ?>
 </div>
 <div class="col-sm-3">
-    <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'cat-id', 'placeholder' => 'Select...']); ?>
+    <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'cat-id', 'prompt' => 'Выбрать']); ?>
 </div>
 <div class="col-sm-3">
     <?=

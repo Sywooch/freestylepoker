@@ -200,10 +200,8 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function getTyper() {
         $models = VideoType::find()->asArray()->all();
-        $a = [0 => 'Select...'];
-        $b = ArrayHelper::map($models, 'id', 'name');
-        $x = ArrayHelper::merge($a, $b);
-        return $x;
+        $result = ArrayHelper::map($models, 'id', 'name');
+        return $result;
     }
 
     public function getData($cat_id) {

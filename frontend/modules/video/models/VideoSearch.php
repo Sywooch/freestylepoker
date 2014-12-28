@@ -111,9 +111,7 @@ class VideoSearch extends Video {
 
     public function getAuthors() {
         $query = Video::find()->orderBy(['author' => SORT_ASC])->asArray()->all();
-        $a = ['' => 'Select...'];
-        $b = ArrayHelper::map($query, 'author', 'author');
-        $result = ArrayHelper::merge($a, $b);
+        $result = ArrayHelper::map($query, 'author', 'author');
         return $result;
     }
 

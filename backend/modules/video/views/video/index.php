@@ -71,8 +71,12 @@ $gridConfig = [
                     'value' => 'limit.name'
                 ],
                 'tags',
-                'gp',
-                'author:ntext'
+                [
+                    'attribute' => 'gp',
+                    'format' => 'html',
+                    'filter' => Html::activeDropDownList(
+                            $searchModel, 'gp' ,['нет','да'], ['class' => 'form-control', 'prompt' => 'Выбрать']),
+                ]
             ]
         ];
 
