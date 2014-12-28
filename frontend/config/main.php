@@ -18,12 +18,6 @@ return [
             'cookieValidationKey' => 'sdi8s#fnj98jwiqiw;qfh!fjgh0d8f',
             'baseUrl' => ''
         ],
-        'urlManager' => [
-            'rules' => [
-                '' => 'site/default/index',
-                '<_a:(about|contacts|captcha)>' => 'site/default/<_a>'
-            ]
-        ],
         'view' => [
             'theme' => 'vova07\themes\site\Theme'
         ],
@@ -38,7 +32,8 @@ return [
                     'levels' => ['error', 'warning']
                 ]
             ]
-        ]
+        ],
+        'urlManager' => require(__DIR__ . '/urlmanager.php'),
     ],
     'params' => require(__DIR__ . '/params.php')
 ];

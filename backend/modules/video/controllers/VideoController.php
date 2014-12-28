@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\Json;
+use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -47,11 +48,11 @@ class VideoController extends Controller {
             'actions' => ['delete', 'batch-delete'],
             'roles' => ['BDeleteVideo']
         ];
-//        $behaviors['access']['rules'][] = [
-//            'allow' => true,
-//            'actions' => ['imperavi-get', 'imperavi-image-upload', 'imperavi-file-upload', 'fileapi-upload'],
-//            'roles' => ['BCreateVideo', 'BUpdateVideo']
-//        ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['imperavi-get', 'imperavi-image-upload', 'imperavi-file-upload', 'fileapi-upload'],
+            'roles' => ['BCreateVideo', 'BUpdateVideo']
+        ];
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),
             'actions' => [
@@ -65,6 +66,20 @@ class VideoController extends Controller {
         ];
 
         return $behaviors;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function actions()
+    {
+        return [
+            'fileapi-upload' => [
+                'class' => FileAPIUpload::className(),
+                'path' => $this->module->imagesTempPath
+            ]
+        ];
     }
 
     /**
@@ -101,9 +116,14 @@ class VideoController extends Controller {
 
         $model = new Video(['scenario' => 'admin-create']);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (!Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        } 
+        elseif ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        else {
             return $this->render('create', [
                         'model' => $model,
             ]);

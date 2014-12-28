@@ -4,6 +4,9 @@ namespace app\modules\video\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use vova07\fileapi\behaviors\UploadBehavior;
+use app\modules\video\traits\ModuleTrait;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * This is the model class for table "{{%video}}".
@@ -35,6 +38,8 @@ use yii\helpers\ArrayHelper;
  */
 class Video extends \yii\db\ActiveRecord {
 
+    use ModuleTrait;
+
     /**
      * @inheritdoc
      */
@@ -42,12 +47,32 @@ class Video extends \yii\db\ActiveRecord {
         return '{{%video}}';
     }
 
+    public function behaviors() {
+        return [
+            'uploadBehavior' => [
+                'class' => UploadBehavior::className(),
+                'attributes' => [
+                    'preview' => [
+                        'path' => $this->module->previewPath,
+                        'tempPath' => $this->module->imagesTempPath,
+                        'url' => $this->module->previewUrl
+                    ],
+                ]
+            ],
+            'sluggableBehavior' => [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                'slugAttribute' => 'alias'
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-            [['title', 'embed', 'author_id', 'section', 'alias', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
+            [['title', 'embed', 'section', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
             [['description', 'conspects', 'tags'], 'string'],
             [['val', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
             [['date'], 'safe'],
@@ -89,14 +114,15 @@ class Video extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getType() {
-        return $this->hasOne(VideoType::className(), ['id' => 'type_id']);
+        return $this->hasOne(VideoType::className(), ['id' => 'type_id'])->inverseOf('videos');
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getLimit() {
-        return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id']);
+        return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id'])->inverseOf('videos');
+        ;
     }
 
     /**
@@ -158,6 +184,8 @@ class Video extends \yii\db\ActiveRecord {
     public function beforeSave($insert) {
         parent::beforeSave($insert);
 
+        $this->date = Yii::$app->formatter->asTimestamp($this->date);
+
         return $this->author_id = Yii::$app->user->id;
     }
 
@@ -172,7 +200,7 @@ class Video extends \yii\db\ActiveRecord {
         $x = ArrayHelper::merge($a, $b);
         return $x;
     }
-    
+
     public function getData($cat_id) {
         $models = VideoLimits::find()->where(['type_id' => $cat_id])->asArray()->all();
         $b = ArrayHelper::map($models, 'id', 'name');
@@ -189,6 +217,28 @@ class Video extends \yii\db\ActiveRecord {
             $data[] = ['id' => $value['id'], 'name' => $value['name']];
         }
         return $data;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getTags() {
+        return [
+            'Видеурок' => 'Видеурок',
+            'Ключевые аспекты' => 'Ключевые аспекты',
+            'bss' => 'bss',
+            'mss' => 'mss'
+        ];
+//        if ($this->_permissions === null) {
+//            $this->_permissions = Yii::$app->authManager->getPermissions();
+//
+//            if ($this->name !== null) {
+//                unset($this->_permissions[$this->name]);
+//            }
+//        }
+//        return $this->_permissions;
+//        $permissionArray = ArrayHelper::map($model->permissions, 'name', 'name');
     }
 
 }

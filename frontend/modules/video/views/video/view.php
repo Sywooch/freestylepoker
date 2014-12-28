@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <iframe width="640" height="400" src="<?= $model->embed ?>" frameborder="0" allowfullscreen></iframe>
                         <h5 class=""><?= $model->title ?></h5>
                         <?php
-                        if (Yii::$app->base->hasExtension('comments') && Yii::$app->user->can('viewComments')) :
+                        
+                        if (Yii::$app->base->hasExtension('comments') && Yii::$app->user->can('viewComments') && $model->comments!=1) :
                             echo \vova07\comments\widgets\Comments::widget(
                                     [
                                         'model' => $model,

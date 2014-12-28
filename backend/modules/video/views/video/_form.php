@@ -5,6 +5,9 @@ use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
+use vova07\fileapi\Widget as FileAPI;
+use vova07\select2\Widget;
+
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
 /* @var $form yii\widgets\ActiveForm */
@@ -35,9 +38,6 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'alias') ?>
 </div>
 <div class="col-sm-6">
-    <?= $form->field($model, 'ids') ?>
-</div>
-<div class="col-sm-6">
     <?=
     $form->field($model, 'date')->widget(
             DatePicker::className(), [
@@ -53,32 +53,39 @@ $form = ActiveForm::begin([
     );
     ?>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-3">
     <?= $form->field($model, 'duration') ?>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-3">
     <?= $form->field($model, 'conspects') ?>
 </div>
 <div class="col-sm-6">
+    <?= $form->field($model, 'tags')
+//            ->widget(Widget::className(), [
+//                'options' => [
+//                    'multiple' => true,
+//                    'placeholder' => Yii::t('ru','Select tags...'),
+//                ],
+//                'settings' => [
+//                    'width' => '100%',
+//                ],
+//                'items' => $model->Tags
+//            ])->label('tags') ?>
+    
+</div>
+<div class="col-sm-3">
+    <?= $form->field($model, 'password') ?>
+</div>
+<div class="col-sm-3">
     <?= $form->field($model, 'id_training') ?>
 </div>
 <div class="col-sm-6">
-    <?= $form->field($model, 'password') ?>
-</div>
-<div class="col-sm-6">
-    <?= $form->field($model, 'tags') ?>
-</div>
-<div class="col-sm-6">
-    <?= $form->field($model, 'preview') ?>
-</div>
-
-<div class="col-sm-6">
     <?= $form->field($model, 'val') ?>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-3">
     <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'cat-id', 'placeholder' => 'Select...']); ?>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-3">
     <?=
     $form->field($model, 'limit_id')->widget(DepDrop::classname(), [
         'options' => ['id' => 'subcat-id'],
@@ -91,14 +98,25 @@ $form = ActiveForm::begin([
     ]);
     ?>
 </div>
-
+<div class="col-sm-6">
+    <?= $form->field($model, 'ids') ?>
+</div>
 <div class="col-sm-6">
     <?= $form->field($model, 'comments')->checkbox() ?>
 </div>
 <div class="col-sm-6">
     <?= $form->field($model, 'gp')->checkbox() ?>
 </div>
-
+<div class="col-sm-12">
+     <?= $form->field($model, 'preview')->widget(
+                FileAPI::className(),
+                [
+                    'settings' => [
+                        'url' => ['/video/video/fileapi-upload']
+                    ]
+                ]
+            ) ?>
+</div>
 <div class="form-group">
     <?= Html::submitButton($model->isNewRecord ? Yii::t('ru', 'Create') : Yii::t('ru', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 </div>

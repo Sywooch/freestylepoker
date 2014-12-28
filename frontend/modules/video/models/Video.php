@@ -30,12 +30,12 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['title', 'embed', 'description', 'author_id'], 'required'],
-            [['val'], 'integer'],
-            [['val'], 'number'],
-            [['description'], 'string'],
-            [['title'], 'string', 'max' => 128],
-            [['embed'], 'string', 'max' => 256]
+            [['title', 'embed', 'author_id', 'section', 'alias', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
+            [['description', 'conspects', 'tags'], 'string'],
+            [['val', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
+            [['date'], 'safe'],
+            [['title', 'ids'], 'string', 'max' => 128],
+            [['embed', 'alias', 'password', 'preview'], 'string', 'max' => 256]
         ];
     }
 
@@ -44,20 +44,39 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'embed' => 'Embed',
-            'val' => 'F$P',
-            'description' => 'Description',
+            'id' => Yii::t('ru', 'ID'),
+            'title' => Yii::t('ru', 'Title'),
+            'embed' => Yii::t('ru', 'Embed'),
+            'description' => Yii::t('ru', 'Description'),
+            'val' => Yii::t('ru', 'Val'),
+            'author_id' => Yii::t('ru', 'Author ID'),
+            'author' => Yii::t('ru', 'Author'),
+            'section' => Yii::t('ru', 'Section'),
+            'alias' => Yii::t('ru', 'Alias'),
+            'ids' => Yii::t('ru', 'Ids'),
+            'date' => Yii::t('ru', 'Date'),
+            'duration' => Yii::t('ru', 'Duration'),
+            'conspects' => Yii::t('ru', 'Conspects'),
+            'id_training' => Yii::t('ru', 'Id Training'),
+            'password' => Yii::t('ru', 'Password'),
+            'type_id' => Yii::t('ru', 'Type ID'),
+            'limit_id' => Yii::t('ru', 'Limit ID'),
+            'tags' => Yii::t('ru', 'Tags'),
+            'preview' => Yii::t('ru', 'Preview'),
+            'comments' => Yii::t('ru', 'Comments'),
+            'gp' => Yii::t('ru', 'Gp'),
+            'val1' => Yii::t('ru', 'val1'),
+            'val2' => Yii::t('ru', 'val2'),
+            'cup' => Yii::t('ru', 'cup'),
+            'ons' => Yii::t('ru', 'ons'),
         ];
     }
-    
+
     /**
      * 
      * @return string
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios['admin-create'] = [
             'title',
@@ -88,7 +107,7 @@ class Video extends \yii\db\ActiveRecord {
 
         $if_buy_video = VideoUsr::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
 
-        if ($if_buy_video===NULL) {
+        if ($if_buy_video === NULL) {
             return false;
         } else {
             return true;
@@ -136,28 +155,35 @@ class Video extends \yii\db\ActiveRecord {
             } else {
                 throw new UserException('Ошибка, видео уже куплено');
             }
+        } else {
+            throw new UserException('Ошибка, Вы не авторизированы');
         }
-        else {
-                throw new UserException('Ошибка, Вы не авторизированы');
-            }
     }
-     
+
     /**
      * 
      * @return type
      */
-    public function getVideoUsr()
-    {
+    public function getVideoUsr() {
         // VideoUsr has_many Video via Video.video_id -> id
         return $this->hasMany(VideoUsr::className(), ['video_id' => 'id']);
     }
-    
+
     /**
      * 
      * @return type
      */
-    public function getUser()
-    {
+    public function getVideoon() {
+        // VideoUsr has_many Video via Video.video_id -> id
+        return $this->hasMany(Videoon::className(), ['video_id' => 'id']);
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
+
 }

@@ -8,6 +8,7 @@ use app\modules\video\models\VideoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\video\models\Videoon;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -68,6 +69,26 @@ class VideoController extends Controller {
             return $this->render('view', [
                         'model' => $model,
             ]);
+        }
+    }
+
+    /**
+     * PJAX ADD VIDEO ON
+     * @param type $id
+     */
+    public function actionUs($id) {
+        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
+            echo Videoon::on($id);
+        }
+    }
+
+    /**
+     * PJAX DELETE VIDEO ON
+     * @param type $id
+     */
+    public function actionUse($id) {
+        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
+            echo Videoon::ons($id);
         }
     }
 

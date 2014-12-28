@@ -54,7 +54,7 @@ class VideoLimits extends \yii\db\ActiveRecord
      */
     public function getVideos()
     {
-        return $this->hasMany(Video::className(), ['limit_id' => 'id']);
+        return $this->hasMany(Video::className(), ['limit_id' => 'id'])->inverseOf('type');;
     }
 
     /**

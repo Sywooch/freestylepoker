@@ -51,7 +51,7 @@ class VideoType extends \yii\db\ActiveRecord
      */
     public function getVideos()
     {
-        return $this->hasMany(Video::className(), ['type_id' => 'id']);
+        return $this->hasMany(Video::className(), ['type_id' => 'id'])->inverseOf('type');
     }
 
     /**

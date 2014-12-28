@@ -8,10 +8,8 @@
  * @var \vova07\blogs\models\backend\BlogSearch $searchModel Search model
  * @var array $statusArray Statuses array
  */
-
 use vova07\themes\admin\widgets\Box;
 use vova07\themes\admin\widgets\GridView;
-
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
@@ -37,53 +35,85 @@ $gridConfig = [
             'format' => 'html',
             'value' => function ($model) {
                 return Html::a(
-                    $model['title'],
-                    ['update', 'id' => $model['id']]
+                                $model['title'], ['update', 'id' => $model['id']]
                 );
             }
-        ],
-        'embed',
-        'description'
-    ]
-];
-
-$boxButtons = $actions = [];
-$showActions = false;
-
-if (Yii::$app->user->can('BCreateVideo')) {
-    $boxButtons[] = '{create}';
-}
-if (Yii::$app->user->can('BUpdateVideo')) {
-    $actions[] = '{update}';
-    $showActions = $showActions || true;
-}
-if (Yii::$app->user->can('BDeleteVideo')) {
-    $boxButtons[] = '{batch-delete}';
-    $actions[] = '{delete}';
-    $showActions = $showActions || true;
-}
-
-if ($showActions === true) {
-    $gridConfig['columns'][] = [
-        'class' => ActionColumn::className(),
-        'template' => implode(' ', $actions)
-    ];
-}
-$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null; ?>
-
-<div class="row">
-    <div class="col-xs-12">
-        <?php Box::begin(
-            [
-                'title' => $this->params['subtitle'],
-                'bodyOptions' => [
-                    'class' => 'table-responsive'
                 ],
-                'buttonsTemplate' => $boxButtons,
-                'grid' => $gridId
+                'description:ntext',
+                'val',
+                'section',
+                'ids',
+                [
+                    'attribute' => 'date',
+                    'format' => 'date',
+                    'filter' => DatePicker::widget(
+                            [
+                                'model' => $searchModel,
+                                'attribute' => 'date',
+                                'options' => [
+                                    'class' => 'form-control'
+                                ],
+                                'clientOptions' => [
+                                    'dateFormat' => 'dd.mm.yy',
+                                ]
+                            ]
+                    )
+                ],
+                'id_training',
+                [
+                    'attribute' => 'type_id',
+                    'value' => 'type.name'
+                ],
+                [
+                    'attribute' => 'limit_id',
+                    'value' => 'limit.name'
+                ],
+                'tags',
+                'gp',
+                'author:ntext'
             ]
-        ); ?>
-        <?= GridView::widget($gridConfig); ?>
-        <?php Box::end(); ?>
+        ];
+
+        $boxButtons = $actions = [];
+        $showActions = false;
+
+        if (Yii::$app->user->can('BCreateVideo')) {
+            $boxButtons[] = '{create}';
+        }
+        if (Yii::$app->user->can('BUpdateVideo')) {
+            $actions[] = '{update}';
+            $showActions = $showActions || true;
+        }
+        if (Yii::$app->user->can('BDeleteVideo')) {
+            $boxButtons[] = '{batch-delete}';
+            $actions[] = '{delete}';
+            $showActions = $showActions || true;
+        }
+
+        if ($showActions === true) {
+            $gridConfig['columns'][] = [
+                'class' => ActionColumn::className(),
+                'template' => implode(' ', $actions)
+            ];
+        }
+        $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
+        ?>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <?php
+                Box::begin(
+                        [
+                            'title' => $this->params['subtitle'],
+                            'bodyOptions' => [
+                                'class' => 'table-responsive'
+                            ],
+                            'buttonsTemplate' => $boxButtons,
+                            'grid' => $gridId
+                        ]
+                );
+                ?>
+                <?= GridView::widget($gridConfig); ?>
+                <?php Box::end(); ?>
     </div>
 </div>

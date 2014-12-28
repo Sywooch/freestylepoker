@@ -74,3 +74,16 @@ div.item {
     padding: 2px 10px 2px;
     margin: 4px 0;
 }
+.sorter {
+    padding: 8px;
+}
+.sorter a {
+        font-weight: bold;
+            color: red;
+}
+#w0 .row {
+    padding: 10px;
+}
+.video-search {
+    background: #70E3FF;
+}

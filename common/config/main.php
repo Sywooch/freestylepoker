@@ -32,14 +32,14 @@ return [
 //        ],
         'phpBB' => [
             'class' => 'nill\forum\phpBB',
-            'path' => dirname(dirname(__DIR__)). '/forum',
+            'path' => dirname(dirname(__DIR__)) . '/forum',
         ],
         'user' => [
             'class' => 'nill\forum\PhpBBWebUser',
-            'loginUrl'=>['/login'],
+            'loginUrl' => ['/login'],
             'identityClass' => 'nill\users\models\frontend\User',
-            // enable cookie-based authentication
-            //'allowAutoLogin' => true,
+        // enable cookie-based authentication
+        //'allowAutoLogin' => true,
         ],
         'request' => [
             'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'http://' . $_SERVER['HTTP_HOST'] : '',
@@ -67,12 +67,23 @@ return [
             'assignmentFile' => '@vova07/rbac/data/assignments.php',
             'ruleFile' => '@vova07/rbac/data/rules.php',
         ],
+        'i18n' => [
+            'translations' => [ 'ru' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'forceTranslation' => true,
+                    'sourceLanguage' => 'en_US',
+                    'fileMap' => [
+                        'ru' => 'ru.php',
+                    ],
+                ],
+            ],
+        ],
         'formatter' => [
             'dateFormat' => 'dd.MM.y',
             'datetimeFormat' => 'HH:mm:ss dd.MM.y'
         ],
         'db' => require(__DIR__ . '/db.php')
     ],
-    'bootstrap' => require(__DIR__ . '/bootstrap.php'),
     'params' => require(__DIR__ . '/params.php')
 ];

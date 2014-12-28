@@ -15,7 +15,7 @@ echo Menu::widget(
             'items' => [
                 [
                     'label' => Yii::t('vova07/themes/site', 'Видео'),
-                    'url' => ['/video/'],
+                    'url' => ['/video/video/index'],
                 ],
                 [
                     'label' => Yii::t('vova07/themes/site', 'Sign In'),

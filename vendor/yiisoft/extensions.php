@@ -3,6 +3,15 @@
 $vendorDir = dirname(__DIR__);
 
 return array (
+    'vova07/yii2-select2-widget' => 
+  array (
+    'name' => 'vova07/yii2-select2-widget',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@vova07/select2' => $vendorDir . '/vova07/yii2-select2-widget',
+    ),
+  ),
   'nill/forum' => 
   array (
     'name' => 'nill/forum',
