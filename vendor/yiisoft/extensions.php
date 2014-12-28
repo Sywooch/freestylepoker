@@ -3,7 +3,7 @@
 $vendorDir = dirname(__DIR__);
 
 return array (
-    'vova07/yii2-select2-widget' => 
+  'vova07/yii2-select2-widget' => 
   array (
     'name' => 'vova07/yii2-select2-widget',
     'version' => '0.1.0.0',
@@ -182,5 +182,14 @@ return array (
       '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
     ),
     'bootstrap' => 'vova07\\users\\Bootstrap',
+  ),
+  'himiklab/yii2-sortable-grid-view-widget' => 
+  array (
+    'name' => 'himiklab/yii2-sortable-grid-view-widget',
+    'version' => '1.0.4.0',
+    'alias' => 
+    array (
+      '@himiklab/sortablegrid' => $vendorDir . '/himiklab/yii2-sortable-grid-view-widget',
+    ),
   ),
 );

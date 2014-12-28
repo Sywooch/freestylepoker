@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use vova07\fileapi\behaviors\UploadBehavior;
 use app\modules\video\traits\ModuleTrait;
 use yii\behaviors\SluggableBehavior;
+use himiklab\sortablegrid\SortableGridBehavior;
 
 /**
  * This is the model class for table "{{%video}}".
@@ -64,6 +65,10 @@ class Video extends \yii\db\ActiveRecord {
                 'attribute' => 'title',
                 'slugAttribute' => 'alias'
             ],
+            'sort' => [
+                'class' => SortableGridBehavior::className(),
+                'sortableAttribute' => 'sortOrder'
+            ],
         ];
     }
 
@@ -74,7 +79,7 @@ class Video extends \yii\db\ActiveRecord {
         return [
             [['title', 'embed', 'section', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
             [['description', 'conspects', 'tags'], 'string'],
-            [['val', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
+            [['val', 'sortOrder', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
             [['date'], 'safe'],
             [['title', 'ids'], 'string', 'max' => 128],
             [['embed', 'alias', 'password', 'preview'], 'string', 'max' => 256]

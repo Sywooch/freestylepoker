@@ -14,6 +14,7 @@ use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
 use yii\jui\DatePicker;
+use himiklab\sortablegrid\SortableGridView;
 
 $this->title = yii::t('ru', 'Video');
 $this->params['subtitle'] = yii::t('ru', 'Video Panel');
@@ -43,6 +44,7 @@ $gridConfig = [
                 'val',
                 'section',
                 'ids',
+                'sortOrder',
                 [
                     'attribute' => 'date',
                     'format' => 'date',
@@ -113,7 +115,7 @@ $gridConfig = [
                         ]
                 );
                 ?>
-                <?= GridView::widget($gridConfig); ?>
+                <?= SortableGridView::widget($gridConfig); ?>
                 <?php Box::end(); ?>
     </div>
 </div>

@@ -45,7 +45,7 @@ class VideoSearch extends Video {
      */
     public function search($params) {
 
-            $query = Video::find();
+            $query = Video::find()->addGroupBy(['sortOrder']);
             //->joinWith(['videoUsr'])->where(['user_id'=>Yii::$app->user->id]);
             //->with(['videoUsr']);
 //        
@@ -54,7 +54,7 @@ class VideoSearch extends Video {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 2
+                'pageSize' => $x = (!empty(Yii::$app->request->get('cc'))) ? Yii::$app->request->get('cc') : 2,
             ]
         ]);
 

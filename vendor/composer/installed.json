@@ -1589,5 +1589,51 @@
             "yii2",
             "yii2-start"
         ]
+    },
+    {
+        "name": "himiklab/yii2-sortable-grid-view-widget",
+        "version": "1.0.4",
+        "version_normalized": "1.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/himiklab/yii2-sortable-grid-view-widget.git",
+            "reference": "8eff4670cf5c5e7bd60e46d65904e05ee9f04fcb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/himiklab/yii2-sortable-grid-view-widget/zipball/8eff4670cf5c5e7bd60e46d65904e05ee9f04fcb",
+            "reference": "8eff4670cf5c5e7bd60e46d65904e05ee9f04fcb",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*",
+            "yiisoft/yii2-jui": "*"
+        },
+        "time": "2014-12-02 14:52:14",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "himiklab\\sortablegrid\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "HimikLab",
+                "homepage": "https://github.com/himiklab"
+            }
+        ],
+        "description": "Sortable modification of standard Yii2 GridView widget",
+        "keywords": [
+            "grid",
+            "gridview",
+            "sortable",
+            "widget",
+            "yii2"
+        ]
     }
 ]

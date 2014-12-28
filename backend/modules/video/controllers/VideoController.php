@@ -13,6 +13,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\Json;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
+use himiklab\sortablegrid\SortableGridAction;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -29,7 +30,7 @@ class VideoController extends Controller {
         $behaviors['access']['rules'] = [
             [
                 'allow' => true,
-                'actions' => ['index', 'view', 'subcat'],
+                'actions' => ['index', 'view', 'subcat', 'sort'],
                 'roles' => ['BViewVideo']
             ]
         ];
@@ -67,18 +68,21 @@ class VideoController extends Controller {
 
         return $behaviors;
     }
-    
+
     /**
      * 
      * @return type
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'fileapi-upload' => [
                 'class' => FileAPIUpload::className(),
                 'path' => $this->module->imagesTempPath
-            ]
+            ],
+            'sort' => [
+                'class' => SortableGridAction::className(),
+                'modelName' => Video::className(),
+            ],
         ];
     }
 
@@ -118,12 +122,10 @@ class VideoController extends Controller {
 
         if (!Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } 
-        elseif ($model->load(Yii::$app->request->post())) {
+        } elseif ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
-        }
-        else {
+        } else {
             return $this->render('create', [
                         'model' => $model,
             ]);
@@ -137,21 +139,19 @@ class VideoController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        
+
         $model = $this->findModel($id);
         $model->setScenario('admin-update');
 
         if (!Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } 
-        elseif ($model->load(Yii::$app->request->post())) {
+        } elseif ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
-        }
-        else {
+        } else {
             return $this->render('update', [
-                    'model' => $model,
-        ]);
+                        'model' => $model,
+            ]);
         }
     }
 
@@ -210,8 +210,8 @@ class VideoController extends Controller {
         if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
-                $cat_id = $parents[0];      
-                $out = Video::getLimited($cat_id); 
+                $cat_id = $parents[0];
+                $out = Video::getLimited($cat_id);
                 echo Json::encode(['output' => $out, 'selected' => '']);
                 return;
             }

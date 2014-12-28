@@ -41,9 +41,9 @@ return [
         // enable cookie-based authentication
         //'allowAutoLogin' => true,
         ],
-        'request' => [
-            'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'http://' . $_SERVER['HTTP_HOST'] : '',
-        ],
+//        'request' => [
+//            'baseUrl' => $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] != $_SERVER['SCRIPT_FILENAME'] ? 'http://' . $_SERVER['HTTP_HOST'] : '',
+//        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
             'cachePath' => '@root/cache',

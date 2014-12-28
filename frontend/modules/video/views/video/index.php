@@ -9,7 +9,7 @@ use yii\widgets\LinkSorter;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 
-$this->title = Yii::t('ru','Videos');
+$this->title = Yii::t('ru', 'Videos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="video-index">

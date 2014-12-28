@@ -27,5 +27,6 @@ return array(
     'kartik\\plugins\\depdrop\\' => array($vendorDir . '/kartik-v/dependent-dropdown'),
     'kartik\\depdrop\\' => array($vendorDir . '/kartik-v/yii2-widget-depdrop'),
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
+    'himiklab\\sortablegrid\\' => array($vendorDir . '/himiklab/yii2-sortable-grid-view-widget'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
 );

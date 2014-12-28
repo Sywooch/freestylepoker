@@ -48,4 +48,23 @@ $dir = \Yii::$app->controller->id;
 
         <?php ActiveForm::end(); ?>
     </div>
+    <div class="col-sm-12 text-right">
+    
+  <?php  echo 'Видео на странице: ' .
+    Html::a('1', ['cc' => 1], ['style' => 'position: relative;
+
+padding: 6px 12px;
+
+line-height: 1.428571429;
+text-decoration: none;
+background-color: #fff;']);
+    echo ' ' . Html::a('3', ['cc' => 3], ['style' => 'position: relative;
+
+padding: 6px 12px;
+
+line-height: 1.428571429;
+text-decoration: none;
+background-color: #fff;']); ?>
+        <br><br></div>
+    
 </div>
