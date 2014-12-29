@@ -58,7 +58,7 @@ line-height: 1.428571429;
 text-decoration: none;
 background-color: #fff;']);
         echo ' ' .
-        Html::a('2', ['cc' => '2'], ['style' => 'position: relative;
+        Html::a('2', '?cc=2', ['style' => 'position: relative;
 padding: 6px 12px;
 line-height: 1.428571429;
 text-decoration: none;
