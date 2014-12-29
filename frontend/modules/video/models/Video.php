@@ -148,7 +148,7 @@ class Video extends \yii\db\ActiveRecord {
                     $user->gold = $buy;
                     $user->save();
 
-                    return $this->message = 'Ваш пароль: 43Xs12fkGbt4Fu';
+                    return $this->message = 'Ваш пароль: ' . $this->password;
                 } else {
                     return $this->message = 'Недостаточно F$P';
                 }

@@ -30,7 +30,7 @@ $gridConfig = [
         [
             'class' => CheckboxColumn::classname()
         ],
-        'id',
+//        'id',
         [
             'attribute' => 'title',
             'format' => 'html',
@@ -40,9 +40,14 @@ $gridConfig = [
                 );
             }
                 ],
-                'description:ntext',
+//                'description:ntext',
                 'val',
-                'section',
+                [
+                    'attribute' => 'section',
+                    'format' => 'html',
+                    'filter' => Html::activeDropDownList(
+                            $searchModel, 'section' ,['нет','да'], ['class' => 'form-control', 'prompt' => 'Выбрать']),
+                ],
                 'ids',
                 'sortOrder',
                 [

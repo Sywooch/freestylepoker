@@ -112,6 +112,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview' => Yii::t('ru', 'Preview'),
             'comments' => Yii::t('ru', 'Comments'),
             'gp' => Yii::t('ru', 'Gp'),
+            'sortOrder' => Yii::t('ru', 'sortOrder'),
         ];
     }
 
@@ -158,6 +159,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview',
             'comments',
             'gp',
+            'sortOrder',
         ];
         $scenarios['admin-update'] = [
             'title',
@@ -181,6 +183,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview',
             'comments',
             'gp',
+            'sortOrder',
         ];
 
         return $scenarios;
