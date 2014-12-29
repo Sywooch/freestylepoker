@@ -173,16 +173,16 @@ return array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop',
     ),
   ),
-  'vova07/yii2-start-users-module' => 
-  array (
-    'name' => 'vova07/yii2-start-users-module',
-    'version' => '0.2.3.0',
-    'alias' => 
-    array (
-      '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
-    ),
-    'bootstrap' => 'vova07\\users\\Bootstrap',
-  ),
+//  'vova07/yii2-start-users-module' => 
+//  array (
+//    'name' => 'vova07/yii2-start-users-module',
+//    'version' => '0.2.3.0',
+//    'alias' => 
+//    array (
+//      '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
+//    ),
+//    'bootstrap' => 'vova07\\users\\Bootstrap',
+//  ),
   'himiklab/yii2-sortable-grid-view-widget' => 
   array (
     'name' => 'himiklab/yii2-sortable-grid-view-widget',
