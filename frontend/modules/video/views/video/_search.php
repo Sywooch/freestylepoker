@@ -52,7 +52,7 @@ $dir = \Yii::$app->controller->id;
 
         <?php
         echo 'Видео на странице: ' .
-        Html::a('1', ['cc' => '1'], ['style' => 'position: relative; 
+        Html::a('1', '?cc=1', ['style' => 'position: relative; 
 padding: 6px 12px;
 line-height: 1.428571429;
 text-decoration: none;
