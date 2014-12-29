@@ -27,7 +27,7 @@ $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
         <?php
         $box = Box::begin(
                         [
-                            'title' => $this->params['title'],
+                            'title' => $this->title,
                             'renderBody' => false,
                             'options' => [
                                 'class' => 'box-success'
