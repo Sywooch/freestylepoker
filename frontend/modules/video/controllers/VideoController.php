@@ -77,7 +77,7 @@ class VideoController extends Controller {
      * @param type $id
      */
     public function actionUs($id) {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
             echo Videoon::ong($id);
         }
     }
@@ -87,7 +87,7 @@ class VideoController extends Controller {
      * @param type $id
      */
     public function actionUse($id) {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
             echo Videoon::ons($id);
         }
     }

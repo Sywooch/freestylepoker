@@ -46,7 +46,7 @@ class Videoon extends \yii\db\ActiveRecord {
      * @param type $id
      * @return string
      */
-    public function ong($id) {
+    public static function ong($id) {
         // Создаем экземпляр модели Видео-Пользователь
         $videoon = new Videoon();
 
@@ -62,7 +62,7 @@ class Videoon extends \yii\db\ActiveRecord {
      * @param type $id
      * @return string
      */
-    public function ons($id) {
+    public static function ons($id) {
         $videoon = Videoon::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
         if ($videoon != NULL) {
             $videoon->delete();
