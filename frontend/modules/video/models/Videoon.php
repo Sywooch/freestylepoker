@@ -46,7 +46,7 @@ class Videoon extends \yii\db\ActiveRecord {
      * @param type $id
      * @return string
      */
-    public function on($id) {
+    public function ong($id) {
         // Создаем экземпляр модели Видео-Пользователь
         $videoon = new Videoon();
 

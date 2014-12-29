@@ -27,6 +27,7 @@ $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
         <?php
         $box = Box::begin(
                         [
+                            // SUBTITLE
                             'title' => $this->title,
                             'renderBody' => false,
                             'options' => [
