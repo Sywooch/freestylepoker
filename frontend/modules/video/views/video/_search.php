@@ -31,22 +31,26 @@ $dir = \Yii::$app->controller->id;
             <?= $form->field($model, 'val2') ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'author')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
+            <?php if ($this->beginCache($id, ['duration' => 30])) { ?>
+                <?= $form->field($model, 'author')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
+                <?php $this->endCache();
+            }
+            ?>
         </div>
         <div class="col-sm-3">
-            <?= $form->field($model, 'cup')->checkbox(['onclick' => 'submit()']) ?>
+<?= $form->field($model, 'cup')->checkbox(['onclick' => 'submit()']) ?>
         </div>
         <div class="col-sm-9">
-            <?= $form->field($model, 'ons')->checkbox(['onclick' => 'submit()']) ?>
+<?= $form->field($model, 'ons')->checkbox(['onclick' => 'submit()']) ?>
         </div>
 
         <div class="form-group col-sm-9">
             <?= Html::submitButton(\Yii::t('ru', 'Search'), ['class' => 'btn btn-primary']) ?>
             <?= Html::resetButton(\Yii::t('ru', 'Reset'), ['class' => 'btn btn-danger']) ?>
-            <?= Html::a(\Yii::t('ru', 'Back'), "/{$dir}/", ['class' => 'btn btn-info']) ?>
+<?= Html::a(\Yii::t('ru', 'Back'), "/{$dir}/", ['class' => 'btn btn-info']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
     </div>
     <div class="col-sm-12 text-right">
 
