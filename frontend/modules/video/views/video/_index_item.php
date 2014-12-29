@@ -56,9 +56,9 @@ if ($cup != NULL) {
 }
 
 // Если видео разобрано сообщать
-$on = Videoon::findOne(['video_id' => $model->id, 'user_id' => Yii::$app->user->id]);
+$ong = Videoon::findOne(['video_id' => $model->id, 'user_id' => Yii::$app->user->id]);
 
-if ($on != NULL) :
+if ($ong != NULL) :
     ?>
     <div id="categoriese<?= $model->id ?>">
 

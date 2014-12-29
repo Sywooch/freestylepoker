@@ -79,7 +79,7 @@ class Video extends \yii\db\ActiveRecord {
         return [
             [['title', 'embed', 'section', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
             [['description', 'conspects', 'tags'], 'string'],
-            [['val', 'sortorder', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
+            [['val', 'sortOrder', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
             [['date'], 'safe'],
             [['title', 'ids'], 'string', 'max' => 128],
             [['embed', 'alias', 'password', 'preview'], 'string', 'max' => 256]
@@ -112,7 +112,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview' => Yii::t('ru', 'Preview'),
             'comments' => Yii::t('ru', 'Comments'),
             'gp' => Yii::t('ru', 'Gp'),
-            'sortorder' => Yii::t('ru', 'sortOrder'),
+            'sortOrder' => Yii::t('ru', 'sortOrder'),
         ];
     }
 
@@ -159,7 +159,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview',
             'comments',
             'gp',
-            'sortorder',
+            'sortOrder',
         ];
         $scenarios['admin-update'] = [
             'title',
@@ -183,7 +183,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview',
             'comments',
             'gp',
-            'sortorder',
+            'sortOrder',
         ];
 
         return $scenarios;
