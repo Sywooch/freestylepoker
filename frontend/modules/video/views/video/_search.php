@@ -31,10 +31,7 @@ $dir = \Yii::$app->controller->id;
             <?= $form->field($model, 'val2') ?>
         </div>
         <div class="col-sm-6">
-            <?php if ($this->beginCache($id, ['duration' => 30])) { ?>
                 <?= $form->field($model, 'author')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
-                <?php $this->endCache();
-            }
             ?>
         </div>
         <div class="col-sm-3">
