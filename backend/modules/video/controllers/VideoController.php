@@ -5,7 +5,6 @@ namespace app\modules\video\controllers;
 use Yii;
 use app\modules\video\models\Video;
 use app\modules\video\models\VideoSearch;
-//use yii\web\Controller;
 use vova07\admin\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -1,4 +1,5 @@
 <?php
+
 namespace app\modules\video\models;
 
 use Yii;
@@ -9,16 +10,21 @@ use app\modules\video\models\Video;
 /**
  * VideoSearch represents the model behind the search form about `app\modules\video\models\Video`.
  */
-class VideoSearch extends Video
-{
+class VideoSearch extends Video {
+
+    public function init() {
+        parent::init();
+        $this->date = '';
+    }
+
     public $type;
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'val', 'author_id', 'section', 'duration', 'id_training',  'comments', 'gp'], 'integer'],
+            [['id', 'val', 'author_id', 'section', 'duration', 'id_training', 'comments', 'gp'], 'integer'],
             [['title', 'limit_id', 'type_id', 'embed', 'description', 'alias', 'ids', 'date', 'conspects', 'password', 'tags', 'preview', 'author'], 'safe'],
         ];
     }
@@ -26,8 +32,7 @@ class VideoSearch extends Video
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +44,7 @@ class VideoSearch extends Video
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Video::find()->joinWith(['type'])->joinWith(['limit']);
 
         $dataProvider = new ActiveDataProvider([
@@ -50,23 +54,23 @@ class VideoSearch extends Video
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-        
+
 //        $dataProvider->sort->attributes['name'] = [
 //            'asc' => [VideoType::tableName() . '.name' => SORT_ASC],
 //            'desc' => [VideoType::tableName() . '.name' => SORT_DESC]
 //        ];
-        
-        
-        if(!empty($this->date)) {
-            $date=Yii::$app->formatter->asTimestamp($this->date);
+
+
+        if (!empty($this->date)) {
+            $this->date = Yii::$app->formatter->asTimestamp($this->date);
         }
-        
+
         $query->andFilterWhere([
             'id' => $this->id,
             'val' => $this->val,
             'author_id' => $this->author_id,
             'section' => $this->section,
-            'date' => $date,
+            'date' => $this->date,
             'duration' => $this->duration,
             'id_training' => $this->id_training,
             'comments' => $this->comments,
@@ -76,16 +80,17 @@ class VideoSearch extends Video
         $query->andFilterWhere(['like', VideoType::tableName() . '.name', $this->type_id]);
         $query->andFilterWhere(['like', VideoLimits::tableName() . '.name', $this->limit_id]);
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'embed', $this->embed])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'alias', $this->alias])
-            ->andFilterWhere(['like', 'ids', $this->ids])
-            ->andFilterWhere(['like', 'conspects', $this->conspects])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'preview', $this->preview])
-            ->andFilterWhere(['like', 'author', $this->author]);
+                ->andFilterWhere(['like', 'embed', $this->embed])
+                ->andFilterWhere(['like', 'description', $this->description])
+                ->andFilterWhere(['like', 'alias', $this->alias])
+                ->andFilterWhere(['like', 'ids', $this->ids])
+                ->andFilterWhere(['like', 'conspects', $this->conspects])
+                ->andFilterWhere(['like', 'password', $this->password])
+                ->andFilterWhere(['like', 'tags', $this->tags])
+                ->andFilterWhere(['like', 'preview', $this->preview])
+                ->andFilterWhere(['like', 'author', $this->author]);
 
         return $dataProvider;
     }
+
 }

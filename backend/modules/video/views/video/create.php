@@ -10,6 +10,8 @@ $this->title = Yii::t('ru', 'Create Video');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('ru', 'Videos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->params['subtitle'] = Yii::t('ru', 'Update');
+
 $boxButtons = ['{cancel}'];
 
 if (Yii::$app->user->can('BCreateVideo')) {
@@ -26,8 +28,7 @@ $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
         <?php
         $box = Box::begin(
                         [
-                            // SUBTITLE
-                            'title' => $this->title,
+                            'title' => $this->params['subtitle'],
                             'renderBody' => false,
                             'options' => [
                                 'class' => 'box-success'
