@@ -12,9 +12,13 @@ the purchase of video and statistics model.
 
 vendor\bower\jquery-ui\ui\i18n
 
+***BUG Raport 3:*** _Disable of limit field no correct. Need make its else!_ 
+
 ####Controllers
 
 >All controllers Video module includes RBAC Behavior from B[action]Video.
+
+Need extends from `admin controller`. For it change: `use yii\web\Controller` on `use vova07\admin\components\Controller`
 
 Exemple: **VideoUsrController**
 ```
@@ -30,4 +34,10 @@ Exemple: **VideoUsrController**
 Configuration
 -------------
 - Add kartik-v DepDrop for dependent-dropdown @dropDownList()
+
+[kartik-v DepDrop](https://github.com/kartik-v/yii2-widget-depdrop)
+
+- Add himiklab SortableGrid
+
+[SortableGrid](https://github.com/himiklab/yii2-sortable-grid-view-widget)
 

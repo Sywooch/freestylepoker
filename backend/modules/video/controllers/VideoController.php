@@ -29,7 +29,7 @@ class VideoController extends Controller {
         $behaviors['access']['rules'] = [
             [
                 'allow' => true,
-                'actions' => ['index', 'view', 'subcat', 'sort'],
+                'actions' => ['index', 'view', 'getlimits', 'sort'],
                 'roles' => ['BViewVideo']
             ]
         ];
@@ -58,7 +58,7 @@ class VideoController extends Controller {
             'actions' => [
                 'index' => ['get'],
                 'create' => ['get', 'post'],
-                'subcat' => ['get', 'post'],
+                'getlimits' => ['post'],
                 'update' => ['get', 'put', 'post'],
                 'delete' => ['post', 'delete'],
                 'batch-delete' => ['post', 'delete']
@@ -69,7 +69,7 @@ class VideoController extends Controller {
     }
 
     /**
-     * 
+     * Actions
      * @return type
      */
     public function actions() {
@@ -204,18 +204,17 @@ class VideoController extends Controller {
         }
     }
 
-    public function actionSubcat() {
+    public function actionGetlimits() {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
-                $cat_id = $parents[0];
-                $out = Video::getLimited($cat_id);
+                $type_id = $parents[0];
+                $out = Video::getPartLimits($type_id);
                 echo Json::encode(['output' => $out, 'selected' => '']);
                 return;
             }
         }
         echo Json::encode(['output' => '', 'selected' => '']);
     }
-
 }

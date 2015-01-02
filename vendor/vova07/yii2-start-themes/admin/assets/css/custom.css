@@ -1,3 +1,7 @@
 .ui-datepicker{
     z-index: 10 !important;
 }
+
+.disabled { 
+    background: rgb(238, 238, 238);
+}

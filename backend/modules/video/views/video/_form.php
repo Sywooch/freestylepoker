@@ -7,7 +7,6 @@ use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use vova07\fileapi\Widget as FileAPI;
 use vova07\select2\Widget;
-
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
 /* @var $form yii\widgets\ActiveForm */
@@ -83,17 +82,18 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'val') ?>
 </div>
 <div class="col-sm-3">
-    <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'cat-id', 'prompt' => 'Выбрать']); ?>
+    <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'type_id', 'prompt' => 'Выбрать']); ?>
 </div>
 <div class="col-sm-3">
-    <?=
-    $form->field($model, 'limit_id')->widget(DepDrop::classname(), [
-        'options' => ['id' => 'subcat-id'],
-        'data' => $model->getData($model->type_id),
+    <?php 
+    echo $form->field($model, 'limit_id')->widget(DepDrop::classname(), [
+        'options' => ['id' => 'limit_id'],
+        'data' => $model->getCurrentLimits($model->type_id),
         'pluginOptions' => [
-            'depends' => ['cat-id'],
-            'placeholder' => 'Select...',
-            'url' => Url::to(['video/subcat/'])
+            'depends' => ['type_id'],
+            'placeholder' => 'Выбрать...',
+            'url' => Url::to(['video/getlimits/']),
+            'loadingText' => 'Загрузка ...'
         ]
     ]);
     ?>

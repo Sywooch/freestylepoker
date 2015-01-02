@@ -5,7 +5,7 @@ namespace app\modules\video\controllers;
 use Yii;
 use app\modules\video\models\VideoUsr;
 use app\modules\video\models\VideoUsrSearch;
-use yii\web\Controller;
+use vova07\admin\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -14,16 +14,47 @@ use yii\filters\VerbFilter;
  */
 class VideousrController extends Controller
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+    /**
+     * RBAC
+     * @return array
+     */
+    public function behaviors() {
+        $behaviors = parent::behaviors();
+
+        $behaviors['access']['rules'] = [
+            [
+                'allow' => true,
+                'actions' => ['index', 'view'],
+                'roles' => ['BViewVideo']
+            ]
         ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['create'],
+            'roles' => ['BCreateVideo']
+        ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['update'],
+            'roles' => ['BUpdateVideo']
+        ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['delete', 'batch-delete'],
+            'roles' => ['BDeleteVideo']
+        ];
+        $behaviors['verbs'] = [
+            'class' => VerbFilter::className(),
+            'actions' => [
+                'index' => ['get'],
+                'create' => ['get', 'post'],
+                'update' => ['get', 'put', 'post'],
+                'delete' => ['post', 'delete'],
+                'batch-delete' => ['post', 'delete']
+            ]
+        ];
+
+        return $behaviors;
     }
 
     /**
@@ -60,7 +91,7 @@ class VideousrController extends Controller
      */
     public function actionCreate()
     {
-        $model = new VideoUsr();
+        $model = new VideoUsr(['scenario' => 'admin-create']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -80,6 +111,7 @@ class VideousrController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->setScenario('admin-update');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

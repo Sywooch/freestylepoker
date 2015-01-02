@@ -41,5 +41,5 @@ return[
     'Videos'=>'Видео',
     
     'Select tags...'=>'Выберите теги...',
-    'sortOrder' => 'Порядок'
+    'sortOrder' => 'Порядок',
 ];

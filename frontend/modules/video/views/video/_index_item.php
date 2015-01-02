@@ -14,7 +14,8 @@ use vova07\comments\models\Comment;
 ?>
 <div class="col-sm-12">
     <h3>
-        <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id, 'alias' => $model->alias]); ?>
+        <?= Html::a(Html::encode($model->title), ['view', 'alias' => $model->alias]); ?>
+        <?php //  Html::a(Html::encode($model->title), ['view', 'id' => $model->id, 'alias' => $model->alias]); ?>
 
         <?= Html::img('/statics/web/video/previews/' . $model->preview, ['style' => 'width:100px; float:right; padding:0px']) ?>
     </h3>

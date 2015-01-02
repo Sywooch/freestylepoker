@@ -33,7 +33,6 @@ use himiklab\sortablegrid\SortableGridBehavior;
  * @property string $preview
  * @property integer $comments
  * @property integer $gp
- *
  * @property VideoType $type
  * @property VideoLimits $limit
  */
@@ -115,8 +114,19 @@ class Video extends \yii\db\ActiveRecord {
             'sortOrder' => Yii::t('ru', 'sortOrder'),
         ];
     }
+    
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+
+        $this->date = Yii::$app->formatter->asTimestamp($this->date);
+
+        return $this->author_id = Yii::$app->user->id;
+    }
+    
+    // СВЯЗИ
 
     /**
+     * Связь с таблицей типов
      * @return \yii\db\ActiveQuery
      */
     public function getType() {
@@ -124,12 +134,14 @@ class Video extends \yii\db\ActiveRecord {
     }
 
     /**
+     * Связь с таблицей лимитов
      * @return \yii\db\ActiveQuery
      */
     public function getLimit() {
         return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id'])->inverseOf('videos');
-        ;
     }
+    
+    // Сценарии
 
     /**
      * 
@@ -189,16 +201,8 @@ class Video extends \yii\db\ActiveRecord {
         return $scenarios;
     }
 
-    public function beforeSave($insert) {
-        parent::beforeSave($insert);
-
-        $this->date = Yii::$app->formatter->asTimestamp($this->date);
-
-        return $this->author_id = Yii::$app->user->id;
-    }
-
     /**
-     * 
+     * Получить список типов
      * @return array
      */
     public function getTyper() {
@@ -207,44 +211,26 @@ class Video extends \yii\db\ActiveRecord {
         return $result;
     }
 
-    public function getData($cat_id) {
-        $models = VideoLimits::find()->where(['type_id' => $cat_id])->asArray()->all();
-        $b = ArrayHelper::map($models, 'id', 'name');
-        return $b;
-    }
-
     /**
-     * 
-     * @return array
-     */
-    public function getLimited($cat_id) {
-        $models = VideoLimits::find()->where(['type_id' => $cat_id])->asArray()->all();
-        foreach ($models as $key => $value) {
-            $data[] = ['id' => $value['id'], 'name' => $value['name']];
-        }
-        return $data;
-    }
-
-    /**
-     * 
+     * Получить текущее лимиты
+     * @param type $cat_id
      * @return type
      */
-    public function getTags() {
-        return [
-            'Видеурок' => 'Видеурок',
-            'Ключевые аспекты' => 'Ключевые аспекты',
-            'bss' => 'bss',
-            'mss' => 'mss'
-        ];
-//        if ($this->_permissions === null) {
-//            $this->_permissions = Yii::$app->authManager->getPermissions();
-//
-//            if ($this->name !== null) {
-//                unset($this->_permissions[$this->name]);
-//            }
-//        }
-//        return $this->_permissions;
-//        $permissionArray = ArrayHelper::map($model->permissions, 'name', 'name');
+    public function getCurrentLimits($type_id) {
+        $model = VideoLimits::find()->where(['type_id' => $type_id])->asArray()->all();
+        $limits = ArrayHelper::map($model, 'id', 'name');
+        return $limits;
     }
 
+    /**
+     * Пуличить лимиты соответствующие типу
+     * @return array
+     */
+    public static function getPartLimits($type_id) {
+        $model = VideoLimits::find()->where(['type_id' => $type_id])->asArray()->all();
+        foreach ($model as $key => $value) {
+            $limits[] = ['id' => $value['id'], 'name' => $value['name']];
+        }
+        return $limits;
+    }
 }

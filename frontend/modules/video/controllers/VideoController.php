@@ -44,10 +44,19 @@ class VideoController extends Controller {
      * Displays a single Video model.
      * @param integer $id
      * @return mixed
+     * 
+     * Method change for work with aliases
      */
-    public function actionView($id) {
+    public function actionView($id='', $alias='') {
 
+        // Для работы алиасов внесем условие
+        if($id) {
         $model = $this->findModel($id);
+        }
+        elseif ($alias) {
+            // Найдем по алиасу
+            $model = Video::findOne(['alias' => $alias]);
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $model->buy($model->id);

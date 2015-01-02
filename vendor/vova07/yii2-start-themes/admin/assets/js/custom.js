@@ -17,7 +17,9 @@
             $('#video-id_training').attr('disabled', 'disabled');
             $('#video-val').attr('disabled', 'disabled');
             $('#video-password').attr('disabled', 'disabled');
+            $('#cat-id').prop('id', 'cat-idclose');
             $('#subcat-id').attr('disabled', 'disabled');
+            //$('#subcat-id').addClass('disabled');
             $('#video-tags').attr('disabled', 'disabled');     
         }
         else {
@@ -27,5 +29,7 @@
             $('#video-password').removeAttr('disabled');
             $('#subcat-id').removeAttr('disabled');
             $('#video-tags').removeAttr('disabled');
+            $('#cat-idclose').prop('id', 'cat-id');
+            $('#subcat-id').removeClass('disabled');
         }
     };
