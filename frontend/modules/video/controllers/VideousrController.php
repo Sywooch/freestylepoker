@@ -3,10 +3,8 @@
 namespace app\modules\video\controllers;
 
 use Yii;
-use app\modules\video\models\VideoUsr;
 use app\modules\video\models\VideoUsrSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
