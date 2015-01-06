@@ -6,6 +6,7 @@ use nill\users\models\User;
 use Yii;
 use yii\base\UserException;
 use app\modules\video\models\VideoUsr;
+use vova07\comments\models\Comment;
 
 /**
  * This is the model class for table "yii2_start_video".
@@ -65,10 +66,6 @@ class Video extends \yii\db\ActiveRecord {
             'preview' => Yii::t('ru', 'Preview'),
             'comments' => Yii::t('ru', 'Comments'),
             'gp' => Yii::t('ru', 'Gp'),
-            'val1' => Yii::t('ru', 'val1'),
-            'val2' => Yii::t('ru', 'val2'),
-            'cup' => Yii::t('ru', 'cup'),
-            'ons' => Yii::t('ru', 'ons'),
         ];
     }
 
@@ -103,9 +100,9 @@ class Video extends \yii\db\ActiveRecord {
      * 
      * Функция проверяет было ли видео уже куплено пользователем
      */
-    public function getIsBuy($id) {
+    public function get_isBuy() {
 
-        $if_buy_video = VideoUsr::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
+        $if_buy_video = VideoUsr::findOne(['video_id' => $this->id, 'user_id' => Yii::$app->user->id]);
 
         if ($if_buy_video === NULL) {
             return false;
@@ -119,8 +116,7 @@ class Video extends \yii\db\ActiveRecord {
         if (!Yii::$app->user->isGuest) {
 
             // Проверка было ли видео куплено ранее
-            $isBuy = $this->getisBuy($id);
-            if ($isBuy === false) {
+            if ($this->_isBuy === false) {
 
                 // Определяем стоимость видео
                 $val = self::findOne($id)->val;
@@ -130,6 +126,7 @@ class Video extends \yii\db\ActiveRecord {
                 $gold = $user->gold;
 
                 // Если сумма больше или равна стоимости
+                // покупка осуществляется
                 if ($gold >= $val) {
 
                     // Вычитаем
@@ -143,10 +140,8 @@ class Video extends \yii\db\ActiveRecord {
                     $videousr->user_id = Yii::$app->user->id;
                     $videousr->save();
 
-                    // Получаем запись из модели текущего пользователя
-                    // Присваевам резултат вычитания полю gold
-                    $user->gold = $buy;
-                    $user->save();
+                    // Обновляем атрибут gold и присваиваем результат вычитания
+                    $user->updateAttributes(['gold' => $buy]);
 
                     return $this->message = 'Ваш пароль: ' . $this->password;
                 } else {
@@ -161,7 +156,33 @@ class Video extends \yii\db\ActiveRecord {
     }
 
     /**
-     * 
+     * Получить кол-во комментариев в записи
+     * @param type $id
+     * @return integer
+     */
+    public function getCommentsCount() {
+        $comments_count = Comment::find()->where(['model_class' => '2621821478', 'model_id' => $this->id])->count();
+        return $comments_count;
+    }
+
+    /**
+     * Получить дату в формате
+     * @return date
+     */
+    public function get_date() {
+        return Yii::$app->formatter->asDate($this->date);
+    }
+
+    /**
+     * Вернуть - разобрано ли видео?
+     * @return object or NULL
+     */
+    public function get_isParsed() {
+        return Videoparsed::findOne(['video_id' => $this->id, 'user_id' => Yii::$app->user->id]);
+    }
+
+    /**
+     * Связь видео-пользователь
      * @return type
      */
     public function getVideoUsr() {
@@ -170,20 +191,20 @@ class Video extends \yii\db\ActiveRecord {
     }
 
     /**
-     * 
+     * Связь разобранно
      * @return type
      */
-    public function getVideoon() {
+    public function getVideoparsed() {
         // VideoUsr has_many Video via Video.video_id -> id
-        return $this->hasMany(Videoon::className(), ['video_id' => 'id']);
+        return $this->hasMany(Videoparsed::className(), ['video_id' => 'id']);
     }
 
-    /**
-     * 
-     * @return type
-     */
-    public function getUser() {
-        return $this->hasOne(User::className(), ['id' => 'author_id']);
-    }
+//    /**
+//     * 
+//     * @return type
+//     */
+//    public function getUser() {
+//        return $this->hasOne(User::className(), ['id' => 'author_id']);
+//    }
 
 }

@@ -5,12 +5,12 @@ namespace app\modules\video\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\video\models\VideoUsr;
+use app\modules\video\models\VideoLimits;
 
 /**
- * VideoUsrSearch represents the model behind the search form about `app\modules\video\models\VideoUsr`.
+ * VideoLimitsSearch represents the model behind the search form about `app\modules\video\models\VideoLimits`.
  */
-class VideoUsrSearch extends VideoUsr
+class VideoLimitsSearch extends VideoLimits
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class VideoUsrSearch extends VideoUsr
     public function rules()
     {
         return [
-            [['id', 'video_id', 'user_id'], 'integer'],
+            [['id', 'type_id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class VideoUsrSearch extends VideoUsr
      */
     public function search($params)
     {
-        $query = VideoUsr::find()->joinWith('videos');
+        $query = VideoLimits::find()->joinWith(['type']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -52,9 +53,10 @@ class VideoUsrSearch extends VideoUsr
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'video_id' => $this->video_id,
-            'user_id' => $this->user_id,
+            'type_id' => $this->type_id,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

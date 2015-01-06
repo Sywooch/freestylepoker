@@ -5,19 +5,19 @@ namespace app\modules\video\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%video_on}}".
+ * This is the model class for table "{{%video_parsed}}".
  *
  * @property integer $id
  * @property integer $video_id
  * @property integer $user_id
  */
-class Videoon extends \yii\db\ActiveRecord {
+class Videoparsed extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName() {
-        return '{{%video_on}}';
+        return '{{%video_parsed}}';
     }
 
     /**
@@ -42,34 +42,34 @@ class Videoon extends \yii\db\ActiveRecord {
     }
 
     /**
-     * Pjax add VIDEO ON
+     * Pjax add VIDEO parsed
      * @param type $id
      * @return string
      */
-    public static function ong($id) {
+    public static function _add($id) {
         // Создаем экземпляр модели Видео-Пользователь
-        $videoon = new Videoon();
+        $videoparsed = new Videoparsed();
 
         // Присваевам атрибуты и сохраняем (делаем запись)
-        $videoon->video_id = $id;
-        $videoon->user_id = Yii::$app->user->id;
-        $videoon->save();
-        return 'Разобрано';
+        $videoparsed->video_id = $id;
+        $videoparsed->user_id = Yii::$app->user->id;
+        $videoparsed->save();
+        return Yii::t('ru', 'Parsed');
     }
 
     /**
-     * Pjax add VIDEO DELETE
+     * Pjax delete VIDEO parsed
      * @param type $id
      * @return string
      */
-    public static function ons($id) {
-        $videoon = Videoon::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
-        if ($videoon != NULL) {
-            $videoon->delete();
-            return 'Отмечено не разобраным';
+    public static function _delete($id) {
+        $videoparsed = self::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
+        if ($videoparsed != NULL) {
+            $videoparsed->delete();
+            return Yii::t('ru', 'No Parsed');
         }
         else {
-            return 'Не правильно';
+            throw new \yii\db\Exception('This record does not exist.');
         }
     }
 

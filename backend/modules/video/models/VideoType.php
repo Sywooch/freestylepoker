@@ -45,6 +45,21 @@ class VideoType extends \yii\db\ActiveRecord
             'name' => Yii::t('ru', 'Name'),
         ];
     }
+    
+    /**
+     * Scenarios
+     */
+    public function scenarios() {
+        parent::scenarios();
+        
+         $scenarios['admin-create'] = [
+             'name',
+         ];
+         $scenarios['admin-update'] = [
+             'name',
+         ];
+         return $scenarios;
+    }
 
     /**
      * @return \yii\db\ActiveQuery

@@ -49,6 +49,9 @@ class VideoSearch extends Video {
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 7,
+            ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {

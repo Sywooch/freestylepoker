@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://github.com/himiklab/yii2-sortable-grid-view-widget
  * @copyright Copyright (c) 2014 HimikLab
@@ -31,18 +32,16 @@ use yii\base\InvalidConfigException;
  * @author HimikLab
  * @package himiklab\sortablegrid
  */
-class SortableGridBehavior extends Behavior
-{
+class SortableGridBehavior extends Behavior {
+
     /** @var string database field name for row sorting */
     public $sortableAttribute = 'sortOrder';
 
-    public function events()
-    {
+    public function events() {
         return [ActiveRecord::EVENT_BEFORE_INSERT => 'beforeInsert'];
     }
 
-    public function gridSort($items)
-    {
+    public function gridSort($items) {
         /** @var ActiveRecord $model */
         $model = $this->owner;
         if (!$model->hasAttribute($this->sortableAttribute)) {
@@ -60,10 +59,24 @@ class SortableGridBehavior extends Behavior
                 ++$i;
             }
         });
+        
+        // Вызов пересортировки
+        $this->reSort();
     }
 
-    public function beforeInsert()
-    {
+    /**
+     * Пересортировка
+     */
+    private function reSort() {
+        $models = \app\modules\video\models\Video::find()->orderBy('sortOrder')->all();
+        $i = 0;
+        foreach ($models as $value) {
+            $value->updateAttributes(['sortOrder' => $i]);
+            ++$i;
+        }
+    }
+
+    public function beforeInsert() {
         /** @var ActiveRecord $model */
         $model = $this->owner;
         if (!$model->hasAttribute($this->sortableAttribute)) {
@@ -74,4 +87,5 @@ class SortableGridBehavior extends Behavior
 
         $model->{$this->sortableAttribute} = $maxOrder + 1;
     }
+
 }

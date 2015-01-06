@@ -33,4 +33,11 @@ return [
     'Sign out' => 'Выход',
     'Toggle navigation' => 'Показать/Скрыть меню',
     'Users' => 'Пользователи',
+    
+    'Videos' => 'Видео',
+    'All Videos' => 'Все видео',
+    'Video Users' => 'Видео-пользователь',
+    'Video Type' => 'Типы видео',
+    'Video Limits' => 'Лимиты видео',
+    
 ];

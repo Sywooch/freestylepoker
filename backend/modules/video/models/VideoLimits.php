@@ -3,6 +3,8 @@
 namespace app\modules\video\models;
 
 use Yii;
+use app\modules\video\models\VideoType;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%video_limits}}".
@@ -33,7 +35,6 @@ class VideoLimits extends \yii\db\ActiveRecord
             [['name', 'type_id'], 'required'],
             [['type_id'], 'integer'],
             [['name'], 'string', 'max' => 256],
-            [['type_id'], 'unique']
         ];
     }
 
@@ -48,13 +49,30 @@ class VideoLimits extends \yii\db\ActiveRecord
             'type_id' => Yii::t('ru', 'Type ID'),
         ];
     }
+    
+    /**
+     * Scenarios
+     */
+    public function scenarios() {
+        parent::scenarios();
+        
+         $scenarios['admin-create'] = [
+             'name',
+             'type_id',
+         ];
+         $scenarios['admin-update'] = [
+             'name',
+             'type_id',
+         ];
+         return $scenarios;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getVideos()
     {
-        return $this->hasMany(Video::className(), ['limit_id' => 'id'])->inverseOf('type');;
+        return $this->hasMany(Video::className(), ['limit_id' => 'id'])->inverseOf('type');
     }
 
     /**
@@ -63,5 +81,15 @@ class VideoLimits extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(VideoType::className(), ['id' => 'type_id']);
+    }
+    
+    /**
+     * Получить список типов
+     * @return array
+     */
+    public function getTyper() {
+        $models = VideoType::find()->asArray()->all();
+        $result = ArrayHelper::map($models, 'id', 'name');
+        return $result;
     }
 }

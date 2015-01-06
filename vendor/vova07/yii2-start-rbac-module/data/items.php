@@ -73,6 +73,9 @@ return [
     'user' => [
         'type' => 1,
         'description' => 'User',
+        'children' => [
+            'ViewVideo',
+        ],
     ],
     'admin' => [
         'type' => 1,

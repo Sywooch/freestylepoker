@@ -5,20 +5,20 @@ namespace app\modules\video\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%video_on}}".
+ * This is the model class for table "{{%video_parsed}}".
  *
  * @property integer $id
  * @property integer $video_id
  * @property integer $user_id
  */
-class Videoon extends \yii\db\ActiveRecord
+class Videoparsed extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%video_on}}';
+        return '{{%video_parsed}}';
     }
 
     /**

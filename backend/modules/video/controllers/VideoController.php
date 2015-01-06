@@ -29,7 +29,7 @@ class VideoController extends Controller {
         $behaviors['access']['rules'] = [
             [
                 'allow' => true,
-                'actions' => ['index', 'view', 'getlimits', 'sort'],
+                'actions' => ['index', 'view'],
                 'roles' => ['BViewVideo']
             ]
         ];
@@ -50,7 +50,7 @@ class VideoController extends Controller {
         ];
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['imperavi-get', 'imperavi-image-upload', 'imperavi-file-upload', 'fileapi-upload'],
+            'actions' => ['fileapi-upload', 'getlimits', 'sort'],
             'roles' => ['BCreateVideo', 'BUpdateVideo']
         ];
         $behaviors['verbs'] = [
@@ -59,6 +59,7 @@ class VideoController extends Controller {
                 'index' => ['get'],
                 'create' => ['get', 'post'],
                 'getlimits' => ['post'],
+                'sort' => ['post'],
                 'update' => ['get', 'put', 'post'],
                 'delete' => ['post', 'delete'],
                 'batch-delete' => ['post', 'delete']
@@ -143,6 +144,7 @@ class VideoController extends Controller {
         $model->setScenario('admin-update');
 
         if (!Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', Yii::t('ru', 'UPDATE SUCCESSFUL'));
             return $this->redirect(['view', 'id' => $model->id]);
         } elseif ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -204,10 +206,15 @@ class VideoController extends Controller {
         }
     }
 
+    /**
+     * Получить список зависимых от тапа лимитов (вызывется в форме)
+     * @return JSON 
+     */
     public function actionGetlimits() {
         $out = [];
-        if (isset($_POST['depdrop_parents'])) {
-            $parents = $_POST['depdrop_parents'];
+        $post = Yii::$app->request->post();
+        if (isset($post)) {
+            $parents = $post['depdrop_parents'];
             if ($parents != null) {
                 $type_id = $parents[0];
                 $out = Video::getPartLimits($type_id);

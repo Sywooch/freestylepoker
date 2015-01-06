@@ -36,10 +36,22 @@ return[
     
     'Update Video: '=>'Обновить видео: ',
     'Update'=>'Обновить',
+    'Delete'=>'Удалить',
     'Create Video'=>'Создать видео',
     'Create'=>'Создать',
     'Videos'=>'Видео',
+    'Are you sure you want to delete this item?' => 'Элемент будет удален',
     
     'Select tags...'=>'Выберите теги...',
     'sortOrder' => 'Порядок',
+    'Select...' => 'Выбрать...',
+    
+    'Name' => 'Имя',
+    'Video Users' => 'Видео-пользователь',
+    'Video Types' => 'Типы видео',
+    'Video Limits' => 'Лимиты видео',
+    'Create Video Limits' => 'Создать лимит видео',
+    'Create Video Type' => 'Создать тип видео',
+    
+    'UPDATE SUCCESSFUL' => 'Обновление успешно заверешено',
 ];

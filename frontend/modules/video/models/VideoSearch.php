@@ -16,15 +16,25 @@ class VideoSearch extends Video {
     /**
      * @inheritdoc
      */
-    public $val1;
-    public $val2;
-    public $cup;
-    public $ons;
+    public $from_val;
+    public $to_val;
+    public $is_buy;
+    public $is_parsed;
 
     public function rules() {
         return [
-            [['title', 'author', 'val1', 'val2', 'val', 'cup', 'ons', 'tags'], 'string'],
+            [['title', 'author', 'from_val', 'to_val', 'val', 'is_buy', 'is_parsed', 'tags'], 'string'],
             [['embed', 'description'], 'safe'],
+        ];
+    }
+    
+    public function attributeLabels() {
+        parent::attributeLabels();
+        return [
+            'from_val' => Yii::t('ru', 'From F$P'),
+            'to_val' => Yii::t('ru', 'To F$P'),
+            'is_buy' => Yii::t('ru', 'Is Buy'),
+            'is_parsed' => Yii::t('ru', 'Is Parsed'),
         ];
     }
 
@@ -46,25 +56,19 @@ class VideoSearch extends Video {
     public function search($params) {
 
         // COOKIES SET
-        $cookies = \Yii::$app->response->cookies;
-
-        if (!empty(Yii::$app->request->get('cc'))) {
-
-            $cookies->add(new \yii\web\Cookie([
-                'name' => 'ccx',
-                'value' => Yii::$app->request->get('cc'),
+        if (!empty(Yii::$app->request->get('page_size'))) {
+            \Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'VIDEO_PAGE_SIZE',
+                'value' => Yii::$app->request->get('page_size'),
             ]));
         }
 
         // COOKIES GET
-        $cookies = \Yii::$app->request->cookies;
-//      echo \Yii::$app->request->cookies->getValue('ccx'); 
-
-        if (($cookie = $cookies->get('ccx')) !== null) {
-            $ccx = $cookie->value;
+        if (($cookie = \Yii::$app->request->cookies->get('VIDEO_PAGE_SIZE')) !== null) {
+            $cookie_page_size = $cookie->value;
         }
-        if (!empty(Yii::$app->request->get('cc'))) {
-            $ccx = Yii::$app->request->get('cc');
+        if (!empty(Yii::$app->request->get('page_size'))) {
+            $cookie_page_size = Yii::$app->request->get('page_size');
         }
 
         $query = Video::find()->addGroupBy(['sortOrder']);
@@ -76,7 +80,7 @@ class VideoSearch extends Video {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => $x = (!empty($ccx)) ? $ccx : 2,
+                'pageSize' => (!empty($cookie_page_size)) ? $cookie_page_size : 2,
             ]
         ]);
 
@@ -95,15 +99,15 @@ class VideoSearch extends Video {
                 ->andFilterWhere(['like', 'description', $this->description])
                 ->andFilterWhere(['like', 'author', $this->author])
                 ->andFilterWhere(['like', 'tags', $this->tags])
-                ->andFilterWhere(['between', 'val', $this->val1, $this->val2]);
+                ->andFilterWhere(['between', 'val', $this->from_val, $this->to_val]);
 
-        if ($this->cup && !Yii::$app->user->isGuest) {
+        if ($this->is_buy && !Yii::$app->user->isGuest) {
             $query->joinWith(['videoUsr'])->andFilterWhere([VideoUsr::tableName() . '.user_id' => Yii::$app->user->id]);
         }
 
-        if ($this->ons && !Yii::$app->user->isGuest) {
+        if ($this->is_parsed && !Yii::$app->user->isGuest) {
             //$query->joinWith(['videoon'])->andFilterWhere(['{{%video_on}}.user_id' => Yii::$app->user->id]);
-            $query->joinWith(['videoon'])->andFilterWhere([Videoon::tableName() . '.user_id' => Yii::$app->user->id]);
+            $query->joinWith(['videoparsed'])->andFilterWhere([Videoparsed::tableName() . '.user_id' => Yii::$app->user->id]);
         }
 
         return $dataProvider;

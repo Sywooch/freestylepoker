@@ -35,6 +35,7 @@ use himiklab\sortablegrid\SortableGridBehavior;
  * @property integer $gp
  * @property VideoType $type
  * @property VideoLimits $limit
+ * @property sortOrder $sortOrder
  */
 class Video extends \yii\db\ActiveRecord {
 
@@ -117,9 +118,9 @@ class Video extends \yii\db\ActiveRecord {
     
     public function beforeSave($insert) {
         parent::beforeSave($insert);
-
+        // установить правильный формат даты
         $this->date = Yii::$app->formatter->asTimestamp($this->date);
-
+        // сохраним владельца
         return $this->author_id = Yii::$app->user->id;
     }
     
@@ -213,7 +214,7 @@ class Video extends \yii\db\ActiveRecord {
 
     /**
      * Получить текущее лимиты
-     * @param type $cat_id
+     * @param type $type_id
      * @return type
      */
     public function getCurrentLimits($type_id) {

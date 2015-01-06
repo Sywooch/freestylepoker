@@ -8,10 +8,8 @@
  * @var \vova07\blogs\models\backend\BlogSearch $searchModel Search model
  * @var array $statusArray Statuses array
  */
-
 use vova07\themes\admin\widgets\Box;
 use vova07\themes\admin\widgets\GridView;
-
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
@@ -32,8 +30,14 @@ $gridConfig = [
             'class' => CheckboxColumn::classname()
         ],
         'id',
-        'video_id',
-        'user_id'
+        [
+            'attribute' => 'video_id',
+            'value' => 'videos.title'
+        ],
+        [
+            'attribute' => 'user_id',
+            'value' => 'users.username'
+        ],
     ]
 ];
 
@@ -59,21 +63,24 @@ if ($showActions === true) {
         'template' => implode(' ', $actions)
     ];
 }
-$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null; ?>
+$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
+?>
 
 <div class="row">
     <div class="col-xs-12">
-        <?php Box::begin(
-            [
-                'title' => $this->params['subtitle'],
-                'bodyOptions' => [
-                    'class' => 'table-responsive'
-                ],
-                'buttonsTemplate' => $boxButtons,
-                'grid' => $gridId
-            ]
-        ); ?>
+        <?php
+        Box::begin(
+                [
+                    'title' => $this->params['subtitle'],
+                    'bodyOptions' => [
+                        'class' => 'table-responsive'
+                    ],
+                    'buttonsTemplate' => $boxButtons,
+                    'grid' => $gridId
+                ]
+        );
+        ?>
         <?= GridView::widget($gridConfig); ?>
-        <?php Box::end(); ?>
+<?php Box::end(); ?>
     </div>
 </div>

@@ -82,7 +82,7 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'val') ?>
 </div>
 <div class="col-sm-3">
-    <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'type_id', 'prompt' => 'Выбрать']); ?>
+    <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'type_id', 'prompt' => Yii::t('ru', 'Select...')]); ?>
 </div>
 <div class="col-sm-3">
     <?php 
@@ -91,7 +91,7 @@ $form = ActiveForm::begin([
         'data' => $model->getCurrentLimits($model->type_id),
         'pluginOptions' => [
             'depends' => ['type_id'],
-            'placeholder' => 'Выбрать...',
+            'placeholder' => Yii::t('ru', 'Select...'),
             'url' => Url::to(['video/getlimits/']),
             'loadingText' => 'Загрузка ...'
         ]

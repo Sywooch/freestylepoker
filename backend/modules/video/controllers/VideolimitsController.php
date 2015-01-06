@@ -3,16 +3,16 @@
 namespace app\modules\video\controllers;
 
 use Yii;
-use app\modules\video\models\VideoUsr;
-use app\modules\video\models\VideoUsrSearch;
+use app\modules\video\models\VideoLimits;
+use app\modules\video\models\VideoLimitsSearch;
 use vova07\admin\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VideoUsrController - Контроллер для реализации Пользователь-Видео
+ * VideolimitsController implements the CRUD actions for VideoLimits model.
  */
-class VideousrController extends Controller
+class VideolimitsController extends Controller
 {
     /**
      * RBAC
@@ -50,7 +50,6 @@ class VideousrController extends Controller
                 'create' => ['get', 'post'],
                 'update' => ['get', 'put', 'post'],
                 'delete' => ['post', 'delete'],
-                'batch-delete' => ['post', 'delete']
             ]
         ];
 
@@ -58,12 +57,12 @@ class VideousrController extends Controller
     }
 
     /**
-     * Lists all VideoUsr models.
+     * Lists all VideoLimits models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VideoUsrSearch();
+        $searchModel = new VideoLimitsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -73,7 +72,7 @@ class VideousrController extends Controller
     }
 
     /**
-     * Displays a single VideoUsr model.
+     * Displays a single VideoLimits model.
      * @param integer $id
      * @return mixed
      */
@@ -85,16 +84,16 @@ class VideousrController extends Controller
     }
 
     /**
-     * Creates a new VideoUsr model.
+     * Creates a new VideoLimits model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new VideoUsr(['scenario' => 'admin-create']);
+        $model = new VideoLimits(['scenario' => 'admin-create']);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -103,7 +102,7 @@ class VideousrController extends Controller
     }
 
     /**
-     * Updates an existing VideoUsr model.
+     * Updates an existing VideoLimits model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -124,7 +123,7 @@ class VideousrController extends Controller
     }
 
     /**
-     * Deletes an existing VideoUsr model.
+     * Deletes an existing VideoLimits model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -135,44 +134,20 @@ class VideousrController extends Controller
 
         return $this->redirect(['index']);
     }
-    
-    /**
-     * Delete multiple posts page.
-     *
-     * @return mixed
-     * @throws \yii\web\HttpException
-     */
-    public function actionBatchDelete()
-    {
-        if (($ids = Yii::$app->request->post('ids')) !== null) {
-            $models = $this->findModel($ids);
-            foreach ($models as $model) {
-                $model->delete();
-            }
-            return $this->redirect(['index']);
-        } else {
-            throw new HttpException(400);
-        }
-    }
 
     /**
-     * Finds the VideoUsr model based on its primary key value.
+     * Finds the VideoLimits model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VideoUsr the loaded model
+     * @return VideoLimits the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (is_array($id)) {
-            $model = VideoUsr::findAll($id);
-        } else {
-            $model = VideoUsr::findOne($id);
-        }
-        if ($model !== null) {
+        if (($model = VideoLimits::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new HttpException(404);
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 }

@@ -8,22 +8,38 @@ use app\modules\video\models\VideoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\video\models\Videoon;
+use app\modules\video\models\Videoparsed;
+use yii\filters\AccessControl;
 
 /**
  * VideoController implements the CRUD actions for Video model.
  */
 class VideoController extends Controller {
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors() {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+        $behaviors = parent::behaviors();
+
+        if (!isset($behaviors['access']['class'])) {
+            $behaviors['access']['class'] = AccessControl::className();
+        }
+
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['index', 'view', 'deleteparsed', 'addparsed'],
+            'roles' => ['ViewVideo']
         ];
+        $behaviors['verbs'] = [
+            'class' => VerbFilter::className(),
+            'actions' => [
+                'index' => ['get', 'post'],
+                'view' => ['get', 'post']
+            ]
+        ];
+
+        return $behaviors;
     }
 
     /**
@@ -47,24 +63,19 @@ class VideoController extends Controller {
      * 
      * Method change for work with aliases
      */
-    public function actionView($id='', $alias='') {
+    public function actionView($id = '', $alias = '') {
 
         // Для работы алиасов внесем условие
-        if($id) {
-        $model = $this->findModel($id);
-        }
-        elseif ($alias) {
+        if ($id) {
+            $model = $this->findModel($id);
+        } elseif ($alias) {
             // Найдем по алиасу
             $model = Video::findOne(['alias' => $alias]);
         }
 
         if ($model->load(Yii::$app->request->post())) {
             $model->buy($model->id);
-            if (!Yii::$app->user->isGuest) {
-                Yii::$app->session->setFlash(
-                        'success', yii::t('ru', 'Сообщение об успешной покупке')
-                );
-            } else {
+            if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
                         'success', yii::t('ru', 'Вы не авторизированы')
                 );
@@ -82,22 +93,26 @@ class VideoController extends Controller {
     }
 
     /**
-     * PJAX ADD VIDEO ON
+     * PJAX ADD VIDEO parsed
      * @param type $id
      */
-    public function actionUs($id) {
+    public function actionAddparsed($id) {
         if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
-            echo Videoon::ong($id);
+            echo Videoparsed::_add($id);
+        } else {
+            throw new yii\base\InvalidRouteException('Request is not pjax');
         }
     }
 
     /**
-     * PJAX DELETE VIDEO ON
+     * PJAX DELETE VIDEO parsed
      * @param type $id
      */
-    public function actionUse($id) {
+    public function actionDeleteparsed($id) {
         if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
-            echo Videoon::ons($id);
+            echo Videoparsed::_delete($id);
+        } else {
+            throw new \yii\base\InvalidRouteException('Request is not pjax');
         }
     }
 

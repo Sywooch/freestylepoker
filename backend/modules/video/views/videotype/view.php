@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\video\models\Video */
+/* @var $model app\modules\video\models\VideoType */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('ru', 'Videos'), 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('ru', 'Video Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="video-view">
+<div class="video-type-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,26 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'title',
-            'embed',
-            'description:ntext',
-            'val',
-            'author_id',
-            'section',
-            'alias',
-            'ids',
-            'date',
-            'duration',
-            'conspects:ntext',
-            'id_training',
-            'password',
-            'type_id',
-            'limit_id',
-            'tags',
-            'preview',
-            'comments',
-            'gp',
-            'author:ntext',
+            'name:ntext',
         ],
     ]) ?>
 

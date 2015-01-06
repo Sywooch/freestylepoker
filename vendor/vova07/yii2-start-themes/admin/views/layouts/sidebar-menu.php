@@ -29,18 +29,28 @@ echo Menu::widget(
                     'label' => Yii::t('vova07/themes/admin', 'Videos'),
                     'url' => '#',
                     'icon' => 'fa-video-camera',
-                    'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers') || Yii::$app->user->can('BViewPermissions'),
+                    'visible' => Yii::$app->user->can('administrateVideo') || Yii::$app->user->can('BViewVideo'),
                     'items' => [
                         [
-                            'label' => Yii::t('vova07/themes/admin', 'Videos'),
+                            'label' => Yii::t('vova07/themes/admin', 'All Videos'),
                             'url' => ['/video/video/index'],
-                            'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewUsers'),
+                            'visible' => Yii::$app->user->can('administrateVideo') || Yii::$app->user->can('BViewVideo'),
                         ],
                         [
                             'label' => Yii::t('vova07/themes/admin', 'Video Users'),
                             'url' => ['/video/videousr/index'],
-                            'visible' => Yii::$app->user->can('administrateUsers') || Yii::$app->user->can('BViewPermissions')
-                        ]
+                            'visible' => Yii::$app->user->can('administrateVideo')
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Video Type'),
+                            'url' => ['/video/videotype/index'],
+                            'visible' => Yii::$app->user->can('administrateVideo')
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Video Limits'),
+                            'url' => ['/video/videolimits/index'],
+                            'visible' => Yii::$app->user->can('administrateVideo')
+                        ],
                     ]
                 ],
 //            [

@@ -25,52 +25,39 @@ $dir = \Yii::$app->controller->id;
         <div class="col-sm-12">
         </div>
         <div class="col-sm-3">
-            <?= $form->field($model, 'val1') ?>
+            <?= $form->field($model, 'from_val') ?>
         </div>
         <div class="col-sm-3">
-            <?= $form->field($model, 'val2') ?>
+            <?= $form->field($model, 'to_val') ?>
         </div>
         <div class="col-sm-6">
-                <?= $form->field($model, 'author')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
+            <?= $form->field($model, 'author')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
         </div>
         <div class="col-sm-3">
-<?= $form->field($model, 'cup')->checkbox(['onclick' => 'submit()']) ?>
+            <?= $form->field($model, 'is_buy')->checkbox(['onclick' => 'submit()']) ?>
         </div>
         <div class="col-sm-9">
-<?= $form->field($model, 'ons')->checkbox(['onclick' => 'submit()']) ?>
+            <?= $form->field($model, 'is_parsed')->checkbox(['onclick' => 'submit()']) ?>
         </div>
 
         <div class="form-group col-sm-9">
             <?= Html::submitButton(\Yii::t('ru', 'Search'), ['class' => 'btn btn-primary']) ?>
             <?= Html::resetButton(\Yii::t('ru', 'Reset'), ['class' => 'btn btn-danger']) ?>
-<?= Html::a(\Yii::t('ru', 'Back'), "/{$dir}/", ['class' => 'btn btn-info']) ?>
+            <?= Html::a(\Yii::t('ru', 'Back'), "/{$dir}/", ['class' => 'btn btn-info']) ?>
         </div>
 
-<?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
     </div>
-    <div class="col-sm-12 text-right">
-
+    <div class="col-sm-12 text-right page_size">
         <?php
         echo 'Видео на странице: ' .
-        Html::a('1', '?cc=1', ['style' => 'position: relative; 
-padding: 6px 12px;
-line-height: 1.428571429;
-text-decoration: none;
-background-color: #fff;']);
+        Html::a('1', '?page_size=1');
         echo ' ' .
-        Html::a('2', '?cc=2', ['style' => 'position: relative;
-padding: 6px 12px;
-line-height: 1.428571429;
-text-decoration: none;
-background-color: #fff;']);
-        echo ' ' . Html::a('3', '?cc=3', ['style' => 'position: relative;
-
-padding: 6px 12px;
-
-line-height: 1.428571429;
-text-decoration: none;
-background-color: #fff;']);
+        Html::a('2', '?page_size=2');
+        echo ' ' .
+        Html::a('3', '?page_size=3');
         ?>
-        <br><br></div>
+        <br><br>
+    </div>
 
 </div>

@@ -3,6 +3,8 @@
 namespace app\modules\video\models;
 
 use Yii;
+use app\modules\video\models\Video;
+use nill\users\models\User;
 
 /**
  * This is the model class for table "{{%video_usr}}".
@@ -42,5 +44,38 @@ class VideoUsr extends \yii\db\ActiveRecord
             'video_id' => Yii::t('ru', 'Video ID'),
             'user_id' => Yii::t('ru', 'User ID'),
         ];
+    }
+    
+    /**
+     * Scenarios
+     */
+    public function scenarios() {
+        parent::scenarios();
+        
+         $scenarios['admin-create'] = [
+             'video_id',
+             'user_id',
+         ];
+         $scenarios['admin-update'] = [
+             'video_id',
+             'user_id',
+         ];
+         return $scenarios;
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVideos()
+    {
+        return $this->hasOne(Video::className(), ['id' => 'video_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

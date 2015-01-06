@@ -41,3 +41,23 @@ Configuration
 
 [SortableGrid](https://github.com/himiklab/yii2-sortable-grid-view-widget)
 
+>For work with Video need add in `SortableGridBehavior` extensions next: 
+
+```
+public function gridSort($items) {
+...
+$this->reSort();
+}
+
+private function reSort() {
+    $models = \app\modules\video\models\Video::find()->orderBy('sortOrder')->all();
+    $i = 0;
+    foreach ($models as $value) {
+        $value->updateAttributes(['sortOrder' => $i]);
+        ++$i;
+    }
+}
+```
+
+_this function add resort for video._
+
