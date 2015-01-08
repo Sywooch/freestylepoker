@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use vova07\select2\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model nill\fsp\models\backend\Fspstat */
@@ -11,9 +12,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'user_id') ?>
+        <?= $form->field($model, 'user_id')->widget(Widget::className(), [
+                'options' => [
+                    'prompt' => \Yii::t('ru', 'Select...'),
+                ],
+                'settings' => [
+                    'width' => '100%',
+                ],
+                'items' => $model->AllUsers,
+            ]) ?>
         <?= $form->field($model, 'fsp') ?>
-        <?= $form->field($model, 'from_id') ?>
         <?= $form->field($model, 'comment') ?>
         <?= $form->field($model, 'date') ?>
     

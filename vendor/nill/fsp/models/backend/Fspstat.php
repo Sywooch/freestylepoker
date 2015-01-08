@@ -3,6 +3,8 @@
 namespace nill\fsp\models\backend;
 
 use Yii;
+use nill\users\models\backend\User;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "fsp_stat_fsp".
@@ -17,24 +19,22 @@ use Yii;
  * @property Users $from
  * @property Users $user
  */
-class Fspstat extends \yii\db\ActiveRecord
-{
+class Fspstat extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'fsp_stat_fsp';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['user_id', 'fsp', 'from_id', 'comment', 'date'], 'required'],
-            [['user_id', 'fsp', 'from_id'], 'integer'],
+            [['user_id', 'fsp', 'comment', 'date'], 'required'],
+            [['user_id', 'fsp'], 'integer'],
             [['date'], 'safe'],
             [['comment'], 'string', 'max' => 256]
         ];
@@ -43,31 +43,70 @@ class Fspstat extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('ru', 'ID'),
             'user_id' => Yii::t('ru', 'User ID'),
             'fsp' => Yii::t('ru', 'Fsp'),
-            'from_id' => Yii::t('ru', 'From ID'),
             'comment' => Yii::t('ru', 'Comment'),
             'date' => Yii::t('ru', 'Date'),
         ];
     }
 
     /**
+     * 
+     * @return string
+     */
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+        $scenarios['change-gold'] = [
+            'user_id',
+            'fsp',
+            'comment',
+            'date',
+        ];
+        return $scenarios;
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFrom()
-    {
+    public function getFrom() {
         return $this->hasOne(Users::className(), ['id' => 'from_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+    public function getUser() {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    /**
+     * Получить список всех пользователей для вывода в форме
+     * @return array
+     */
+    public function getAllUsers() {
+        $model = User::find()->asArray()->all();
+        $result = ArrayHelper::map($model, 'id', 'username');
+        return $result;
+    }
+
+    /**
+     * 
+     * @param type $insert
+     * @param type $changedAttributes
+     * @return \yii\db\ActiveQuery
+     */
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+
+        // Обновление счета пользователя
+        $user = User::findOne(['id' => $this->user_id]);
+        $gold = $user->getAttribute('gold');
+        $sum = $this->fsp + $gold;
+        $user->updateAttributes(['gold' => $sum]);
+        return;
+    }
+
 }

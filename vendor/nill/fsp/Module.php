@@ -36,7 +36,7 @@ class Module extends \yii\base\Module
      * @return string the translated message.
      */
     
-    public $controllerNamespace = 'nill\fsp\controllers\backend';
+    public $controllerNamespace = 'nill\fsp\controllers\frontend';
     
     private $_isBackend;
     
@@ -49,7 +49,7 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        if ($this->getIsBackend() === true) {
+        if ($this->isBackend === true) {
             $this->setViewPath('@nill/fsp/views/backend');
         } else {
             $this->setViewPath('@nill/fsp/views/frontend');
