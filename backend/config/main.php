@@ -9,7 +9,7 @@ return [
     'defaultRoute' => 'admin/default/index',
     'modules' => [
         'fsp' => [
-            'class' => 'nill\fsp\Module',
+            'controllerNamespace' => 'nill\fsp\controllers\backend',
         ],
         'admin' => [
             'class' => 'vova07\admin\Module'
