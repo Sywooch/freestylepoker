@@ -12,6 +12,9 @@ return [
         'blogs' => [
             'controllerNamespace' => 'vova07\blogs\controllers\frontend'
         ],
+        'fsp' => [
+            'controllerNamespace' => 'nill\fsp\controllers\frontend',
+        ],
     ],
     'components' => [
         'request' => [

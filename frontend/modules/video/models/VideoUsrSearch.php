@@ -3,7 +3,6 @@
 namespace app\modules\video\models;
 
 use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\video\models\VideoUsr;
 use app\modules\video\models\Video;
@@ -21,14 +20,6 @@ class VideoUsrSearch extends VideoUsr {
         return [
             [['id', 'video_id', 'user_id'], 'integer'],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function scenarios() {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
     }
 
     /**

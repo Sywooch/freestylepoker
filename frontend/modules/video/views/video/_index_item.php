@@ -26,7 +26,7 @@ use yii\widgets\Pjax;
 <div class="col-sm-12">
     <?php
     echo '<b>Теги: </b>';
-    $tags = explode(" ", $model->tags);
+    $tags = explode(",", $model->tags);
     foreach ($tags as $value) {
         echo '<a href="?VideoSearch[tags]=' . $value . '">#' . $value . '</a> ';
     }

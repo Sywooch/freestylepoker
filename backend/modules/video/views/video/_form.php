@@ -7,6 +7,8 @@ use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use vova07\fileapi\Widget as FileAPI;
 use vova07\select2\Widget;
+use kartik\select2\Select2;
+
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
 /* @var $form yii\widgets\ActiveForm */
@@ -15,7 +17,7 @@ use vova07\select2\Widget;
 <?php
 $form = ActiveForm::begin([
             'enableAjaxValidation' => true
-    ]);
+        ]);
 ?>
 
 <div class="col-sm-12">
@@ -59,18 +61,15 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'conspects') ?>
 </div>
 <div class="col-sm-6">
-    <?= $form->field($model, 'tags')
-//            ->widget(Widget::className(), [
-//                'options' => [
-//                    'multiple' => true,
-//                    'placeholder' => Yii::t('ru','Select tags...'),
-//                ],
-//                'settings' => [
-//                    'width' => '100%',
-//                ],
-//                'items' => $model->Tags
-//            ])->label('tags') ?>
-    
+    <?=
+    $form->field($model, 'tags')->widget(Select2::classname(), [
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'tags' => $model->Tags,
+            'maximumInputLength' => 10
+        ],
+    ]);
+    ?>
 </div>
 <div class="col-sm-3">
     <?= $form->field($model, 'password') ?>
@@ -85,7 +84,7 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'type_id', 'prompt' => Yii::t('ru', 'Select...')]); ?>
 </div>
 <div class="col-sm-3">
-    <?php 
+    <?php
     echo $form->field($model, 'limit_id')->widget(DepDrop::classname(), [
         'options' => ['id' => 'limit_id'],
         'data' => $model->getCurrentLimits($model->type_id),
@@ -99,7 +98,7 @@ $form = ActiveForm::begin([
     ?>
 </div>
 <div class="col-sm-6">
-    <?= $form->field($model, 'ids') ?>
+    <?= $form->field($model, 'ids'); ?>
 </div>
 <div class="col-sm-6">
     <?= $form->field($model, 'comments')->checkbox() ?>
@@ -108,14 +107,15 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'gp')->checkbox() ?>
 </div>
 <div class="col-sm-12">
-     <?= $form->field($model, 'preview')->widget(
-                FileAPI::className(),
-                [
-                    'settings' => [
-                        'url' => ['/video/video/fileapi-upload']
-                    ]
-                ]
-            ) ?>
+    <?=
+    $form->field($model, 'preview')->widget(
+            FileAPI::className(), [
+        'settings' => [
+            'url' => ['/video/video/fileapi-upload']
+        ]
+            ]
+    )
+    ?>
 </div>
 <div class="form-group">
     <?= Html::submitButton($model->isNewRecord ? Yii::t('ru', 'Create') : Yii::t('ru', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

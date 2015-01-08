@@ -66,31 +66,8 @@ class Video extends \yii\db\ActiveRecord {
             'preview' => Yii::t('ru', 'Preview'),
             'comments' => Yii::t('ru', 'Comments'),
             'gp' => Yii::t('ru', 'Gp'),
+            'videoparsed.id' => Yii::t('ru', 'Parsed'),
         ];
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    public function scenarios() {
-        $scenarios = parent::scenarios();
-        $scenarios['admin-create'] = [
-            'title',
-            'embed',
-            'val',
-            'description',
-            'author_id',
-        ];
-        $scenarios['admin-update'] = [
-            'title',
-            'embed',
-            'val',
-            'description',
-            'author_id',
-        ];
-
-        return $scenarios;
     }
 
     /**
@@ -196,8 +173,17 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function getVideoparsed() {
         // VideoUsr has_many Video via Video.video_id -> id
-        return $this->hasMany(Videoparsed::className(), ['video_id' => 'id']);
+        return $this->hasOne(Videoparsed::className(), ['video_id' => 'id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLimit()
+    {
+        return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id']);
+    }
+    
 
 //    /**
 //     * 

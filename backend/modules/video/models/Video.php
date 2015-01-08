@@ -115,7 +115,7 @@ class Video extends \yii\db\ActiveRecord {
             'sortOrder' => Yii::t('ru', 'sortOrder'),
         ];
     }
-    
+
     public function beforeSave($insert) {
         parent::beforeSave($insert);
         // установить правильный формат даты
@@ -123,7 +123,7 @@ class Video extends \yii\db\ActiveRecord {
         // сохраним владельца
         return $this->author_id = Yii::$app->user->id;
     }
-    
+
     // СВЯЗИ
 
     /**
@@ -141,7 +141,7 @@ class Video extends \yii\db\ActiveRecord {
     public function getLimit() {
         return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id'])->inverseOf('videos');
     }
-    
+
     // Сценарии
 
     /**
@@ -234,4 +234,30 @@ class Video extends \yii\db\ActiveRecord {
         }
         return $limits;
     }
+
+    /**
+     * Получить тэги из таблицы тэгов
+     * @return type
+     */
+    public function getTags() {
+        $model = VideoTags::find()->asArray()->all();
+        $tags = ArrayHelper::getColumn($model, 'tag');
+        return $tags;
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+
+        // Добавить новый тег в таблицу тегов
+        $tags = explode(",", $this->tags);
+        $model_tags = new VideoTags();
+        foreach ($tags as $value) {
+            $isset_tag = $model_tags->findOne(['tag' => $value]);
+            if ($isset_tag === NULL) {
+                $model_tags->tag = $value;
+                $model_tags->save();
+            }
+        }
+    }
+
 }

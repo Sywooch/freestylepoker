@@ -12,11 +12,6 @@
 use vova07\themes\admin\widgets\Box;
 use vova07\themes\admin\widgets\GridView;
 
-use yii\grid\ActionColumn;
-use yii\grid\CheckboxColumn;
-use yii\helpers\Html;
-use yii\jui\DatePicker;
-
 $this->title = yii::t('ru', 'Video Users');
 $this->params['subtitle'] = yii::t('ru', 'Video Users Panel');
 $this->params['breadcrumbs'] = [

@@ -3,16 +3,16 @@
 namespace app\modules\video\controllers;
 
 use Yii;
-use app\modules\video\models\VideoUsrSearch;
+use app\modules\video\models\Video_goldfundSearch;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
- * VideoUsrController implements the CRUD actions for VideoUsr model.
+ * Video_goldfundController implements the CRUD actions for Video_goldfund model.
  */
-class VideousrController extends Controller
-{
+class Video_goldfundController extends Controller {
+
     /**
      * @inheritdoc
      */
@@ -38,19 +38,18 @@ class VideousrController extends Controller
 
         return $behaviors;
     }
-
+    
     /**
-     * Lists all VideoUsr models.
+     * Lists all Video_goldfund models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new VideoUsrSearch();
+    public function actionIndex() {
+        $searchModel = new Video_goldfundSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 }

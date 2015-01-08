@@ -31,7 +31,8 @@
         "vova07/yii2-start-rbac-module": "*",
 		"kartik-v/yii2-widget-depdrop": "*",
 		"himiklab/yii2-sortable-grid-view-widget": "*",
-		"himiklab/yii2-chained-dropdown-list-widget": "*"
+		"himiklab/yii2-chained-dropdown-list-widget": "*",
+		"kartik-v/yii2-widget-select2": "*"
     },
     "require-dev": {
     	"yiisoft/yii2-debug": "*",
