@@ -173,16 +173,6 @@ return array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop',
     ),
   ),
-//  'vova07/yii2-start-users-module' => 
-//  array (
-//    'name' => 'vova07/yii2-start-users-module',
-//    'version' => '0.2.3.0',
-//    'alias' => 
-//    array (
-//      '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
-//    ),
-//    'bootstrap' => 'vova07\\users\\Bootstrap',
-//  ),
   'himiklab/yii2-sortable-grid-view-widget' => 
   array (
     'name' => 'himiklab/yii2-sortable-grid-view-widget',
@@ -190,6 +180,24 @@ return array (
     'alias' => 
     array (
       '@himiklab/sortablegrid' => $vendorDir . '/himiklab/yii2-sortable-grid-view-widget',
+    ),
+  ),
+  'himiklab/yii2-chained-dropdown-list-widget' => 
+  array (
+    'name' => 'himiklab/yii2-chained-dropdown-list-widget',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@himiklab/chained' => $vendorDir . '/himiklab/yii2-chained-dropdown-list-widget',
+    ),
+  ),
+  'kartik-v/yii2-widget-select2' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-select2',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
     ),
   ),
 );
