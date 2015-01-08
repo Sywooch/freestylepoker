@@ -22,8 +22,8 @@ use Yii;
  * @property \vova07\users\models\User $author Author
  * @property Model $model Model
  */
-class Comment extends \vova07\comments\models\Comment
-{
+class Comment extends \vova07\comments\models\Comment {
+
     /**
      * @var string Created date
      */
@@ -37,8 +37,7 @@ class Comment extends \vova07\comments\models\Comment
     /**
      * @return string Created date
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         if ($this->_created === null) {
             $this->_created = Yii::$app->formatter->asDate($this->created_at, 'd LLL Y');
         }
@@ -49,8 +48,7 @@ class Comment extends \vova07\comments\models\Comment
     /**
      * @return string Updated date
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         if ($this->_updated === null) {
             $this->_updated = Yii::$app->formatter->asDate($this->updated_at, 'd LLL Y');
         }
@@ -61,8 +59,7 @@ class Comment extends \vova07\comments\models\Comment
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         return [
             'create' => ['parent_id', 'model_class', 'model_id', 'content'],
             'update' => ['content'],
@@ -72,8 +69,7 @@ class Comment extends \vova07\comments\models\Comment
     /**
      * @inheritdoc
      */
-    public function beforeSave($insert)
-    {
+    public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             if ($insert) {
                 if (!$this->author_id) {

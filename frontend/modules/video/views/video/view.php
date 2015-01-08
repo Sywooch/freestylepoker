@@ -48,7 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'title' => 'Купить доступ к просмотру'
                                     ];
 
-                                    if (Yii::$app->user->isGuest || $model->_isBuy == true) {
+                                    if ($model->_isBuy == true) {
+                                        Html::addCssClass($options, 'hide');
+                                        echo 'Пароль: ' . $model->password;
+                                    }
+
+                                    if (Yii::$app->user->isGuest) {
                                         Html::addCssClass($options, 'disabled');
                                     }
 
@@ -59,6 +64,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <br>
                                     <br>
                                     <?= "<a href={$model->conspects}>Практика к тренировке: 3 барреля СБ против ББ</a>" ?>
+                                    <br>
+                                    <br>
+                                    <?php
+                                    if ($model->ids != NULL || $model->ids != '') {
+                                        $course = explode(",", $model->ids);
+                                        echo '<b>Курс:</b> <br>';
+                                        foreach ($course as $value) {
+                                            $video_model = $model->getvideomodel($value);
+                                            echo Html::a(Html::encode($video_model->title), ['view', 'alias' => $video_model->alias]);
+                                            echo '<br>';
+                                        }
+                                    }
+                                    ?>
                                 </div>
                         </div>
                     </div>
@@ -88,3 +106,13 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
+
+        <?php 
+$comments_clock_model = new app\modules\video\models\CommentsClock();
+
+$comments_clock = $comments_clock_model->findOne(['author_id' => Yii::$app->user->id, 'video_id' => $model->id]);
+
+if($comments_clock != NULL) {
+    $comments_clock->delete();
+}
+?>

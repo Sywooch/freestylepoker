@@ -12,6 +12,7 @@ use yii\widgets\LinkSorter;
 $this->title = Yii::t('ru', 'Videos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="video-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

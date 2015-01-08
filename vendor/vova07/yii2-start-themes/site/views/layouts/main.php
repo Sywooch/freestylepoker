@@ -40,7 +40,9 @@ use yii\widgets\Breadcrumbs;
                             echo $user->username;
                             echo "<br><a href='/videousr/'>";
                             echo $user->gold==null ? '0 F$P' : $user->gold . ' F$P';
-                            echo '</a></div>';
+                            echo '</a>'
+                            . \nill\comment_widget\Widget_cc::widget()
+                            . '</div>';
                         }
                         ?>
                     <?= $this->render('//layouts/top-menu') ?>

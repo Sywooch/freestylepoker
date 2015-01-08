@@ -88,6 +88,12 @@ class Video extends \yii\db\ActiveRecord {
         }
     }
 
+    /**
+     * Покупка видео
+     * @param type $id
+     * @return type
+     * @throws UserException
+     */
     public function buy($id) {
         // Проверка авторизации
         if (!Yii::$app->user->isGuest) {
@@ -96,7 +102,8 @@ class Video extends \yii\db\ActiveRecord {
             if ($this->_isBuy === false) {
 
                 // Определяем стоимость видео
-                $val = self::findOne($id)->val;
+                $video_model = self::findOne($id);
+                $val = $video_model->val;
 
                 // Получаем Модель и сумму пользователя
                 $user = User::findOne(Yii::$app->user->id);
@@ -120,6 +127,19 @@ class Video extends \yii\db\ActiveRecord {
                     // Обновляем атрибут gold и присваиваем результат вычитания
                     $user->updateAttributes(['gold' => $buy]);
 
+                    // Обновляем статистику
+                    $stat = new \nill\fsp\models\backend\Fspstat;
+                    $stat->fsp = -$val;
+                    $stat->user_id = Yii::$app->user->id;
+                    $stat->comment = $video_model->ids != NULL || $video_model->ids != '' ? 'Купил видео курс' : 'Купил видео';
+                    $stat->date = 1;
+                    $stat->save();
+
+                    // Покупка курса
+                    if ($video_model->ids != NULL || $video_model->ids != '') {
+                        $this->buy_course($video_model->ids);
+                    }
+
                     return $this->message = 'Ваш пароль: ' . $this->password;
                 } else {
                     return $this->message = 'Недостаточно F$P';
@@ -129,6 +149,25 @@ class Video extends \yii\db\ActiveRecord {
             }
         } else {
             throw new UserException('Ошибка, Вы не авторизированы');
+        }
+    }
+
+    /**
+     * Покупка курса видео
+     * @param type $ids
+     */
+    private function buy_course($ids) {
+        $buy_course = explode(",", $ids);
+        foreach ($buy_course as $value) {
+            if ($value != NULL) {
+                // Создаем экземпляр модели Видео-Пользователь
+                $videousr = new VideoUsr();
+
+                // Присваевам атрибуты и сохраняем (делаем запись)
+                $videousr->video_id = $value;
+                $videousr->user_id = Yii::$app->user->id;
+                $videousr->save();
+            }
         }
     }
 
@@ -175,15 +214,22 @@ class Video extends \yii\db\ActiveRecord {
         // VideoUsr has_many Video via Video.video_id -> id
         return $this->hasOne(Videoparsed::className(), ['video_id' => 'id']);
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLimit()
-    {
+    public function getLimit() {
         return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id']);
     }
-    
+
+    /**
+     * 
+     * @param type $value
+     * @return \yii\db\ActiveQuery
+     */
+    public function getvideomodel($value) {
+        return self::findOne($value);
+    }
 
 //    /**
 //     * 
@@ -192,5 +238,4 @@ class Video extends \yii\db\ActiveRecord {
 //    public function getUser() {
 //        return $this->hasOne(User::className(), ['id' => 'author_id']);
 //    }
-
 }
