@@ -23,14 +23,12 @@ use yii\db\ActiveRecord;
  * @property \vova07\users\models\User $author Author
  * @property Model $model Model
  */
-class Comment extends ActiveRecord {
-
+class Comment extends ActiveRecord
+{
     /** Status banned */
     const STATUS_BANNED = 0;
-
     /** Status active */
     const STATUS_ACTIVE = 1;
-
     /** Status deleted */
     const STATUS_DELETED = 2;
 
@@ -42,25 +40,31 @@ class Comment extends ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return '{{%comments}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'timestampBehavior' => [
                 'class' => TimestampBehavior::className()
-            ]
+            ],
+            'Comment_clock_behavior' => [
+                'class' => \nill\comment_widget\behaviors\Comment_clock_behavior::className(),
+            ],
         ];
     }
 
     /**
      * @return array Status array
      */
-    public static function getStatusArray() {
+    public static function getStatusArray()
+    {
         return [
             self::STATUS_BANNED => Module::t('comments', 'STATUS_BANNED'),
             self::STATUS_ACTIVE => Module::t('comments', 'STATUS_ACTIVE'),
@@ -73,7 +77,8 @@ class Comment extends ActiveRecord {
      *
      * @return null|array|]yii\db\ActiveRecord[] Comment children
      */
-    public function getChildren() {
+    public function getChildren()
+    {
         return $this->_children;
     }
 
@@ -82,35 +87,40 @@ class Comment extends ActiveRecord {
      *
      * @param array|\yii\db\ActiveRecord[] $value Comment children
      */
-    public function setChildren($value) {
+    public function setChildren($value)
+    {
         $this->_children = $value;
     }
 
     /**
      * @return string Comment status
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return self::getStatusArray()[$this->status_id];
     }
 
     /**
      * @return boolean Whether comment is active or not
      */
-    public function getIsActive() {
+    public function getIsActive()
+    {
         return $this->status_id === self::STATUS_ACTIVE;
     }
 
     /**
      * @return boolean Whether comment is banned or not
      */
-    public function getIsBanned() {
+    public function getIsBanned()
+    {
         return $this->status_id === self::STATUS_BANNED;
     }
 
     /**
      * @return boolean Whether comment is deleted or not
      */
-    public function getIsDeleted() {
+    public function getIsDeleted()
+    {
         return $this->status_id === self::STATUS_DELETED;
     }
 
@@ -122,7 +132,8 @@ class Comment extends ActiveRecord {
      *
      * @return mixed
      */
-    public function validateModelId($attribute, $params) {
+    public function validateModelId($attribute, $params)
+    {
         /** @var ActiveRecord $class */
         $class = Model::findIdentity($this->model_class);
 
@@ -139,7 +150,8 @@ class Comment extends ActiveRecord {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             // Require
             ['content', 'required'],
@@ -162,7 +174,8 @@ class Comment extends ActiveRecord {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => Module::t('comments', 'ATTR_ID'),
             'parent_id' => Module::t('comments', 'ATTR_PARENT'),
@@ -179,21 +192,24 @@ class Comment extends ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthor() {
+    public function getAuthor()
+    {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClass() {
+    public function getClass()
+    {
         return $this->hasOne(Model::className(), ['id' => 'model_class']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModel() {
+    public function getModel()
+    {
         /** @var ActiveRecord $class */
         $class = Model::find()->where(['id' => $this->model_class])->asArray()->one();
         $model = $class->name;
@@ -209,11 +225,12 @@ class Comment extends ActiveRecord {
      *
      * @return array|\yii\db\ActiveRecord[] Comments tree
      */
-    public static function getTree($model, $class) {
+    public static function getTree($model, $class)
+    {
         $models = self::find()->where([
-                    'model_id' => $model,
-                    'model_class' => $class
-                ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
+            'model_id' => $model,
+            'model_class' => $class
+        ])->orderBy(['parent_id' => 'ASC', 'created_at' => 'ASC'])->with(['author'])->all();
 
         if ($models !== null) {
             $models = self::buildTree($models);
@@ -230,7 +247,8 @@ class Comment extends ActiveRecord {
      *
      * @return array|\yii\db\ActiveRecord[] Comments tree
      */
-    protected static function buildTree(&$data, $rootID = 0) {
+    protected static function buildTree(&$data, $rootID = 0)
+    {
         $tree = [];
 
         foreach ($data as $id => $node) {
@@ -249,30 +267,10 @@ class Comment extends ActiveRecord {
      *
      * @return boolean Whether comment was deleted or not
      */
-    public function deleteComment() {
-
-        // Удалить запись о непрочитанных комментариев
-        $cc = new \app\modules\video\models\CommentsClock;
-        $ccd = $cc->findOne(['author_id' => Yii::$app->user->id, 'video_id' => $this->model_id]);
-        if ($ccd != NULL) {
-            $ccd->delete();
-        }
-
+    public function deleteComment()
+    {
         $this->status_id = self::STATUS_DELETED;
         $this->content = '';
         return $this->save(false, ['status_id', 'content']);
     }
-
-    public function afterSave($insert, $changedAttributes) {
-        parent::afterSave($insert, $changedAttributes);
-
-        // Установить непрочитанные комментарии
-        if ($insert) {
-            $cc = new \app\modules\video\models\CommentsClock;
-            $cc->video_id = $this->model_id;
-            $cc->author_id = Yii::$app->user->id;
-            $cc->save();
-        }
-    }
-
 }

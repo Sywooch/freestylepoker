@@ -107,12 +107,14 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-        <?php 
-$comments_clock_model = new app\modules\video\models\CommentsClock();
+    <?php
+    /**
+     * Обнулить непрочитанные комментарии
+     */
+    $comments_clock_model = new app\modules\video\models\CommentsClock();
+    $comments_clock = $comments_clock_model->findOne(['author_id' => Yii::$app->user->id, 'video_id' => $model->id]);
 
-$comments_clock = $comments_clock_model->findOne(['author_id' => Yii::$app->user->id, 'video_id' => $model->id]);
-
-if($comments_clock != NULL) {
-    $comments_clock->delete();
-}
-?>
+    if ($comments_clock != NULL) {
+        $comments_clock->delete();
+    }
+    ?>

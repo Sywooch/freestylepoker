@@ -29,3 +29,10 @@ if (Yii::$app->base->hasExtension('comments') && Yii::$app->user->can('viewComme
 endif;
 ?>
 ```
+
+4. Add Comments Clock behavior in Commet Model:
+```
+'Comment_clock_behavior' => [
+            'class' => \nill\comment_widget\behaviors\Comment_clock_behavior::className(),
+        ],
+```
