@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use vova07\select2\Widget;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
@@ -78,6 +80,35 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                     ?>
                                 </div>
+                                <div class="gift" id="gifter">
+                                    <?php
+                                    if (Yii::$app->user->can('administrateVideo')) {
+                                        $gift_form = ActiveForm::begin([
+                                                    'id' => 'gift',
+                                                    'method' => 'post',
+                                                    'action' => ['gift'],
+                                        ]);
+                                        ?>
+                                        <?=
+                                        $gift_form->field($model, 'author')->widget(Widget::className(), [
+                                            'options' => [
+                                                'prompt' => \Yii::t('ru', 'Select...'),
+                                            ],
+                                            'settings' => [
+                                                'width' => '100%',
+                                            ],
+                                            'items' => $model->AllUsers,
+                                        ])
+                                        ?>
+                                        <?= $gift_form->field($model, 'id')->hiddenInput()->label(false); ?>
+                                        <?= Html::submitButton('Подарить', ['class' => 'btn btn-primary'], ['id' => 'gift-sbm']) ?>
+                                        <?php ActiveForm::end(); 
+                                        Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
+                                        Pjax::end();
+                                    }
+                                    ?>
+                                </div>
+
                         </div>
                     </div>
                 </div><!--/.blog-item-->
@@ -106,15 +137,3 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-
-    <?php
-    /**
-     * Обнулить непрочитанные комментарии
-     */
-    $comments_clock_model = new app\modules\video\models\CommentsClock();
-    $comments_clock = $comments_clock_model->findOne(['author_id' => Yii::$app->user->id, 'video_id' => $model->id]);
-
-    if ($comments_clock != NULL) {
-        $comments_clock->delete();
-    }
-    ?>

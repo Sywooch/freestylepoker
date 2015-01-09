@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\video\models\Videoparsed;
 use yii\filters\AccessControl;
+use nill\comment_widget\models\CommentsClock;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -28,14 +29,22 @@ class VideoController extends Controller {
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['index', 'view', 'deleteparsed', 'addparsed'],
+            'actions' => ['index', 'view', 'deleteparsed', 'addparsed','gift'],
             'roles' => ['ViewVideo']
         ];
+        
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['gift'],
+            'roles' => ['administrateVideo']
+        ];
+        
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),
             'actions' => [
                 'index' => ['get', 'post'],
-                'view' => ['get', 'post']
+                'view' => ['get', 'post'],
+                'gift' => ['get', 'post'],
             ]
         ];
 
@@ -74,7 +83,7 @@ class VideoController extends Controller {
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->buy($model->id);
+            $model->buy();
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
                         'success', yii::t('ru', 'Вы не авторизированы')
@@ -86,6 +95,10 @@ class VideoController extends Controller {
                         'model' => $model,
             ]);
         } else {
+            // Обнулить непрочитанные комментарии
+            $comments_clock_model = new CommentsClock();
+            $comments_clock_model->reset = $model->id;
+            
             return $this->render('view', [
                         'model' => $model,
             ]);
@@ -128,6 +141,18 @@ class VideoController extends Controller {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    /**
+     * Подарить
+     * @throws \yii\base\InvalidRouteException
+     */
+    public function actionGift() {
+        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest && Yii::$app->request->post('Video')) {
+            echo Video::_gift(Yii::$app->request->post('Video'));
+        } else {
+            throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
         }
     }
 

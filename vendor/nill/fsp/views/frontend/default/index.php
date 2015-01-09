@@ -21,7 +21,10 @@ $gridConfig = [
         'id',
         'fsp',
         'comment',
-        'date',
+        [
+            'attribute' => 'date',
+            'format' => 'datetime',
+        ],
     ]
 ];
 ?>

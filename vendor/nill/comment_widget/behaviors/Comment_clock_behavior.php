@@ -2,9 +2,11 @@
 
 namespace nill\comment_widget\behaviors;
 
-use app\modules\video\models\CommentsClock;
+use nill\comment_widget\models\CommentsClock;
+use app\modules\video\models\Video;
 use yii\db\ActiveRecord;
 use Yii;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,26 +15,17 @@ use Yii;
 
 class Comment_clock_behavior extends \yii\base\Behavior {
 
-    /**
-     * EVENT_BEFORE_INSERT и EVENT_BEFORE_UPDATE
-     * возможно лучше заменить на EVENT_AFTER_VALIDATE
-     */
     public function events() {
         return [
             ActiveRecord::EVENT_AFTER_UPDATE => 'deleteComment',
             ActiveRecord::EVENT_AFTER_VALIDATE => 'afterSave',
         ];
     }
-    
-    
+
     /**
-     * Delete comment.
-     *
-     * @return boolean Whether comment was deleted or not
+     * Удалить запись о непрочитанных комментариев
      */
     public function deleteComment() {
-
-        // Удалить запись о непрочитанных комментариев
         $cc = new CommentsClock();
         $ccd = $cc->findOne(['author_id' => Yii::$app->user->id, 'video_id' => $this->owner->model_id]);
         if ($ccd != NULL) {
@@ -40,16 +33,18 @@ class Comment_clock_behavior extends \yii\base\Behavior {
         }
     }
 
+    /**
+     * Установить непрочитанные комментарии
+     */
     public function afterSave($insert) {
-
-        // Установить непрочитанные комментарии
         if ($insert) {
             $cc = new CommentsClock();
             $cc->video_id = $this->owner->model_id;
 
-            // !!! Найти автора видео!!!
-            $cc->author_id = Yii::$app->user->id;
+            $video_model = Video::findOne(['id' => $this->owner->model_id]);
+            $cc->author_id = $video_model->author_id;
             $cc->save();
         }
     }
+
 }

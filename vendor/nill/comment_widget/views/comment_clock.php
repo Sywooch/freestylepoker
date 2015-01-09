@@ -20,7 +20,7 @@ Pjax::begin(['id' => 'der']);
             <div class="modal-body">
                 <?php
                 foreach ($cc as $key => $value) {
-                    $video_model = \nill\comment_widget\Widget_cc::getVideo($value['video_id']);                    
+                    $video_model = \nill\comment_widget\models\CommentsClock::getVideo($value['video_id']);                    
                     echo Html::a(Html::encode($video_model->title), ['view', 'alias' => $video_model->alias], ['data-pjax'=>'0']);
                     echo '<br>';
                 }

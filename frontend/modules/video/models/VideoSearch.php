@@ -35,6 +35,8 @@ class VideoSearch extends Video {
             'to_val' => Yii::t('ru', 'To F$P'),
             'is_buy' => Yii::t('ru', 'Is Buy'),
             'is_parsed' => Yii::t('ru', 'Is Parsed'),
+            'author' => Yii::t('ru', 'Author'),
+            'title' => Yii::t('ru', 'Search'),
         ];
     }
 
@@ -63,7 +65,7 @@ class VideoSearch extends Video {
             $cookie_page_size = Yii::$app->request->get('page_size');
         }
 
-        $query = Video::find()->addGroupBy(['sortOrder']);
+        $query = Video::find()->addOrderBy(['date' => SORT_DESC]);
         //->joinWith(['videoUsr'])->where(['user_id'=>Yii::$app->user->id]);
         //->with(['videoUsr']);
 //        

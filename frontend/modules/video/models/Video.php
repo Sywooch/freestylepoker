@@ -7,6 +7,7 @@ use Yii;
 use yii\base\UserException;
 use app\modules\video\models\VideoUsr;
 use vova07\comments\models\Comment;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "yii2_start_video".
@@ -94,7 +95,8 @@ class Video extends \yii\db\ActiveRecord {
      * @return type
      * @throws UserException
      */
-    public function buy($id) {
+    public function buy() {
+        $id = $this->id;
         // Проверка авторизации
         if (!Yii::$app->user->isGuest) {
 
@@ -128,11 +130,11 @@ class Video extends \yii\db\ActiveRecord {
                     $user->updateAttributes(['gold' => $buy]);
 
                     // Обновляем статистику
-                    $stat = new \nill\fsp\models\backend\Fspstat;
+                    $stat = new \nill\fsp\models\frontend\Fspstat;
                     $stat->fsp = -$val;
                     $stat->user_id = Yii::$app->user->id;
-                    $stat->comment = $video_model->ids != NULL || $video_model->ids != '' ? 'Купил видео курс' : 'Купил видео';
-                    $stat->date = 1;
+                    $stat->comment = $video_model->ids != NULL || $video_model->ids != '' ? 'Купил видео курс id: ' . $id : 'Купил видео id: ' . $id;
+                    $stat->date = Yii::$app->formatter->asTimestamp('now');
                     $stat->save();
 
                     // Покупка курса
@@ -229,6 +231,42 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function getvideomodel($value) {
         return self::findOne($value);
+    }
+
+    /**
+     * Получить список всех пользователей для вывода в форме
+     * @return array
+     */
+    public function getAllUsers() {
+        $model = User::find()->asArray()->all();
+        $result = ArrayHelper::map($model, 'id', 'username');
+        return $result;
+    }
+
+    public static function _gift($request) {
+
+        // Создаем экземпляр модели Видео-Пользователь
+        $videousr = new VideoUsr();
+        $isset_videousr = $videousr->findOne(['video_id' => $request['id'], 'user_id' => $request['author']]);
+
+        if ($isset_videousr === NULL) {
+            // Присваевам атрибуты и сохраняем (делаем запись)
+            $videousr->video_id = $request['id'];
+            $videousr->user_id = $request['author'];
+            $videousr->save();
+
+            // Обновляем статистику
+            $stat = new \nill\fsp\models\frontend\Giftstat;
+            $stat->from_id = Yii::$app->user->id;
+            $stat->to_id = $request['author'];
+            $stat->comment = 'Видео подарено, id: ' . $request['id'];
+            $stat->date = Yii::$app->formatter->asTimestamp('now');
+            $stat->save();
+
+            return 'Успешно подарено';
+        } else {
+            return 'Видео уже у пользователя';
+        }
     }
 
 //    /**

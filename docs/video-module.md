@@ -12,7 +12,17 @@ the purchase of video and statistics model.
 
 vendor\bower\jquery-ui\ui\i18n
 
-***BUG Raport 3:*** _Disable of limit field no correct. Need make its else!_ 
+***BUG Raport 3:*** _Disable of limit field no correct. Need to make its else!_ 
+
+***BUG Raport 4:*** Comments model. Frontend Video Model:
+```
+public function getCommentsCount() {
+    $comments_count = Comment::find()->where(['model_class' => '2621821478', 'model_id' => $this->id])->count();
+    return $comments_count;
+}
+``` 
+
+`'model_class' => '2621821478'` - need to make an **independent**
 
 ####Controllers
 
