@@ -47,7 +47,6 @@ class Videoparsed extends \yii\db\ActiveRecord {
      * @return string
      */
     public static function _add($id) {
-        // Создаем экземпляр модели Видео-Пользователь
         $videoparsed = new Videoparsed();
 
         // Присваевам атрибуты и сохраняем (делаем запись)

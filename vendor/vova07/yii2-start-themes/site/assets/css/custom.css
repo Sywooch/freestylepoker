@@ -99,3 +99,10 @@ div.item {
 a {
     color: #0025DF;
 }
+
+.rating a {
+    color: #fbcb09;
+}
+.rating a:hover, .rating i {
+    color: red;
+}

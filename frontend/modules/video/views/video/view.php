@@ -32,7 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]
                             );
                         endif;
-                        ?>
+                        echo $this->render('_rating', [
+                            'id' => $model->id,
+                            'is_rating' => $model->_isRating,
+                            'rating' => $model->rating,
+                            'val' => $model->val,
+                            'is_buy' => $model->_isBuy,
+                        ])
+                        ?>                       
                     </div>
                     <div class="col-xs-5">
                         <h3 class=""><?= \Yii::t('ru', 'Description'); ?><hr></h3>
@@ -102,7 +109,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                         <?= $gift_form->field($model, 'id')->hiddenInput()->label(false); ?>
                                         <?= Html::submitButton('Подарить', ['class' => 'btn btn-primary'], ['id' => 'gift-sbm']) ?>
-                                        <?php ActiveForm::end(); 
+                                        <?php
+                                        ActiveForm::end();
                                         Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
                                         Pjax::end();
                                     }

@@ -8,6 +8,7 @@ use yii\base\UserException;
 use app\modules\video\models\VideoUsr;
 use vova07\comments\models\Comment;
 use yii\helpers\ArrayHelper;
+use app\modules\video\models\VideoRating;
 
 /**
  * This is the model class for table "yii2_start_video".
@@ -34,7 +35,7 @@ class Video extends \yii\db\ActiveRecord {
         return [
             [['title', 'embed', 'author_id', 'section', 'alias', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
             [['description', 'conspects', 'tags'], 'string'],
-            [['val', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
+            [['val', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp', 'rating'], 'integer'],
             [['date'], 'safe'],
             [['title', 'ids'], 'string', 'max' => 128],
             [['embed', 'alias', 'password', 'preview'], 'string', 'max' => 256]
@@ -67,6 +68,7 @@ class Video extends \yii\db\ActiveRecord {
             'preview' => Yii::t('ru', 'Preview'),
             'comments' => Yii::t('ru', 'Comments'),
             'gp' => Yii::t('ru', 'Gp'),
+            'rating' => Yii::t('ru', 'Gp'),
             'videoparsed.id' => Yii::t('ru', 'Parsed'),
         ];
     }
@@ -197,6 +199,14 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function get_isParsed() {
         return Videoparsed::findOne(['video_id' => $this->id, 'user_id' => Yii::$app->user->id]);
+    }
+    
+    /**
+     * Вернуть - проголосовал ли пользователь?
+     * @return object or NULL
+     */
+    public function get_isRating() {
+        return VideoRating::findOne(['video_id' => $this->id, 'user_id' => Yii::$app->user->id]);
     }
 
     /**

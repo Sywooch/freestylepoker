@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\modules\video\models\Videoparsed;
 use yii\filters\AccessControl;
 use nill\comment_widget\models\CommentsClock;
+use app\modules\video\models\VideoRating;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -29,7 +30,7 @@ class VideoController extends Controller {
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['index', 'view', 'deleteparsed', 'addparsed','gift'],
+            'actions' => ['index', 'view', 'deleteparsed', 'addparsed', 'rating'],
             'roles' => ['ViewVideo']
         ];
         
@@ -45,6 +46,7 @@ class VideoController extends Controller {
                 'index' => ['get', 'post'],
                 'view' => ['get', 'post'],
                 'gift' => ['get', 'post'],
+                'rating' => ['get', 'post'],
             ]
         ];
 
@@ -113,7 +115,7 @@ class VideoController extends Controller {
         if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
             echo Videoparsed::_add($id);
         } else {
-            throw new yii\base\InvalidRouteException('Request is not pjax');
+            throw new \yii\base\InvalidRouteException('Request is not pjax');
         }
     }
 
@@ -155,5 +157,17 @@ class VideoController extends Controller {
             throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
         }
     }
-
+    
+    /**
+     * PJAX ADD VIDEO Rating - Рейтинг
+     * @param type $id
+     * @throws yii\base\InvalidRouteException
+     */
+    public function actionRating($id, $rating) {
+        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest && Yii::$app->request->get('_pjax') == '#checked_rating') {
+            echo VideoRating::_setrating($id, $rating);
+        } else {
+            throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
+        }
+    }
 }
