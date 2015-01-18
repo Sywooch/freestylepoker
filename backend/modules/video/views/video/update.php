@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use vova07\themes\admin\widgets\Box;
 
 /* @var $this yii\web\View */

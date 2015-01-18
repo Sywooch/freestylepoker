@@ -3,20 +3,21 @@
 use vova07\themes\admin\widgets\Box;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\video\models\Video */
+/* @var $model app\modules\trainings\models\Trainings */
 
-$this->title = Yii::t('ru', 'Create Video');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('ru', 'Videos'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('ru', 'Trainings Video: ') . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Trainings', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('ru', 'Update');
 
 $this->params['subtitle'] = Yii::t('ru', 'Update');
 
 $boxButtons = ['{cancel}'];
 
-if (Yii::$app->user->can('BCreateVideo')) {
+if (Yii::$app->user->can('BCreateTrainings')) {
     $boxButtons[] = '{create}';
 }
-if (Yii::$app->user->can('BDeleteVideo')) {
+if (Yii::$app->user->can('BDeleteTrainings')) {
     $boxButtons[] = '{delete}';
 }
 $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
@@ -44,6 +45,7 @@ $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
         $this->render('_form', [
             'model' => $model,
             'box' => $box,
+            'statusArray' => $statusArray,
         ])
         ?>
     </div>

@@ -9,6 +9,9 @@ return [
         'video' => [
             'class' => 'app\modules\video\Module',
         ],
+        'trainings' => [
+            'class' => 'app\modules\trainings\Module',
+        ],
         'fsp' => [
             'class' => 'nill\fsp\Module',
         ],

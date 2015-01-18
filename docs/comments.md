@@ -36,3 +36,8 @@ endif;
             'class' => \nill\comment_widget\behaviors\Comment_clock_behavior::className(),
         ],
 ```
+
+Comment Widget
+--------------
+
+>PJAX:: If you want to use Ajax (autoupdate) uncomment: **PJAX begin()**, **PJAX end()** and **registerJs** in - **comment_clock**

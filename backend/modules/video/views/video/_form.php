@@ -6,7 +6,6 @@ use yii\jui\DatePicker;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use vova07\fileapi\Widget as FileAPI;
-use vova07\select2\Widget;
 use kartik\select2\Select2;
 
 /* @var $this yii\web\View */

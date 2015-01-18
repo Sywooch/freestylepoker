@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 /* @var $model app\modules\video\models\Video */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Videos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Trainings', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -19,27 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="blog-item">
                 <div class="blog-content row">
                     <div class="col-xs-7">
-                        <iframe width="640" height="400" src="<?= $model->embed ?>" frameborder="0" allowfullscreen></iframe>
                         <h5 class=""><?= $model->title ?></h5>
-                        <?php
-                        if (Yii::$app->base->hasExtension('comments') && Yii::$app->user->can('viewComments') && $model->comments != 1) :
-                            echo \vova07\comments\widgets\Comments::widget(
-                                    [
-                                        'model' => $model,
-                                        'jsOptions' => [
-                                            'offset' => 80
-                                        ]
-                                    ]
-                            );
-                        endif;
-                        echo $this->render('_rating', [
-                            'id' => $model->id,
-                            'is_rating' => $model->_isRating,
-                            'rating' => $model->rating,
-                            'val' => $model->val,
-                            'is_buy' => $model->_isBuy,
-                        ])
-                        ?>                       
                     </div>
                     <div class="col-xs-5">
                         <h3 class=""><?= \Yii::t('ru', 'Description'); ?><hr></h3>
@@ -57,9 +37,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'title' => 'Купить доступ к просмотру'
                                     ];
 
+                                
+                                    $h = date('H')+1;
+                                    $time = date($h.':i:s');
+                                    $model->time_start;
+                                    $date = Yii::$app->formatter->asTimestamp(date('d.m.Y'));
+                                    if ($model->_isBuy == true && $date == $model->date &&  $time >= $model->time_start) {
+                                        Html::addCssClass($options, 'hide');
+                                        echo 'Ссылка: ' . $model->url;
+                                    }
+                                    
                                     if ($model->_isBuy == true) {
                                         Html::addCssClass($options, 'hide');
-                                        echo 'Пароль: ' . $model->password;
+                                        echo 'Ссылка: ' . $model->url;
+                                    }
+                                    
+                                    if (empty($model->val) && $date == $model->date &&  $time >= $model->time_start) {
+                                        echo 'Ссылка: ' . $model->url;
                                     }
 
                                     if (Yii::$app->user->isGuest) {
@@ -70,26 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         echo Html::button('Купить', $options);
                                     }
                                     ?>
-                                    <br>
-                                    <br>
-                                    <?= "<a href={$model->conspects}>Практика к тренировке: 3 барреля СБ против ББ</a>" ?>
-                                    <br>
-                                    <br>
-                                    <?php
-                                    if ($model->ids != NULL || $model->ids != '') {
-                                        $course = explode(",", $model->ids);
-                                        echo '<b>Курс:</b> <br>';
-                                        foreach ($course as $value) {
-                                            $video_model = $model->getvideomodel($value);
-                                            echo Html::a(Html::encode($video_model->title), ['view', 'alias' => $video_model->alias]);
-                                            echo '<br>';
-                                        }
-                                    }
-                                    ?>
                                 </div>
                                 <div class="gift" id="gifter">
                                     <?php
-                                    if (Yii::$app->user->can('administrateVideo')) {
+                                    if (Yii::$app->user->can('administrateTrainings')) {
                                         $gift_form = ActiveForm::begin([
                                                     'id' => 'gift',
                                                     'method' => 'post',

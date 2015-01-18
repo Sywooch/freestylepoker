@@ -41,6 +41,16 @@ Exemple: **VideoUsrController**
 ...
 ```
 
+>**Attention.** For action of administrator to need properly identify the role. Exemple: `administrateVideo` must be identify how a role.
+
+```
+$behaviors['access']['rules'][] = [
+    'allow' => true,
+    'actions' => ['gift', 'stat', 'cancel', 'cancel_gift'],
+    'roles' => ['administrateVideo']
+];
+```
+
 Configuration
 -------------
 - Add kartik-v DepDrop for dependent-dropdown @dropDownList()

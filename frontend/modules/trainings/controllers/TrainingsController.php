@@ -1,23 +1,22 @@
 <?php
 
-namespace app\modules\video\controllers;
+namespace app\modules\trainings\controllers;
 
 use Yii;
-use app\modules\video\models\Video;
-use app\modules\video\models\VideoSearch;
+use app\modules\trainings\models\Trainings;
+use app\modules\trainings\models\TrainingsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\video\models\Videoparsed;
+use yii\helpers\Json;
+use app\modules\video\models\Video;
 use yii\filters\AccessControl;
-use nill\comment_widget\models\CommentsClock;
-use app\modules\video\models\VideoRating;
 
 /**
- * VideoController implements the CRUD actions for Video model.
+ * TrainingsController implements the CRUD actions for Trainings model.
  */
-class VideoController extends Controller {
-
+class TrainingsController extends Controller
+{
     /**
      * @inheritdoc
      */
@@ -30,7 +29,7 @@ class VideoController extends Controller {
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['index', 'view', 'deleteparsed', 'addparsed', 'rating'],
+            'actions' => ['index', 'view'],
             'roles' => ['ViewVideo']
         ];
 
@@ -57,25 +56,24 @@ class VideoController extends Controller {
     }
 
     /**
-     * Lists all Video models.
+     * Lists all Trainings models.
      * @return mixed
      */
-    public function actionIndex() {
-        $searchModel = new VideoSearch();
+    public function actionIndex()
+    {
+        $searchModel = new TrainingsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Video model.
+     * Displays a single Trainings model.
      * @param integer $id
      * @return mixed
-     * 
-     * Method change for work with aliases
      */
     public function actionView($id = '', $alias = '') {
 
@@ -84,27 +82,20 @@ class VideoController extends Controller {
             $model = $this->findModel($id);
         } elseif ($alias) {
             // Найдем по алиасу
-            $model = Video::findOne(['alias' => $alias]);
+            $model = Trainings::findOne(['alias' => $alias]);
         }
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->buy();
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
                         'success', yii::t('ru', 'Вы не авторизированы')
                 );
-            } else {
-                $model->buy();
             }
-//          return $this->refresh();
-//          return $this->redirect(['view', 'id' => $model->id]);
             return $this->render('view', [
                         'model' => $model,
             ]);
         } else {
-            // Обнулить непрочитанные комментарии
-            $comments_clock_model = new CommentsClock();
-            $comments_clock_model->reset = $model->id;
-
             return $this->render('view', [
                         'model' => $model,
             ]);
@@ -112,64 +103,97 @@ class VideoController extends Controller {
     }
 
     /**
-     * PJAX ADD VIDEO parsed
-     * @param type $id
+     * Creates a new Trainings model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
-    public function actionAddparsed($id) {
-        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
-            echo Videoparsed::_add($id);
+    public function actionCreate()
+    {
+        $model = new Trainings();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            throw new \yii\base\InvalidRouteException('Request is not pjax');
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
     }
 
     /**
-     * PJAX DELETE VIDEO parsed
-     * @param type $id
+     * Updates an existing Trainings model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
      */
-    public function actionDeleteparsed($id) {
-        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest) {
-            echo Videoparsed::_delete($id);
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            throw new \yii\base\InvalidRouteException('Request is not pjax');
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
     }
 
     /**
-     * Finds the Video model based on its primary key value.
+     * Deletes an existing Trainings model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Trainings model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Video the loaded model
+     * @return Trainings the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
-        if (($model = Video::findOne($id)) !== null) {
+    protected function findModel($id)
+    {
+        if (($model = Trainings::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
+    
+    /**
+     * Получить список зависимых от тапа лимитов (вызывется в форме)
+     * @return JSON 
+     */
+    public function actionGetlimits() {
+        $out = [];
+        $post = Yii::$app->request->post();
+        if (isset($post)) {
+            $parents = $post['depdrop_parents'];
+            if ($parents != null) {
+                $type_id = $parents[0];
+                $out = Video::getPartLimits($type_id);
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
+    
     /**
      * Подарить
      * @throws \yii\base\InvalidRouteException
      */
     public function actionGift() {
-        if (Yii::$app->request->isPjax && Yii::$app->request->post('Video')) {
-            echo Video::_gift(Yii::$app->request->post('Video'));
-        } else {
-            throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
-        }
-    }
-
-    /**
-     * PJAX ADD VIDEO Rating - Рейтинг
-     * @param type $id
-     * @throws yii\base\InvalidRouteException
-     */
-    public function actionRating($id, $rating) {
-        if (Yii::$app->request->isPjax && !Yii::$app->user->isGuest && Yii::$app->request->get('_pjax') == '#checked_rating') {
-            echo VideoRating::_setrating($id, $rating);
+        if (Yii::$app->request->isPjax && Yii::$app->request->post('Trainings')) {
+            echo Trainings::_gift(Yii::$app->request->post('Trainings'));
         } else {
             throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
         }
@@ -181,7 +205,7 @@ class VideoController extends Controller {
      * @return mixed
      */
     public function actionStat($id) {
-        $model = new Video();
+        $model = new Trainings();
         $dataProvider = $model->_stat($id);
         $dataProvider_gift = $model->_stat_gift($id);
 
@@ -190,7 +214,7 @@ class VideoController extends Controller {
                     'dataProvider_gift' => $dataProvider_gift,
         ]);
     }
-
+    
     /**
      * Отмена покупки видео
      * @param type $id
@@ -223,5 +247,4 @@ class VideoController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }
