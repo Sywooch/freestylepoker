@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vova07\select2\Widget;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model nill\fsp\models\backend\Fspstat */
@@ -23,7 +24,6 @@ use vova07\select2\Widget;
             ]) ?>
         <?= $form->field($model, 'fsp') ?>
         <?= $form->field($model, 'comment') ?>
-        <?= $form->field($model, 'date') ?>
     
         <div class="form-group">
             <?= Html::submitButton(Yii::t('ru', 'Submit'), ['class' => 'btn btn-primary']) ?>

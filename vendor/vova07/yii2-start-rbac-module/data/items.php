@@ -82,6 +82,10 @@ return [
         'description' => 'Admin',
         'children' => [
             'user',
+            'accessBackend',
+            'BCreateTrainings',
+            'BUpdateTrainings',
+            'BViewTrainings',
         ],
     ],
     'superadmin' => [
@@ -95,6 +99,7 @@ return [
             'administrateBlogs',
             'administrateComments',
             'administrateVideo',
+            'administrateTrainings',
         ],
     ],
     'administrateUsers' => [
@@ -334,5 +339,30 @@ return [
     ],
     'ViewVideo' => [
         'type' => 2,
+    ],
+    'ViewTrainings' => [
+        'type' => 2,
+    ],
+    'BCreateTrainings' => [
+        'type' => 2,
+    ],
+    'BUpdateTrainings' => [
+        'type' => 2,
+    ],
+    'BDeleteTrainings' => [
+        'type' => 2,
+    ],
+    'BViewTrainings' => [
+        'type' => 2,
+    ],
+    'administrateTrainings' => [
+        'type' => 2,
+        'children' => [
+            'ViewTrainings',
+            'BCreateTrainings',
+            'BUpdateTrainings',
+            'BDeleteTrainings',
+            'BViewTrainings',
+        ],
     ],
 ];

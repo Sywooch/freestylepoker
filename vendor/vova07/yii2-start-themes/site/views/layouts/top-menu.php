@@ -22,6 +22,10 @@ echo Menu::widget(
                     'url' => ['/video/video_goldfund/index'],
                 ],
                 [
+                    'label' => Yii::t('vova07/themes/site', 'Тренировки'),
+                    'url' => ['/trainings/trainings/index'],
+                ],
+                [
                     'label' => Yii::t('vova07/themes/site', 'Sign In'),
                     'url' => ['/users/guest/login'],
                     'visible' => Yii::$app->user->isGuest

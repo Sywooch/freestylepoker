@@ -33,8 +33,8 @@ class Fspstat extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['user_id', 'fsp', 'comment', 'date'], 'required'],
-            [['user_id', 'fsp'], 'integer'],
+            [['user_id', 'fsp', 'comment'], 'required'],
+            [['user_id', 'fsp', 'target_id', 'group_id'], 'integer'],
             [['date'], 'safe'],
             [['comment'], 'string', 'max' => 256]
         ];
@@ -50,6 +50,8 @@ class Fspstat extends \yii\db\ActiveRecord {
             'fsp' => Yii::t('ru', 'Fsp'),
             'comment' => Yii::t('ru', 'Comment'),
             'date' => Yii::t('ru', 'Date'),
+            'target_id' => Yii::t('ru', 'Target_id'),
+            'group_id' => Yii::t('ru', 'Group_id'),
         ];
     }
 
@@ -64,8 +66,16 @@ class Fspstat extends \yii\db\ActiveRecord {
             'fsp',
             'comment',
             'date',
+            'target_id',
+            'group_id',
         ];
         return $scenarios;
+    }
+    
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        // установить правильный формат даты
+        return $this->date = Yii::$app->formatter->asTimestamp('now');
     }
 
     /**

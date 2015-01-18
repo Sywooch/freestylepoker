@@ -34,7 +34,7 @@ class Giftstat extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['from_id', 'to_id', 'comment', 'date'], 'required'],
-            [['from_id', 'to_id'], 'integer'],
+            [['from_id', 'to_id', 'target_id', 'group_id', 'category'], 'integer'],
             [['date'], 'safe'],
             [['comment'], 'string', 'max' => 256]
         ];
@@ -50,6 +50,9 @@ class Giftstat extends \yii\db\ActiveRecord {
             'to_id' => Yii::t('ru', 'Fsp'),
             'comment' => Yii::t('ru', 'Comment'),
             'date' => Yii::t('ru', 'Date'),
+            'target_id' => Yii::t('ru', 'Target_id'),
+            'group_id' => Yii::t('ru', 'Group_id'),
+            'category' => Yii::t('ru', 'Category'),
         ];
     }
 
@@ -64,8 +67,17 @@ class Giftstat extends \yii\db\ActiveRecord {
             'to_id',
             'comment',
             'date',
+            'target_id',
+            'group_id',
+            'category',
         ];
         return $scenarios;
+    }
+    
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        // установить правильный формат даты
+        return $this->date = Yii::$app->formatter->asTimestamp('now');
     }
 
     /**

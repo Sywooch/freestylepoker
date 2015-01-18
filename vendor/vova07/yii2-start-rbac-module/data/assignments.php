@@ -13,6 +13,6 @@ return [
         'user',
     ],
     5 => [
-        'user',
+        'admin',
     ],
 ];

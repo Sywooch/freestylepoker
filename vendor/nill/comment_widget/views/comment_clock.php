@@ -2,7 +2,7 @@
 use yii\widgets\Pjax;
 use yii\helpers\Html;
 
-Pjax::begin(['id' => 'clock']);
+//Pjax::begin(['id' => 'clock']);
 ?>
 
 <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Comment_clock">
@@ -35,13 +35,13 @@ Pjax::begin(['id' => 'clock']);
 
 
 <?php
-Pjax::end();
+//Pjax::end();
 
-$this->registerJs(
-        '$("document").ready(function(){'
-        . ' setInterval(function() { '
-        . ' $.pjax.reload({container:"#clock"}) '
-        . '}, 10000)'
-        . ' });'
-);
+//$this->registerJs(
+//        '$("document").ready(function(){'
+//        . ' setInterval(function() { '
+//        . ' $.pjax.reload({container:"#clock"}) '
+//        . '}, 10000)'
+//        . ' });'
+//);
 ?>

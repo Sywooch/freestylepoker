@@ -4,7 +4,7 @@ namespace nill\fsp\models\frontend;
 
 use Yii;
 use nill\users\models\backend\User;
-use yii\helpers\ArrayHelper;
+use nill\fsp\models\frontend\Giftstat;
 
 /**
  * This is the model class for table "fsp_stat_fsp".
@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
  */
 class Fspstat extends \yii\db\ActiveRecord {
 
+    public $cancel;
     /**
      * @inheritdoc
      */
@@ -34,7 +35,7 @@ class Fspstat extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['user_id', 'fsp', 'comment', 'date'], 'required'],
-            [['user_id', 'fsp'], 'integer'],
+            [['user_id', 'fsp', 'target_id', 'group_id'], 'integer'],
             [['date'], 'safe'],
             [['comment'], 'string', 'max' => 256]
         ];
@@ -50,6 +51,8 @@ class Fspstat extends \yii\db\ActiveRecord {
             'fsp' => Yii::t('ru', 'Fsp'),
             'comment' => Yii::t('ru', 'Comment'),
             'date' => Yii::t('ru', 'Date'),
+            'target_id' => Yii::t('ru', 'Target_id'),
+            'group_id' => Yii::t('ru', 'Group_id'),
         ];
     }
 
@@ -64,6 +67,8 @@ class Fspstat extends \yii\db\ActiveRecord {
             'fsp',
             'comment',
             'date',
+            'target_id',
+            'group_id',
         ];
         return $scenarios;
     }

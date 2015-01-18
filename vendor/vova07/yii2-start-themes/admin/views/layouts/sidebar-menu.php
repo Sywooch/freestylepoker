@@ -53,6 +53,12 @@ echo Menu::widget(
                         ],
                     ]
                 ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Trainings'),
+                    'url' => ['/trainings/trainings/index'],
+                    'icon' => 'fa-youtube-play',
+                    'visible' => Yii::$app->user->can('administrateTrainings') || Yii::$app->user->can('BViewTrainings'),
+                ],
 //            [
 //                'label' => Yii::t('vova07/themes/admin', 'Blogs'),
 //                'url' => ['/blogs/default/index'],

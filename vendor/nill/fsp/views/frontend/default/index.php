@@ -19,6 +19,7 @@ $gridConfig = [
     'dataProvider' => $dataProvider,
     'columns' => [
         'id',
+        'user.username',
         'fsp',
         'comment',
         [
