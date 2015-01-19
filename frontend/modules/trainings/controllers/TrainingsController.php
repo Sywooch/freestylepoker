@@ -15,8 +15,8 @@ use yii\filters\AccessControl;
 /**
  * TrainingsController implements the CRUD actions for Trainings model.
  */
-class TrainingsController extends Controller
-{
+class TrainingsController extends Controller {
+
     /**
      * @inheritdoc
      */
@@ -59,14 +59,13 @@ class TrainingsController extends Controller
      * Lists all Trainings models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new TrainingsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -85,12 +84,13 @@ class TrainingsController extends Controller
             $model = Trainings::findOne(['alias' => $alias]);
         }
 
-        if ($model->load(\Yii::$app->request->post() && \Yii::$app->user->isGuest)) {
-            $model->buy();
+        if ($model->load(\Yii::$app->request->post())) {
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
                         'success', yii::t('ru', 'Вы не авторизированы')
                 );
+            } else {
+                $model->buy();
             }
             return $this->render('view', [
                         'model' => $model,
@@ -107,15 +107,14 @@ class TrainingsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Trainings();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -126,15 +125,14 @@ class TrainingsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -145,8 +143,7 @@ class TrainingsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -159,15 +156,14 @@ class TrainingsController extends Controller
      * @return Trainings the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Trainings::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     /**
      * Получить список зависимых от тапа лимитов (вызывется в форме)
      * @return JSON 
@@ -186,7 +182,7 @@ class TrainingsController extends Controller
         }
         echo Json::encode(['output' => '', 'selected' => '']);
     }
-    
+
     /**
      * Подарить
      * @throws \yii\base\InvalidRouteException
@@ -198,7 +194,7 @@ class TrainingsController extends Controller
             throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
         }
     }
-    
+
     /**
      * Вывод общей статистики для указаного id
      * @param type $id
@@ -214,7 +210,7 @@ class TrainingsController extends Controller
                     'dataProvider_gift' => $dataProvider_gift,
         ]);
     }
-    
+
     /**
      * Отмена покупки видео
      * @param type $id
@@ -226,8 +222,7 @@ class TrainingsController extends Controller
             $model = $this->findModel($id);
             $model->_buy_cancel($id, $user_id);
             return $this->actionStat($id);
-        }
-        else {
+        } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
@@ -247,4 +242,5 @@ class TrainingsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }
