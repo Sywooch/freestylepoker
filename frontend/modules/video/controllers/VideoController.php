@@ -87,7 +87,7 @@ class VideoController extends Controller {
             $model = Video::findOne(['alias' => $alias]);
         }
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && \Yii::$app->user->isGuest) {
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
                         'success', yii::t('ru', 'Вы не авторизированы')
