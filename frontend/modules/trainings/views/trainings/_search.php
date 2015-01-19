@@ -185,7 +185,7 @@ $pd = $pd['date'];
 //$pd = $pd['date'];
 
 if (!$pd) {
-    if (Yii::$app->request->get('month') != date('m')) {
+    if (!empty(Yii::$app->request->get('month')) &&  Yii::$app->request->get('month') != date('m')) {
         $x = 'not';
         $dater[0]=1;
         $x0 = $dater[0];
