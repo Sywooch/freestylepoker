@@ -9,6 +9,7 @@ return [
         'gold-fund' => 'video/video_goldfund/index',
 //        '<_m:video>/<id:\d+>-<alias:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/video/view',
         '<_m:video>/<alias:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/video/view',
+        '<_m:trainings>/<alias:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/trainings/view',
         'video/<_a:(create|contacts|captcha|view)>' => 'video/video/<_a>'
     ]
 ];

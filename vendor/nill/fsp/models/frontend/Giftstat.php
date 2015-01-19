@@ -93,4 +93,20 @@ class Giftstat extends \yii\db\ActiveRecord {
     public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'to_id']);
     }
+    
+    /**
+     * Обновление статистики дарения
+     * @param type $to_id
+     * @param type $target_id
+     */
+    public function gift_stat_update($to_id, $target_id, $comment, $category, $group) {
+        $this->from_id = Yii::$app->user->id;
+        $this->to_id = $to_id;
+        $this->target_id = $target_id;
+        $this->category = $category;
+        $this->group_id = $group;
+        $this->comment = $comment;
+        $this->date = Yii::$app->formatter->asTimestamp('now');
+        $this->save();
+    }
 }

@@ -4,7 +4,6 @@ namespace nill\fsp\models\frontend;
 
 use Yii;
 use nill\users\models\backend\User;
-use nill\fsp\models\frontend\Giftstat;
 
 /**
  * This is the model class for table "fsp_stat_fsp".
@@ -85,5 +84,21 @@ class Fspstat extends \yii\db\ActiveRecord {
      */
     public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    /**
+     * Обновить статистику при покупке или отмене
+     * @param type $val
+     * @param type $target_id
+     * @param type $comment
+     */
+    public function stat_update($val, $target_id, $comment, $group) {
+        $this->fsp = $val;
+        $this->user_id = Yii::$app->user->id;
+        $this->target_id = $target_id;
+        $this->group_id = $group;
+        $this->comment = $comment;
+        $this->date = Yii::$app->formatter->asTimestamp('now');
+        $this->save();
     }
 }
