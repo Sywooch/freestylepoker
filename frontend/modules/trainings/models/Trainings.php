@@ -40,7 +40,6 @@ class Trainings extends \yii\db\ActiveRecord {
 
     /** Published status * */
     const STATUS_PUBLISHED = 1;
-    
     const GROUP_VIDEO = 2;
     const GIFT_CATEGORY = 1;
     const GIFT_CATEGORY_CANCELED = 0;
@@ -135,7 +134,7 @@ class Trainings extends \yii\db\ActiveRecord {
      */
     public function get_isBuy() {
 
-        $if_buy_video = TrainingsUsr::findOne(['video_id' => $this->id, 'user_id' => Yii::$app->user->id]);
+        $if_buy_video = TrainingsUsr::findOne(['training_id' => $this->id, 'user_id' => Yii::$app->user->id]);
 
         if ($if_buy_video === NULL) {
             return false;
@@ -184,7 +183,7 @@ class Trainings extends \yii\db\ActiveRecord {
                 $trainingsusr = new TrainingsUsr();
 
                 // Присваевам атрибуты и сохраняем (делаем запись)
-                $trainingsusr->video_id = $id;
+                $trainingsusr->training_id = $id;
                 $trainingsusr->user_id = Yii::$app->user->id;
                 $trainingsusr->save();
 
@@ -192,14 +191,10 @@ class Trainings extends \yii\db\ActiveRecord {
                 $user->updateAttributes(['gold' => $buy]);
 
                 // Обновляем статистику
-                $stat = new \nill\fsp\models\frontend\Fspstat;
-                $stat->fsp = -$val;
-                $stat->user_id = Yii::$app->user->id;
-                $stat->target_id = $id;
-                $stat->group_id = self::GROUP_VIDEO;
-                $stat->comment = 'Купил тренировку id: ' . $id;
-                $stat->date = Yii::$app->formatter->asTimestamp('now');
-                $stat->save();
+                $comment = \Yii::t('ru', 'Training is buyed: ') . $id;
+                $val_dec = -$val;
+                $stat = new Fspstat();
+                $stat->stat_update($val_dec, $id, $comment, self::GROUP_VIDEO);
 
                 return $this->message = \Yii::t('ru', 'Successful buyed!');
             } else {
@@ -218,24 +213,18 @@ class Trainings extends \yii\db\ActiveRecord {
     public static function _gift($request) {
         // Создаем экземпляр модели Видео-Пользователь
         $trainingsusr = new TrainingsUsr();
-        $isset_trainingsusr = $trainingsusr->findOne(['video_id' => $request['id'], 'user_id' => $request['author']]);
+        $isset_trainingsusr = $trainingsusr->findOne(['training_id' => $request['id'], 'user_id' => $request['author']]);
 
         if ($isset_trainingsusr === NULL) {
             // Присваевам атрибуты и сохраняем (делаем запись)
-            $trainingsusr->video_id = $request['id'];
+            $trainingsusr->training_id = $request['id'];
             $trainingsusr->user_id = $request['author'];
             $trainingsusr->save();
 
             // Обновляем статистику
-            $stat = new Giftstat();
-            $stat->from_id = Yii::$app->user->id;
-            $stat->to_id = $request['author'];
-            $stat->target_id = $request['id'];
-            $stat->category = self::GIFT_CATEGORY;
-            $stat->group_id = self::GROUP_VIDEO;
-            $stat->comment = \Yii::t('ru', 'Training as a gift: ') . $request['id'];
-            $stat->date = Yii::$app->formatter->asTimestamp('now');
-            $stat->save();
+            $comment = \Yii::t('ru', 'Training as a gift: ') . $request['id'];
+            $giftstat = new Giftstat();
+            $giftstat->gift_stat_update($request['author'], $request['id'], $comment, self::GIFT_CATEGORY, self::GROUP_VIDEO);
 
             return \Yii::t('ru', 'Gift has been sent!');
         } else {
@@ -250,7 +239,7 @@ class Trainings extends \yii\db\ActiveRecord {
     public function _buy_cancel($id, $user_id) {
 
         // Находим запись Тренировка-Пользователь
-        $trainingsusr = TrainingsUsr::findOne(['video_id' => $id, 'user_id' => $user_id]);
+        $trainingsusr = TrainingsUsr::findOne(['training_id' => $id, 'user_id' => $user_id]);
 
         // Убедимся что видео было куплено
         if ($trainingsusr) {
@@ -276,13 +265,8 @@ class Trainings extends \yii\db\ActiveRecord {
                 $user->updateAttributes(['gold' => $sum]);
 
                 // Обновляем статистику
-                $stat->fsp = $val;
-                $stat->user_id = $user_id;
-                $stat->target_id = $id;
-                $stat->group_id = self::GROUP_VIDEO;
-                $stat->comment = \Yii::t('ru', 'Training canceled: ') . $id;
-                $stat->date = Yii::$app->formatter->asTimestamp('now');
-                $stat->save();
+                $comment = \Yii::t('ru', 'Training canceled: ') . $id;
+                $stat->stat_update($val, $id, $comment, self::GROUP_VIDEO);
             } else {
                 throw new UserException(\Yii::t('ru', 'Error'));
             }
@@ -290,7 +274,7 @@ class Trainings extends \yii\db\ActiveRecord {
             throw new UserException(\Yii::t('ru', 'Error: This training was not buyed or buying was canceled before'));
         }
     }
-    
+
     /**
      * Отмена дарения видео
      * @param integer $id
@@ -298,7 +282,7 @@ class Trainings extends \yii\db\ActiveRecord {
     public function _gift_cancel($id, $to_id) {
 
         // Находим запись Тренировка-Пользователь
-        $trainingsusr = TrainingsUsr::findOne(['video_id' => $id, 'user_id' => $to_id]);
+        $trainingsusr = TrainingsUsr::findOne(['training_id' => $id, 'user_id' => $to_id]);
 
         // Убедимся что видео подарено
         if ($trainingsusr) {
@@ -306,15 +290,9 @@ class Trainings extends \yii\db\ActiveRecord {
             $trainingsusr->delete();
 
             // Обновляем статистику
-            $stat = new Giftstat();
-            $stat->from_id = Yii::$app->user->id;
-            $stat->to_id = $to_id;
-            $stat->target_id = $id;
-            $stat->category = self::GIFT_CATEGORY_CANCELED;
-            $stat->group_id = self::GROUP_VIDEO;
-            $stat->comment = \Yii::t('ru', 'Gift training canceled: ') . $id;
-            $stat->date = Yii::$app->formatter->asTimestamp('now');
-            $stat->save();
+            $comment = \Yii::t('ru', 'Gift training canceled: ') . $id;
+            $giftstat = new Giftstat();
+            $giftstat->gift_stat_update($to_id, $id, $comment, self::GIFT_CATEGORY_CANCELED, self::GROUP_VIDEO);
         } else {
             throw new UserException(\Yii::t('ru', 'Error: Gift is not found or was canceled'));
         }

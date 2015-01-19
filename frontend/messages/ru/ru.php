@@ -53,6 +53,7 @@ return[
     
     'Video course is buyed: ' => 'Покупка видеокурса, id: ',
     'Video is buyed: ' => 'Покупка видео, id: ',
+    'Training is buyed: ' => 'Покупка тренировки, id: ',
     'Successful buyed!' => 'Доступ к видео активирован!',
     'Short of money!' => 'Недостаточно F$P',
     'Error: this video is buyed!' => 'Ошибка, доступ к видео уже активирован',

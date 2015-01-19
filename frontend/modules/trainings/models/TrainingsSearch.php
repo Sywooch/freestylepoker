@@ -41,8 +41,6 @@ class TrainingsSearch extends Trainings {
         
         $query = Trainings::find()->published();
         
-        
-        
 //        if (!($this->load($params) && $this->validate())) {
 //            return $dataProvider;
 //        }
@@ -59,29 +57,30 @@ class TrainingsSearch extends Trainings {
             $x = $dater[0] + 6;
             $x = ($x > $daterx) ? 6 -($x - $daterx) : 6;
             $x = $dater[0] + $x;
-            $date2 = date($x . '.m.2015');
+            $date2 = date($x . '.'.$dater[1].'.2015');
             $date2 = Yii::$app->formatter->asTimestamp($date2);
             $query->andFilterWhere(['between', 'date', $date, $date2]);
             
         } else {
+            if(Yii::$app->request->get('month')) {
+                $month = Yii::$app->request->get('month');
+            }
+            else {
+                $month = date('m');
+            }
             $date = date('d.m.Y');
             $date = Yii::$app->formatter->asTimestamp($date);
             $x = date('d') + 6;
-            $date2 = date($x . '.m.2015');
+            $date2 = date($x . '.'.$month.'.2015');
             $date2 = Yii::$app->formatter->asTimestamp($date2);
 
             $query->andFilterWhere(['between', 'date', $date, $date2]);
         }
 
-//        if (!empty($this->date)) {
-//            $this->date = Yii::$app->formatter->asTimestamp($this->date);
-//        }
-
         $query->andFilterWhere([
             'id' => $this->id,
             'val' => $this->val,
             'author_id' => $this->author_id,
-            //'date' => $this->date,
             'type_id' => $this->type_id,
             'limit_id' => $this->limit_id,
             'time_start' => $this->time_start,

@@ -27,7 +27,7 @@ class VideoSearch extends Video {
             [['embed', 'description'], 'safe'],
         ];
     }
-    
+
     public function attributeLabels() {
         parent::attributeLabels();
         return [
@@ -65,7 +65,7 @@ class VideoSearch extends Video {
             $cookie_page_size = Yii::$app->request->get('page_size');
         }
 
-        $query = Video::find()->addOrderBy(['date' => SORT_DESC]);
+        $query = Video::find();
         //->joinWith(['videoUsr'])->where(['user_id'=>Yii::$app->user->id]);
         //->with(['videoUsr']);
 //        
@@ -73,6 +73,11 @@ class VideoSearch extends Video {
 //                ->innerJoinWith('video');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'date' => SORT_DESC,
+                ],
+            ],
             'pagination' => [
                 'pageSize' => (!empty($cookie_page_size)) ? $cookie_page_size : 2,
             ]

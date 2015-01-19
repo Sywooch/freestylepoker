@@ -57,9 +57,28 @@ use yii\jui\DatePicker;
         $day[5] = "ПТ";
         $day[6] = "СБ";
 
+        $month_['1'] = "Январь";
+        $month_['2'] = "Февраль";
+        $month_['3'] = "Март";
+        $month_['4'] = "Апрель";
+        $month_['5'] = "Май";
+        $month_['6'] = "Июнь";
+        $month_['7'] = "Июль";
+        $month_['8'] = "Август";
+        $month_['9'] = "Сентябрь";
+        $month_['10'] = "Октябрь";
+        $month_['11'] = "Ноябрь";
+        $month_['12'] = "Декабрь";
 
+        $monthm = $month_[$month];
 
+        $m1 = $month + 1;
+        $m2 = $month - 1;
 
+        echo "<a href='?TrainingsSearch[date]&month=" . $m2 . "'><< </a>";
+        echo $monthm;
+        echo "<a href='?TrainingsSearch[date]&month=" . $m1 . "'> >></a>";
+        echo '<br>';
 
         $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $dates_month = array();
@@ -79,7 +98,8 @@ use yii\jui\DatePicker;
             $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt]);
             echo '<i>';
             if ($fin != NULL) {
-                echo '<a href="?TrainingsSearch[date]=' . $datem . '">' . $date . '</a> ';
+                //echo '<a href="?TrainingsSearch[date]=' . $datem . '">' . $date . '</a> ';
+                echo Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem], 'month' => $month]) . ' ';
             } else {
                 echo $date . ' ';
             }
@@ -90,7 +110,12 @@ use yii\jui\DatePicker;
     }
 
     echo"<pre>";
-    print_r(dates_month(01, 2015));
+    if (\Yii::$app->request->get('month')) {
+        $month = \Yii::$app->request->get('month');
+    } else {
+        $month = date('n');
+    }
+    dates_month($month, 2015);
     echo"</pre>";
     ?>  
 
@@ -102,45 +127,45 @@ use yii\jui\DatePicker;
     ]);
     ?>
 
-    <?php //echo $form->field($model, 'id')   ?>
+    <?php //echo $form->field($model, 'id')    ?>
 
-    <?php //echo $form->field($model, 'title')   ?>
+    <?php //echo $form->field($model, 'title')    ?>
 
-    <?php //echo $form->field($model, 'url')   ?>
+    <?php //echo $form->field($model, 'url')    ?>
 
-    <?php //echo $form->field($model, 'description')   ?>
+    <?php //echo $form->field($model, 'description')    ?>
 
-    <?php //echo $form->field($model, 'val')   ?>
+    <?php //echo $form->field($model, 'val')    ?>
 
-    <?=
-    $form->field($model, 'date')->widget(
-            DatePicker::className(), [
-        'options' => [ 'class' => 'form-control'
-        ],
-        'clientOptions' => [
-            'dateFormat' => 'dd.mm.yy',
-            'changeMonth' => true,
-            'changeYear' => true
-        ]
-            ]
-    );
+    <?php
+//    $form->field($model, 'date')->widget(
+//            DatePicker::className(), [
+//        'options' => [ 'class' => 'form-control'
+//        ],
+//        'clientOptions' => [
+//            'dateFormat' => 'dd.mm.yy',
+//            'changeMonth' => true,
+//            'changeYear' => true
+//        ]
+//            ]
+//    );
     ?>
 
-    <?php // echo $form->field($model, 'author_id')    ?>
+    <?php // echo $form->field($model, 'author_id')     ?>
 
-    <?php // echo $form->field($model, 'alias')    ?>
+    <?php // echo $form->field($model, 'alias')     ?>
 
-    <?php // echo $form->field($model, 'date')    ?>
+    <?php // echo $form->field($model, 'date')     ?>
 
-    <?php // echo $form->field($model, 'password')    ?>
+    <?php // echo $form->field($model, 'password')     ?>
 
-    <?php // echo $form->field($model, 'type_id')    ?>
+    <?php // echo $form->field($model, 'type_id')     ?>
 
-    <?php // echo $form->field($model, 'limit_id')    ?>
+    <?php // echo $form->field($model, 'limit_id')     ?>
 
-    <?php // echo $form->field($model, 'time_start')    ?>
+    <?php // echo $form->field($model, 'time_start')     ?>
 
-    <?php // echo $form->field($model, 'time_end')    ?>
+    <?php // echo $form->field($model, 'time_end')     ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('ru', 'Search'), [ 'class' => 'btn btn-primary']) ?>
@@ -154,29 +179,79 @@ use yii\jui\DatePicker;
 $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
 $pd = $get['TrainingsSearch'];
 $pd = $pd['date'];
+//$month = (empty(Yii::$app->request->get('month'))) ? NULL : Yii::$app->request->get('month');
+//$get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
+//$pd = $get['TrainingsSearch'];
+//$pd = $pd['date'];
 
 if (!$pd) {
-    $x0 = date('d');
-    $x1 = date('d') + 1;
-    $x2 = date('d') + 2;
-    $x3 = date('d') + 3;
-    $x4 = date('d') + 4;
-    $x5 = date('d') + 5;
-    $x6 = date('d') + 6;
+    if (Yii::$app->request->get('month') != date('m')) {
+        $x = 'not';
+        $dater[0]=1;
+        $x0 = $dater[0];
+        $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
+        $x1 = $dater[0] + 1;
+        $x1 = str_pad($x1, 2, '0', STR_PAD_LEFT);
+        $x2 = $dater[0] + 2;
+        $x2 = str_pad($x2, 2, '0', STR_PAD_LEFT);
+        $x3 = $dater[0] + 3;
+        $x3 = str_pad($x3, 2, '0', STR_PAD_LEFT);
+        $x4 = $dater[0] + 4;
+        $x4 = str_pad($x4, 2, '0', STR_PAD_LEFT);
+        $x5 = $dater[0] + 5;
+        $x5 = str_pad($x5, 2, '0', STR_PAD_LEFT);
+        $x6 = $dater[0] + 6;
+        $x6 = str_pad($x6, 2, '0', STR_PAD_LEFT);
+    } else {
+        $x = date('d');
+        $x0 = date('d');
+        $x1 = date('d') + 1;
+        $x2 = date('d') + 2;
+        $x3 = date('d') + 3;
+        $x4 = date('d') + 4;
+        $x5 = date('d') + 5;
+        $x6 = date('d') + 6;
+    }
+} else {
+    if (Yii::$app->request->get('month') != date('m')) {
+        $x = 'not';
+        $dater = explode(".", $pd);
+        $x0 = $dater[0];
+        $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
+        $x1 = $dater[0] + 1;
+        $x1 = str_pad($x1, 2, '0', STR_PAD_LEFT);
+        $x2 = $dater[0] + 2;
+        $x2 = str_pad($x2, 2, '0', STR_PAD_LEFT);
+        $x3 = $dater[0] + 3;
+        $x3 = str_pad($x3, 2, '0', STR_PAD_LEFT);
+        $x4 = $dater[0] + 4;
+        $x4 = str_pad($x4, 2, '0', STR_PAD_LEFT);
+        $x5 = $dater[0] + 5;
+        $x5 = str_pad($x5, 2, '0', STR_PAD_LEFT);
+        $x6 = $dater[0] + 6;
+        $x6 = str_pad($x6, 2, '0', STR_PAD_LEFT);
+    } else {
+        $x = date('d');
+        $dater = explode(".", $pd);
+        $x0 = $dater[0];
+        $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
+        $x1 = $dater[0] + 1;
+        $x1 = str_pad($x1, 2, '0', STR_PAD_LEFT);
+        $x2 = $dater[0] + 2;
+        $x2 = str_pad($x2, 2, '0', STR_PAD_LEFT);
+        $x3 = $dater[0] + 3;
+        $x3 = str_pad($x3, 2, '0', STR_PAD_LEFT);
+        $x4 = $dater[0] + 4;
+        $x4 = str_pad($x4, 2, '0', STR_PAD_LEFT);
+        $x5 = $dater[0] + 5;
+        $x5 = str_pad($x5, 2, '0', STR_PAD_LEFT);
+        $x6 = $dater[0] + 6;
+        $x6 = str_pad($x6, 2, '0', STR_PAD_LEFT);
+    }
 }
 
-else {
-    $dater = explode(".", $pd);
-    $x0 = $dater[0];
-    $x1 = $dater[0] + 1;
-    $x2 = $dater[0] + 2;
-    $x3 = $dater[0] + 3;
-    $x4 = $dater[0] + 4;
-    $x5 = $dater[0] + 5;
-    $x6 = $dater[0] + 6;
-}
 $k = ''
-        . '$("pre i:contains(' . date('d') . ')").css("background", "red");'
+        . '$("pre i:contains(' . $x . ')").css("background", "red");'
         . '$("pre i:contains(' . $x0 . ')").css("background", "#ccb89d");'
         . '$("pre i:contains(' . $x1 . ')").css("background", "#5cb85c");'
         . '$("pre i:contains(' . $x2 . ')").css("background", "#5cb85c");'

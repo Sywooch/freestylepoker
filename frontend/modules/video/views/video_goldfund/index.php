@@ -21,10 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     for ($i = 1; $i <= $video_type_count; $i++) {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $i);
         $title_table = \app\modules\video\models\VideoType::findOne(['id' => $i])->getAttribute('name');
-        
+
         // Выводим процент доступности
         echo $searchModel->search(Yii::$app->request->queryParams, $i, true);
-        
+
         echo GridView::widget([
             'dataProvider' => $dataProvider,
             'caption' => $title_table,
@@ -42,8 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         if ($a != $model->limit['name']) {
                             $a = $model->limit['name'];
                             return $model->limit['name'];
-                        }
-                        else {
+                        } else {
                             return '';
                         }
                     }
@@ -56,8 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $is_buy = \app\modules\video\models\VideoUsr::findOne(['video_id' => $model->id, 'user_id' => \Yii::$app->user->id]);
                         if ($is_buy != NULL) {
                             return Html::a(
-                                            $model['title'], ['video/view', 'alias' => $model['alias']],
-                                    ['class' => 'label label-success large']
+                                            $model['title'], ['video/view', 'alias' => $model['alias']], ['class' => 'label label-success large']
                             );
                         } else {
                             return Html::a(
@@ -86,9 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
                 ?>
-    <div>sss</div>
-    <?php
-    }
-    ?>
+                <div>sss</div>
+                <?php
+            }
+            ?>
 
 </div>

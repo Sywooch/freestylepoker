@@ -27,8 +27,8 @@ class TrainingsUsr extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['video_id', 'user_id'], 'required'],
-            [['video_id', 'user_id'], 'integer']
+            [['training_id', 'user_id'], 'required'],
+            [['training_id', 'user_id'], 'integer']
         ];
     }
 
@@ -39,7 +39,7 @@ class TrainingsUsr extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('ru', 'ID'),
-            'video_id' => Yii::t('ru', 'Video ID'),
+            'training_id' => Yii::t('ru', 'Video ID'),
             'user_id' => Yii::t('ru', 'User ID'),
         ];
     }

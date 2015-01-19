@@ -38,7 +38,23 @@ $this->params['breadcrumbs'] = [
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
             'id',
-            'title',
+            [
+                    'attribute' => 'title',
+                    'format' => 'html',
+                    'enableSorting' => false,
+                    'value' => function ($model) {
+                        $is_buy = \app\modules\trainings\models\TrainingsUsr::findOne(['training_id' => $model->id, 'user_id' => \Yii::$app->user->id]);
+                        if ($is_buy != NULL) {
+                            return Html::a(
+                                            $model['title'], ['trainings/view', 'alias' => $model['alias']], ['class' => 'label label-success large']
+                            );
+                        } else {
+                            return Html::a(
+                                            $model['title'], ['trainings/view', 'alias' => $model['alias']]
+                            );
+                        }
+                    }
+                        ],
             'description:ntext',
             'val',
             // 'author_id',

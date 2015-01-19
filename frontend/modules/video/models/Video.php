@@ -12,6 +12,7 @@ use app\modules\video\models\VideoRating;
 use nill\fsp\models\frontend\Fspstat;
 use nill\fsp\models\frontend\Giftstat;
 use yii\data\ActiveDataProvider;
+use app\modules\trainings\models\TrainingsUsr;
 
 /**
  * This is the model class for table "yii2_start_video".
@@ -81,17 +82,15 @@ class Video extends \yii\db\ActiveRecord {
     }
 
     /**
-     * 
+     * Функция проверяет было ли видео или тренировка уже куплены пользователем
      * @param type $id
      * @return boolean
-     * 
-     * Функция проверяет было ли видео уже куплено пользователем
      */
     public function get_isBuy() {
-
         $if_buy_video = VideoUsr::findOne(['video_id' => $this->id, 'user_id' => Yii::$app->user->id]);
+        $if_buy_traning = TrainingsUsr::findOne(['training_id' => $this->id_training, 'user_id' => Yii::$app->user->id]);
 
-        if ($if_buy_video === NULL) {
+        if ($if_buy_video === NULL && $if_buy_traning === NULL) {
             return false;
         } else {
             return true;
@@ -136,14 +135,10 @@ class Video extends \yii\db\ActiveRecord {
                 $user->updateAttributes(['gold' => $buy]);
 
                 // Обновляем статистику
+                $comment = $video_model->ids != NULL || $video_model->ids != '' ? \Yii::t('ru', 'Video course is buyed: ') . $id : \Yii::t('ru', 'Video is buyed: ') . $id;
+                $val_dec = -$val;
                 $stat = new Fspstat();
-                $stat->fsp = -$val;
-                $stat->user_id = Yii::$app->user->id;
-                $stat->target_id = $id;
-                $stat->group_id = self::GROUP_VIDEO;
-                $stat->comment = $video_model->ids != NULL || $video_model->ids != '' ? \Yii::t('ru', 'Video course is buyed: ') . $id : \Yii::t('ru', 'Video is buyed: ') . $id;
-                $stat->date = Yii::$app->formatter->asTimestamp('now');
-                $stat->save();
+                $stat->stat_update($val_dec, $id, $comment, self::GROUP_VIDEO);
 
                 // Покупка курса
                 if ($video_model->ids != NULL || $video_model->ids != '') {
@@ -227,7 +222,7 @@ class Video extends \yii\db\ActiveRecord {
      */
 //    public function getTrainingsUsr() {
 //        // TrainingsUsr has_many Video via Video.video_id -> id
-//        return $this->hasMany(TrainingsUsr::className(), ['video_id' => 'id']);
+//        return $this->hasMany(TrainingsUsr::className(), ['training_id' => 'id']);
 //    }
 
     /**
@@ -282,15 +277,9 @@ class Video extends \yii\db\ActiveRecord {
             $videousr->save();
 
             // Обновляем статистику
-            $stat = new Giftstat();
-            $stat->from_id = Yii::$app->user->id;
-            $stat->to_id = $request['author'];
-            $stat->target_id = $request['id'];
-            $stat->category = self::GIFT_CATEGORY;
-            $stat->group_id = self::GROUP_VIDEO;
-            $stat->comment = \Yii::t('ru', 'Video as a gift: ') . $request['id'];
-            $stat->date = Yii::$app->formatter->asTimestamp('now');
-            $stat->save();
+            $comment = \Yii::t('ru', 'Video as a gift: ') . $request['id'];
+            $giftstat = new Giftstat();
+            $giftstat->gift_stat_update($request['author'], $request['id'], $comment, self::GIFT_CATEGORY, self::GROUP_VIDEO);
 
             // Дарение курса
             $video_model = self::findOne($request['id']);
@@ -303,7 +292,7 @@ class Video extends \yii\db\ActiveRecord {
             return \Yii::t('ru', 'Gift canceled!');
         }
     }
-    
+
     /**
      * Дарение курса видео
      * @param type $ids
@@ -356,13 +345,8 @@ class Video extends \yii\db\ActiveRecord {
                 $user->updateAttributes(['gold' => $sum]);
 
                 // Обновляем статистику
-                $stat->fsp = $val;
-                $stat->user_id = $user_id;
-                $stat->target_id = $id;
-                $stat->group_id = self::GROUP_VIDEO;
-                $stat->comment = $video_model->ids != NULL || $video_model->ids != '' ? \Yii::t('ru', 'Video course canceled: ') . $id : \Yii::t('ru', 'Video canceled: ') . $id;
-                $stat->date = Yii::$app->formatter->asTimestamp('now');
-                $stat->save();
+                $comment = $video_model->ids != NULL || $video_model->ids != '' ? \Yii::t('ru', 'Video course canceled: ') . $id : \Yii::t('ru', 'Video canceled: ') . $id;
+                $stat->stat_update($val, $id, $comment, self::GROUP_VIDEO);
 
                 // Отмена курса
                 if ($video_model->ids != NULL || $video_model->ids != '') {
@@ -408,15 +392,9 @@ class Video extends \yii\db\ActiveRecord {
             $videousr->delete();
 
             // Обновляем статистику
-            $stat = new Giftstat();
-            $stat->from_id = Yii::$app->user->id;
-            $stat->to_id = $to_id;
-            $stat->target_id = $id;
-            $stat->category = self::GIFT_CATEGORY_CANCELED;
-            $stat->group_id = self::GROUP_VIDEO;
-            $stat->comment = \Yii::t('ru', 'Gift video canceled: ') . $id;
-            $stat->date = Yii::$app->formatter->asTimestamp('now');
-            $stat->save();
+            $comment = \Yii::t('ru', 'Gift video canceled: ') . $id;
+            $giftstat = new Giftstat();
+            $giftstat->gift_stat_update($to_id, $id, $comment, self::GIFT_CATEGORY_CANCELED, self::GROUP_VIDEO);
 
             // Отмена курса
             $video_model = self::findOne($id);
