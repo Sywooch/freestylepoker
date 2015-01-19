@@ -85,7 +85,7 @@ class TrainingsController extends Controller
             $model = Trainings::findOne(['alias' => $alias]);
         }
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(\Yii::$app->request->post() && \Yii::$app->user->isGuest)) {
             $model->buy();
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
