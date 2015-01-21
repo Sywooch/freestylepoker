@@ -7,6 +7,7 @@ use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use vova07\fileapi\Widget as FileAPI;
 use kartik\select2\Select2;
+use vova07\select2\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\video\models\Video */
@@ -26,7 +27,15 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'title') ?>
 </div>
 <div class="col-sm-6">
-    <?= $form->field($model, 'author') ?>
+    <?= $form->field($model, 'author_id')->widget(Widget::className(), [
+                'options' => [
+                    'prompt' => \Yii::t('ru', 'Select...'),
+                ],
+                'settings' => [
+                    'width' => '100%',
+                ],
+                'items' => $model->AllUsers,
+            ]) ?>
 </div>
 <div class="col-sm-6">
     <?= $form->field($model, 'description')->textarea(['style' => 'height:108px']) ?>

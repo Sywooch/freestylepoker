@@ -12,6 +12,14 @@ use vova07\themes\admin\widgets\Box;
 use vova07\themes\admin\widgets\GridView;
 use yii\helpers\Html;
 
+$get = Yii::$app->request->get('id');
+$model = \app\modules\video\models\Video::findOne($get);
+if($model->id_training) {
+    echo 'У этого видео есть тренировка <br>';
+    $model = app\modules\trainings\models\Trainings::findOne($model->id_training);
+    echo Html::a('Статистика',['/trainings/trainings/stat', 'id' => $model->id]);
+}
+
 $this->title = yii::t('ru', 'Video Users');
 $this->params['subtitle'] = yii::t('ru', 'Buy Panel');
 $this->params['subtitle2'] = yii::t('ru', 'Gift Panel');
@@ -35,7 +43,7 @@ $gridConfig = [
             'attribute' => 'cancel',
             'format' => 'html',
             'value' => function ($model) {
-                if ($model->fsp < 0) {
+                if ($model->fsp < 0 && \Yii::$app->user->can('administrateVideo')) {
                     return Html::a(
                                     Yii::t('ru', 'Cancel'), ['cancel', 'id' => $model['target_id'], 'user_id' => $model['user_id']]
                     );
@@ -64,7 +72,7 @@ $gridConfig = [
                     'attribute' => 'cancel',
                     'format' => 'html',
                     'value' => function ($model) {
-                        if ($model->category == 1) {
+                        if ($model->category == 1 && \Yii::$app->user->can('administrateVideo')) {
                             return Html::a(
                                             Yii::t('ru', 'Cancel'), ['cancel_gift', 'id' => $model['target_id'], 'to_id' => $model['to_id']]
                             );

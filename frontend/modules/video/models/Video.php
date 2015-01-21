@@ -96,6 +96,12 @@ class Video extends \yii\db\ActiveRecord {
             return true;
         }
     }
+    
+    public function get_isAuthor() {
+        if($this->author_id == Yii::$app->user->id) {
+            return true;
+        }
+    }
 
     /**
      * Покупка видео
@@ -220,10 +226,10 @@ class Video extends \yii\db\ActiveRecord {
      * Связь тренировка-пользователь
      * @return type
      */
-//    public function getTrainingsUsr() {
-//        // TrainingsUsr has_many Video via Video.video_id -> id
-//        return $this->hasMany(TrainingsUsr::className(), ['training_id' => 'id']);
-//    }
+    public function getTrainingsUsr() {
+        // TrainingsUsr has_many Video via Video.video_id -> id
+        return $this->hasMany(TrainingsUsr::className(), ['training_id' => 'id_training']);
+    }
 
     /**
      * Связь разобранно

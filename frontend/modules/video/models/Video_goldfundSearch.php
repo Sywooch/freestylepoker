@@ -68,10 +68,10 @@ class Video_goldfundSearch extends Video {
             return $dataProvider;
         }
 
-        //$query = Video_goldfund::find()->addGroupBy(['sortOrder']);
-
         if ($this->is_buy && !Yii::$app->user->isGuest) {
             $query->joinWith(['videoUsr'])->andFilterWhere([VideoUsr::tableName() . '.user_id' => Yii::$app->user->id]);
+            $query->joinWith(['trainingsUsr'])->orFilterWhere([\app\modules\trainings\models\TrainingsUsr::tableName() 
+                    . '.user_id' => Yii::$app->user->id, 'type_id' => $i, 'gp' => 1]);
         }
 
         if ($this->is_parsed && !Yii::$app->user->isGuest) {

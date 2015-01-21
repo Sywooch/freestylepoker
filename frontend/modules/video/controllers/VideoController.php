@@ -30,14 +30,14 @@ class VideoController extends Controller {
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['index', 'view', 'deleteparsed', 'addparsed', 'rating'],
+            'actions' => ['index', 'view', 'deleteparsed', 'addparsed', 'stat', 'rating'],
             'roles' => ['ViewVideo']
         ];
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['gift', 'stat', 'cancel', 'cancel_gift'],
-            'roles' => ['administrateVideo']
+            'actions' => ['gift', 'cancel', 'cancel_gift'],
+            'roles' => ['createVideo']
         ];
 
         $behaviors['verbs'] = [
@@ -174,21 +174,26 @@ class VideoController extends Controller {
             throw new \yii\base\InvalidRouteException('Request is not pjax or empty');
         }
     }
-    
+
     /**
      * Вывод общей статистики для указаного id
      * @param type $id
      * @return mixed
      */
     public function actionStat($id) {
-        $model = new Video();
-        $dataProvider = $model->_stat($id);
-        $dataProvider_gift = $model->_stat_gift($id);
+        $model = $this->findModel($id);
+        if ($model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
+            $model = new Video();
+            $dataProvider = $model->_stat($id);
+            $dataProvider_gift = $model->_stat_gift($id);
 
-        return $this->render('buy_stat', [
-                    'dataProvider' => $dataProvider,
-                    'dataProvider_gift' => $dataProvider_gift,
-        ]);
+            return $this->render('buy_stat', [
+                        'dataProvider' => $dataProvider,
+                        'dataProvider_gift' => $dataProvider_gift,
+            ]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -202,8 +207,7 @@ class VideoController extends Controller {
             $model = $this->findModel($id);
             $model->_buy_cancel($id, $user_id);
             return $this->actionStat($id);
-        }
-        else {
+        } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\trainings\models\Trainings;
+use DateTime;
 
 /**
  * TrainingsSearch represents the model behind the search form about `app\modules\trainings\models\Trainings`.
@@ -38,43 +39,31 @@ class TrainingsSearch extends Trainings {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        
+
         $query = Trainings::find()->published();
-        
+
 //        if (!($this->load($params) && $this->validate())) {
 //            return $dataProvider;
 //        }
         $this->load($params);
-        
-        if ($this->date != Null) {
-            
-            $date = Yii::$app->formatter->asTimestamp($this->date);
-            $dater = explode(".", $this->date);
-            
-            $datetime = time();
-            $daterx = date('t', $datetime);
-            $dater[0];
-            $x = $dater[0] + 6;
-            $x = ($x > $daterx) ? 6 -($x - $daterx) : 6;
-            $x = $dater[0] + $x;
-            $date2 = date($x . '.'.$dater[1].'.2015');
-            $date2 = Yii::$app->formatter->asTimestamp($date2);
-            $query->andFilterWhere(['between', 'date', $date, $date2]);
-            
-        } else {
-            if(Yii::$app->request->get('month')) {
-                $month = Yii::$app->request->get('month');
-            }
-            else {
-                $month = date('m');
-            }
-            $date = date('d.m.Y');
-            $date = Yii::$app->formatter->asTimestamp($date);
-            $x = date('d') + 6;
-            $date2 = date($x . '.'.$month.'.2015');
-            $date2 = Yii::$app->formatter->asTimestamp($date2);
 
-            $query->andFilterWhere(['between', 'date', $date, $date2]);
+        if ($this->date != Null) {
+            $date_start = Yii::$app->formatter->asTimestamp($this->date);
+            // Прибавить 7 дней к полученой дате
+            $date_end = new DateTime($this->date);
+            $date_end->modify('+7 day');
+            $date_end->format('d.m.Y');
+            $date_end = Yii::$app->formatter->asTimestamp($date_end);
+            $query->andFilterWhere(['between', 'date', $date_start, $date_end]);
+        } else {
+            $date = date('d.m.Y');
+            $date_start = Yii::$app->formatter->asTimestamp($date);
+            // Прибавить 7 дней к текущей дате
+            $date_end = new DateTime($date);
+            $date_end->modify('+7 day');
+            $date_end->format('d.m.Y');
+            $date_end = Yii::$app->formatter->asTimestamp($date_end);
+            $query->andFilterWhere(['between', 'date', $date_start, $date_end]);
         }
 
         $query->andFilterWhere([
@@ -91,7 +80,7 @@ class TrainingsSearch extends Trainings {
                 ->andFilterWhere(['like', 'url', $this->url])
                 ->andFilterWhere(['like', 'description', $this->description])
                 ->andFilterWhere(['like', 'alias', $this->alias])
-                ->andFilterWhere(['like', 'password', $this->password]);      
+                ->andFilterWhere(['like', 'password', $this->password]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

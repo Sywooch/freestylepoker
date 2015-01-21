@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'title' => 'Купить доступ к просмотру'
                                     ];
 
-                                    if ($model->_isBuy == true) {
+                                    if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
                                         Html::addCssClass($options, 'hide');
                                         echo 'Пароль: ' . $model->password;
                                     }
@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                                 <div class="gift" id="gifter">
                                     <?php
-                                    if (Yii::$app->user->can('administrateVideo')) {
+                                    if (Yii::$app->user->can('administrateVideo') || $model->_isAuthor) {
                                         $gift_form = ActiveForm::begin([
                                                     'id' => 'gift',
                                                     'method' => 'post',

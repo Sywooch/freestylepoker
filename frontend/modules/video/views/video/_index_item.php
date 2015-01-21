@@ -46,7 +46,7 @@ use yii\widgets\Pjax;
 </div>
 <?php
 // Если видео куплено отображать другим цветом
-if ($model->_isBuy != NULL) {
+if ($model->_isBuy != NULL || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
     $this->registerCss("div.item[data-key='{$model->id}']  { background: #00FFAE; }");
 }
 ?>

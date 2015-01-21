@@ -1,10 +1,17 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\trainings\models\TrainingsSearch */
 /* @var $form yii\widgets\ActiveForm */
+
+//$datex = date('d.m.Y');
+//$date = new DateTime($datex);
+//$date->modify('+22 day');
+//print $date->format('d.m.Y');
 
 ?>
 
@@ -47,11 +54,7 @@ use yii\helpers\Html;
     }
     echo "Сегодня:  $textday, $daym $monthm$k $year г.";
 
-    function dates_month($pd, $year) {
-
-        $month = explode(".", $pd);
-        $month = $month[1];
-
+    function dates_month($month, $year) {
         $day[0] = "ВС";
         $day[1] = "ПН";
         $day[2] = "ВТ";
@@ -60,49 +63,27 @@ use yii\helpers\Html;
         $day[5] = "ПТ";
         $day[6] = "СБ";
 
-        $month_['01'] = "Январь";
-        $month_['02'] = "Февраль";
-        $month_['03'] = "Март";
-        $month_['04'] = "Апрель";
-        $month_['05'] = "Май";
-        $month_['06'] = "Июнь";
-        $month_['07'] = "Июль";
-        $month_['08'] = "Август";
-        $month_['09'] = "Сентябрь";
+        $month_['1'] = "Январь";
+        $month_['2'] = "Февраль";
+        $month_['3'] = "Март";
+        $month_['4'] = "Апрель";
+        $month_['5'] = "Май";
+        $month_['6'] = "Июнь";
+        $month_['7'] = "Июль";
+        $month_['8'] = "Август";
+        $month_['9'] = "Сентябрь";
         $month_['10'] = "Октябрь";
         $month_['11'] = "Ноябрь";
         $month_['12'] = "Декабрь";
 
         $monthm = $month_[$month];
 
+        $m1 = $month + 1;
+        $m2 = $month - 1;
 
-        $date = $pd;
-        $date = new DateTime($date);
-        $date_next = $date->modify('+1 month');
-        //$date_next = $date->format('01.m.Y');
-        
-        if($date->format('d.m.Y') == date('01.m.Y')) {
-        $dayr = date('d');
-        $date_next = $date->format($dayr.'.m.Y');
-        } else {
-            $date_next = $date->format('01.m.Y');
-        }
-
-        $date = $pd;
-        $date = new DateTime($date);
-        $date_prev = $date->modify('-1 month');
-        
-        if($date->format('d.m.Y') == date('01.m.Y')) {
-        $dayr = date('d');
-        $date_prev = $date->format($dayr.'.m.Y');
-        } else {
-            $date_prev = $date->format('01.m.Y');
-        }
-        
-
-        echo "<a href='?TrainingsSearch[date]=" . $date_prev . "'><< </a>";
+        echo "<a href='?TrainingsSearch[date]&month=" . $m2 . "'><< </a>";
         echo $monthm;
-        echo "<a href='?TrainingsSearch[date]=" . $date_next . "'> >></a>";
+        echo "<a href='?TrainingsSearch[date]&month=" . $m1 . "'> >></a>";
         echo '<br>';
 
         $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -135,29 +116,84 @@ use yii\helpers\Html;
     }
 
     echo"<pre>";
-    if (\Yii::$app->request->get()) {
-        $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
-        $pd = $get['TrainingsSearch'];
-        $pd = $pd['date'];
+    if (\Yii::$app->request->get('month')) {
+        $month = \Yii::$app->request->get('month');
     } else {
-        $pd = date('d.m.Y');
+        $month = date('n');
     }
-    dates_month($pd, 2015);
+    dates_month($month, 2015);
     echo"</pre>";
     ?>  
+
+
+    <?php
+    $form = ActiveForm::begin([
+                'action' => ['index'],
+                'method' => 'get',
+    ]);
+    ?>
+
+    <?php //echo $form->field($model, 'id')    ?>
+
+    <?php //echo $form->field($model, 'title')    ?>
+
+    <?php //echo $form->field($model, 'url')    ?>
+
+    <?php //echo $form->field($model, 'description')    ?>
+
+    <?php //echo $form->field($model, 'val')    ?>
+
+    <?php
+//    $form->field($model, 'date')->widget(
+//            DatePicker::className(), [
+//        'options' => [ 'class' => 'form-control'
+//        ],
+//        'clientOptions' => [
+//            'dateFormat' => 'dd.mm.yy',
+//            'changeMonth' => true,
+//            'changeYear' => true
+//        ]
+//            ]
+//    );
+    ?>
+
+    <?php // echo $form->field($model, 'author_id')     ?>
+
+    <?php // echo $form->field($model, 'alias')     ?>
+
+    <?php // echo $form->field($model, 'date')     ?>
+
+    <?php // echo $form->field($model, 'password')     ?>
+
+    <?php // echo $form->field($model, 'type_id')     ?>
+
+    <?php // echo $form->field($model, 'limit_id')     ?>
+
+    <?php // echo $form->field($model, 'time_start')     ?>
+
+    <?php // echo $form->field($model, 'time_end')     ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('ru', 'Search'), [ 'class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('ru', 'Reset'), ['class' => 'btn btn-default']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 
 </div>
 <?php
 $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
 $pd = $get['TrainingsSearch'];
 $pd = $pd['date'];
-
-$month = explode(".", $pd);
+//$month = (empty(Yii::$app->request->get('month'))) ? NULL : Yii::$app->request->get('month');
+//$get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
+//$pd = $get['TrainingsSearch'];
+//$pd = $pd['date'];
 
 if (!$pd) {
-    if (Yii::$app->request->get() && $month[1] != date('m')) {
+    if (!empty(Yii::$app->request->get('month')) &&  Yii::$app->request->get('month') != date('m')) {
         $x = 'not';
-        $dater[0] = 1;
+        $dater[0]=1;
         $x0 = $dater[0];
         $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
         $x1 = $dater[0] + 1;
@@ -183,7 +219,7 @@ if (!$pd) {
         $x6 = date('d') + 6;
     }
 } else {
-    if (Yii::$app->request->get() && $month[1] != date('m')) {
+    if (Yii::$app->request->get('month') != date('m')) {
         $x = 'not';
         $dater = explode(".", $pd);
         $x0 = $dater[0];

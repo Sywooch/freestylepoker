@@ -36,23 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'data-target' => '#myModal',
                                         'title' => 'Купить доступ к просмотру'
                                     ];
-
-                                
-                                    $h = date('H')+1;
-                                    $time = date($h.':i:s');
-                                    $model->time_start;
-                                    $date = Yii::$app->formatter->asTimestamp(date('d.m.Y'));
-                                    if ($model->_isBuy == true && $date == $model->date &&  $time >= $model->time_start) {
-                                        Html::addCssClass($options, 'hide');
-                                        echo 'Ссылка: ' . $model->url;
-                                    }
                                     
+                                    $date = Yii::$app->formatter->asTimestamp(date('d.m.Y'));
                                     if ($model->_isBuy == true) {
                                         Html::addCssClass($options, 'hide');
                                         echo 'Ссылка: ' . $model->url;
                                     }
                                     
-                                    if (empty($model->val) && $date == $model->date &&  $time >= $model->time_start) {
+                                    if (empty($model->val)) {
                                         echo 'Ссылка: ' . $model->url;
                                     }
 

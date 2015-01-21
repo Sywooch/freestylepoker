@@ -8,6 +8,7 @@ use vova07\fileapi\behaviors\UploadBehavior;
 use app\modules\video\traits\ModuleTrait;
 use yii\behaviors\SluggableBehavior;
 use himiklab\sortablegrid\SortableGridBehavior;
+use nill\users\models\User;
 
 /**
  * This is the model class for table "{{%video}}".
@@ -77,7 +78,7 @@ class Video extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['title', 'embed', 'section', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author'], 'required'],
+            [['title', 'embed', 'section', 'date', 'type_id', 'duration', 'preview', 'comments', 'gp', 'author_id'], 'required'],
             [['description', 'conspects', 'tags'], 'string'],
             [['val', 'sortOrder', 'author_id', 'section', 'duration', 'id_training', 'type_id', 'limit_id', 'comments', 'gp'], 'integer'],
             [['date'], 'safe'],
@@ -119,9 +120,9 @@ class Video extends \yii\db\ActiveRecord {
     public function beforeSave($insert) {
         parent::beforeSave($insert);
         // установить правильный формат даты
-        $this->date = Yii::$app->formatter->asTimestamp($this->date);
+        return $this->date = Yii::$app->formatter->asTimestamp($this->date);
         // сохраним владельца
-        return $this->author_id = Yii::$app->user->id;
+        //return $this->author_id = Yii::$app->user->id;
     }
 
     // СВЯЗИ
@@ -259,6 +260,16 @@ class Video extends \yii\db\ActiveRecord {
                 }
             }
         
+    }
+    
+    /**
+     * Получить список всех пользователей для вывода в форме
+     * @return array
+     */
+    public function getAllUsers() {
+        $model = User::find()->asArray()->all();
+        $result = ArrayHelper::map($model, 'id', 'username');
+        return $result;
     }
 
 }
