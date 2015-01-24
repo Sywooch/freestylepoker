@@ -97,6 +97,10 @@ class Video extends \yii\db\ActiveRecord {
         }
     }
     
+    /**
+     * Проверка авторства
+     * @return boolean
+     */
     public function get_isAuthor() {
         if($this->author_id == Yii::$app->user->id) {
             return true;
@@ -264,6 +268,15 @@ class Video extends \yii\db\ActiveRecord {
         $model = User::find()->asArray()->all();
         $result = ArrayHelper::map($model, 'id', 'username');
         return $result;
+    }
+    
+    /**
+     * Связь автор-пользователь
+     * @return type
+     */
+    public function getUser() {
+        // VideoUsr has_many Video via Video.video_id -> id
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
     /**

@@ -18,7 +18,7 @@ class TrainingsSearch extends Trainings
     public function rules()
     {
         return [
-            [['id', 'val', 'author_id', 'date', 'type_id', 'limit_id', 'time_start', 'time_end'], 'integer'],
+            [['id', 'val', 'author_id', 'date', 'type_id', 'limit_id', 'time_start', 'time_end', 'status_id'], 'integer'],
             [['title', 'url', 'description', 'alias', 'password'], 'safe'],
         ];
     }
@@ -42,9 +42,18 @@ class TrainingsSearch extends Trainings
     public function search($params)
     {
         $query = Trainings::find();
+        
+        if(!\Yii::$app->user->can('administrateVideo')) {
+            $query->andFilterWhere(['author_id' => \Yii::$app->user->id]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'date' => SORT_DESC,
+                ],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -57,6 +66,7 @@ class TrainingsSearch extends Trainings
             'author_id' => $this->author_id,
             'date' => $this->date,
             'type_id' => $this->type_id,
+            'status_id' => $this->status_id,
             'limit_id' => $this->limit_id,
             'time_start' => $this->time_start,
             'time_end' => $this->time_end,

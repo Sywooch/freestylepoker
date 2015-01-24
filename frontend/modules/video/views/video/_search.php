@@ -31,7 +31,7 @@ $dir = \Yii::$app->controller->id;
             <?= $form->field($model, 'to_val') ?>
         </div>
         <div class="col-sm-6">
-            <?= $form->field($model, 'author')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
+            <?= $form->field($model, 'author_id')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
         </div>
         <div class="col-sm-3">
             <?= $form->field($model, 'is_buy')->checkbox(['onclick' => 'submit()']) ?>

@@ -35,7 +35,7 @@ $gridConfig = [
             'attribute' => 'cancel',
             'format' => 'html',
             'value' => function ($model) {
-                if ($model->fsp < 0) {
+                if ($model->fsp < 0 && \Yii::$app->user->can('administrateVideo')) {
                     return Html::a(
                                     Yii::t('ru', 'Cancel'), ['cancel', 'id' => $model['target_id'], 'user_id' => $model['user_id']]
                     );
@@ -64,7 +64,7 @@ $gridConfig2 = [
                     'attribute' => 'cancel',
                     'format' => 'html',
                     'value' => function ($model) {
-                        if ($model->category == 1) {
+                        if ($model->category == 1 && \Yii::$app->user->can('administrateVideo')) {
                             return Html::a(
                                             Yii::t('ru', 'Cancel'), ['cancel_gift', 'id' => $model['target_id'], 'to_id' => $model['to_id']]
                             );

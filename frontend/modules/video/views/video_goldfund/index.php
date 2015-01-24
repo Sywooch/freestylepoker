@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'enableSorting' => false,
                     'value' => function ($model) {
                         $is_buy = \app\modules\video\models\VideoUsr::findOne(['video_id' => $model->id, 'user_id' => \Yii::$app->user->id]);
-                        if ($is_buy != NULL) {
+                        if ($is_buy != NULL || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
                             return Html::a(
                                             $model['title'], ['video/view', 'alias' => $model['alias']], ['class' => 'label label-success large']
                             );

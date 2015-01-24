@@ -44,7 +44,7 @@ $this->params['breadcrumbs'] = [
                     'enableSorting' => false,
                     'value' => function ($model) {
                         $is_buy = \app\modules\trainings\models\TrainingsUsr::findOne(['training_id' => $model->id, 'user_id' => \Yii::$app->user->id]);
-                        if ($is_buy != NULL) {
+                        if ($is_buy != NULL || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
                             return Html::a(
                                             $model['title'], ['trainings/view', 'alias' => $model['alias']], ['class' => 'label label-success large']
                             );

@@ -106,3 +106,52 @@ a {
 .rating a:hover, .rating i {
     color: red;
 }
+
+// POKER ROOMS
+
+.box.box-success {
+    border-top-color: #00a65a;
+}
+.box {
+    padding: 0px;
+    position: relative;
+    background: #ffffff;
+    border-top: 2px solid #c1c1c1;
+    margin-bottom: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.right {
+    float: right;
+}
+.room_list__title {
+    background: #eee;
+    padding:1px 10px;
+}
+.room_list__bonus {
+    padding: 10px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+.room_list__bonus__span {
+    background: #0078ae;
+    color: #fff;
+    padding: 10px;
+}
+.room_list__info {
+    padding: 20px 20px;
+}
+.room__info {
+    clear: both;
+    padding: 20px 20px;
+}
+.promo {
+    background: #eee;
+    margin:10px 10px;
+}
+.room__instruction {
+     clear: both;
+    padding: 20px 20px;
+}

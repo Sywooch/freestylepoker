@@ -26,6 +26,21 @@ echo Menu::widget(
                     'url' => ['/trainings/trainings/index'],
                 ],
                 [
+                    'label' => Yii::t('vova07/themes/admin', 'Poker-rooms'),
+                    'url' => '#',
+                    'template' => '<a href="{url}" class="dropdown-toggle" data-toggle="dropdown">{label} <i class="icon-angle-down"></i></a>',
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rooms'),
+                            'url' => ['/rooms/rooms/index'],
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rooms Promo'),
+                            'url' => ['/rooms/roomspromo/index'],
+                        ],
+                    ]
+                ],
+                [
                     'label' => Yii::t('vova07/themes/site', 'Sign In'),
                     'url' => ['/users/guest/login'],
                     'visible' => Yii::$app->user->isGuest

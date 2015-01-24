@@ -25,27 +25,27 @@ use app\modules\trainings\traits\ModuleTrait;
  * @property integer $time_start
  * @property integer $time_end
  */
-class Trainings extends \yii\db\ActiveRecord
-{
+class Trainings extends \yii\db\ActiveRecord {
+
     use ModuleTrait;
-     /** Unpublished status **/
+
+    /** Unpublished status * */
     const STATUS_UNPUBLISHED = 0;
-    /** Published status **/
+
+    /** Published status * */
     const STATUS_PUBLISHED = 1;
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%trainings}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['title', 'url', 'description', 'author_id', 'alias', 'date', 'time_start', 'time_end'], 'required'],
             [['description'], 'string'],
@@ -66,8 +66,7 @@ class Trainings extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('ru', 'ID'),
             'title' => Yii::t('ru', 'Title'),
@@ -85,19 +84,22 @@ class Trainings extends \yii\db\ActiveRecord
             'status_id' => Yii::t('ru', 'Status'),
         ];
     }
-    
+
     public function beforeSave($insert) {
         parent::beforeSave($insert);
-        // установить правильный формат даты
-        $this->date = Yii::$app->formatter->asTimestamp($this->date);
-        
+
         if (!Yii::$app->user->can('administrateTrainings')) {
             $this->status_id = self::STATUS_UNPUBLISHED;
         }
         // сохраним владельца
-        return $this->author_id = Yii::$app->user->id;
+        if ($this->isNewRecord) {
+            $this->author_id = Yii::$app->user->id;
+        }
+        
+        // установить правильный формат даты
+        return $this->date = Yii::$app->formatter->asTimestamp($this->date);
     }
-    
+
     /**
      * Получить список типов
      * @return array
@@ -107,7 +109,7 @@ class Trainings extends \yii\db\ActiveRecord
         $result = ArrayHelper::map($models, 'id', 'name');
         return $result;
     }
-    
+
     /**
      * Получить текущее лимиты
      * @param type $type_id
@@ -118,12 +120,11 @@ class Trainings extends \yii\db\ActiveRecord
         $limits = ArrayHelper::map($model, 'id', 'name');
         return $limits;
     }
-    
+
     /**
      * @return string Readable blog status
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         $statuses = self::getStatusArray();
 
         return $statuses[$this->status_id];
@@ -132,11 +133,11 @@ class Trainings extends \yii\db\ActiveRecord
     /**
      * @return array Status array.
      */
-    public static function getStatusArray()
-    {
+    public static function getStatusArray() {
         return [
             self::STATUS_UNPUBLISHED => Yii::t('ru', 'STATUS_UNPUBLISHED'),
             self::STATUS_PUBLISHED => Yii::t('ru', 'STATUS_PUBLISHED')
         ];
     }
+
 }

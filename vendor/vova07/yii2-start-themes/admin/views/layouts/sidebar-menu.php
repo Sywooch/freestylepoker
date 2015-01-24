@@ -59,6 +59,35 @@ echo Menu::widget(
                     'icon' => 'fa-youtube-play',
                     'visible' => Yii::$app->user->can('administrateTrainings') || Yii::$app->user->can('BViewTrainings'),
                 ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Poker-rooms'),
+                    'url' => '#',
+                    'icon' => 'fa-flag',
+                    'visible' => Yii::$app->user->can('administrateVideo') || Yii::$app->user->can('BViewVideo'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rooms'),
+                            'url' => ['/rooms/rooms/index'],
+                            'visible' => Yii::$app->user->can('administrateVideo') || Yii::$app->user->can('BViewVideo'),
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rooms Promo'),
+                            'url' => ['/rooms/roomspromo/index'],
+                            'visible' => Yii::$app->user->can('administrateVideo'),
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rooms Accounts'),
+                            'url' => ['/rooms/roomsacc/index'],
+                            'visible' => Yii::$app->user->can('administrateVideo'),
+                        ],
+                    ]
+                ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'FSP'),
+                    'url' => ['/fsp/default/form'],
+                    'icon' => 'fa-money',
+                    'visible' => Yii::$app->user->can('administrateTrainings') || Yii::$app->user->can('BViewTrainings'),
+                ],
 //            [
 //                'label' => Yii::t('vova07/themes/admin', 'Blogs'),
 //                'url' => ['/blogs/default/index'],

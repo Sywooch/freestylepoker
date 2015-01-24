@@ -103,6 +103,16 @@ class Trainings extends \yii\db\ActiveRecord {
         // сохраним владельца
         return $this->author_id = Yii::$app->user->id;
     }
+    
+    /**
+     * Проверка авторства
+     * @return boolean
+     */
+    public function get_isAuthor() {
+        if($this->author_id == Yii::$app->user->id) {
+            return true;
+        }
+    }
 
     /**
      * Получить список типов

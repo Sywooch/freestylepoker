@@ -23,7 +23,7 @@ class VideoSearch extends Video {
 
     public function rules() {
         return [
-            [['title', 'author', 'from_val', 'to_val', 'val', 'is_buy', 'is_parsed', 'tags'], 'string'],
+            [['title', 'author_id', 'from_val', 'to_val', 'val', 'is_buy', 'is_parsed', 'tags'], 'string'],
             [['embed', 'description'], 'safe'],
         ];
     }
@@ -65,7 +65,7 @@ class VideoSearch extends Video {
             $cookie_page_size = Yii::$app->request->get('page_size');
         }
 
-        $query = Video::find();
+        $query = Video::find()->joinWith('user');
         //->joinWith(['videoUsr'])->where(['user_id'=>Yii::$app->user->id]);
         //->with(['videoUsr']);
 //        
@@ -93,10 +93,9 @@ class VideoSearch extends Video {
 
         $query->andFilterWhere(['like', 'title', $this->title])
                 ->orFilterWhere(['like', 'description', $this->title])
-                ->orFilterWhere(['like', 'author', $this->title])
                 ->orFilterWhere(['like', 'tags', $this->title])
+                ->andFilterWhere(['like', 'author_id', $this->author_id])
                 ->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'author', $this->author])
                 ->andFilterWhere(['like', 'tags', $this->tags])
                 ->andFilterWhere(['between', 'val', $this->from_val, $this->to_val]);
 
@@ -114,8 +113,11 @@ class VideoSearch extends Video {
     }
 
     public function getAuthors() {
-        $query = Video::find()->orderBy(['author' => SORT_ASC])->asArray()->all();
-        $result = ArrayHelper::map($query, 'author', 'author');
+        $query = Video::find()
+                        ->joinWith('user')
+                        ->orderBy([\nill\users\models\User::tableName() . '.username' => SORT_ASC])->asArray()->all();
+
+        $result = ArrayHelper::map($query, 'author_id', 'user.username');
         return $result;
     }
 

@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
 <div class="col-sm-12">
     <h3>
         <?= Html::a(Html::encode($model->title), ['view', 'alias' => $model->alias]); ?>
-        <?php //  Html::a(Html::encode($model->title), ['view', 'id' => $model->id, 'alias' => $model->alias]); ?>
+        <?php //  Html::a(Html::encode($model->title), ['view', 'id' => $model->id, 'alias' => $model->alias]);  ?>
 
         <?= Html::img('/statics/web/video/previews/' . $model->preview, ['style' => 'width:100px; float:right; padding:0px']) ?>
     </h3>
@@ -52,17 +52,22 @@ if ($model->_isBuy != NULL || $model->_isAuthor || \Yii::$app->user->can('admini
 ?>
 <div id="parsed-<?= $model->id ?>">
     <?php
-    if (!Yii::$app->user->isGuest) {
-        if ($model->_isParsed != NULL) {
-            echo Html::a(
-                    '[x] Убрать из разобраного', ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id]);
+    if ($model->_isBuy != NULL || $model->val == NULL) {
+        if (!Yii::$app->user->isGuest) {
+            if ($model->_isParsed != NULL) {
+                echo Html::a(
+                        '[x] Убрать из разобраного', ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id]);
+            } else {
+                echo Html::a(
+                        '(&) Отметить разобранным', ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id]);
+            }
         } else {
-            echo Html::a(
-                    '(&) Отметить разобранным', ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id]);
+            echo
+            'Вы не зарегестрированы';
         }
-    } else {
-        echo
-        'Вы не зарегестрированы';
+    }
+    else {
+        echo 'Разобрать нельзя';
     }
     ?>
 </div>

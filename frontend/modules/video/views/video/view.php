@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                                 <div class="gift" id="gifter">
                                     <?php
-                                    if (Yii::$app->user->can('administrateVideo') || $model->_isAuthor) {
+                                    if (Yii::$app->user->can('administrateVideo')) {
                                         $gift_form = ActiveForm::begin([
                                                     'id' => 'gift',
                                                     'method' => 'post',
@@ -114,6 +114,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
                                         Pjax::end();
                                         echo '<br>';
+                                    }
+                                     if (Yii::$app->user->can('administrateVideo') || $model->_isAuthor) {
                                         echo Html::a('Статистика',['stat', 'id' => $model->id]);
                                     }
                                     ?>

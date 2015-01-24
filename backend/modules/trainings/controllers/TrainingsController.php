@@ -14,10 +14,9 @@ use app\modules\video\models\Video;
 /**
  * TrainingsController implements the CRUD actions for Trainings model.
  */
-class TrainingsController extends Controller
-{
-    public function behaviors()
-    {
+class TrainingsController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -32,14 +31,15 @@ class TrainingsController extends Controller
      * Lists all Trainings models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new TrainingsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $statusArray = Trainings::getStatusArray();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'statusArray' => $statusArray
         ]);
     }
 
@@ -48,10 +48,9 @@ class TrainingsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -60,17 +59,17 @@ class TrainingsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Trainings();
         $statusArray = Trainings::getStatusArray();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', Yii::t('ru', 'TRAINING CREATE SUCCESSFUL'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
-                'statusArray' => $statusArray
+                        'model' => $model,
+                        'statusArray' => $statusArray
             ]);
         }
     }
@@ -81,17 +80,17 @@ class TrainingsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
         $statusArray = Trainings::getStatusArray();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', Yii::t('ru', 'TRAINING UPDATE SUCCESSFUL'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
-                'statusArray' => $statusArray
+                        'model' => $model,
+                        'statusArray' => $statusArray
             ]);
         }
     }
@@ -102,8 +101,7 @@ class TrainingsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -116,15 +114,14 @@ class TrainingsController extends Controller
      * @return Trainings the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Trainings::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     /**
      * Получить список зависимых от тапа лимитов (вызывется в форме)
      * @return JSON 
@@ -143,4 +140,5 @@ class TrainingsController extends Controller
         }
         echo Json::encode(['output' => '', 'selected' => '']);
     }
+
 }

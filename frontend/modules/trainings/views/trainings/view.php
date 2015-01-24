@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ];
                                     
                                     $date = Yii::$app->formatter->asTimestamp(date('d.m.Y'));
-                                    if ($model->_isBuy == true) {
+                                    if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
                                         Html::addCssClass($options, 'hide');
                                         echo 'Ссылка: ' . $model->url;
                                     }
@@ -83,6 +83,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
                                         Pjax::end();
                                         echo '<br>';
+                                    }
+                                    if (Yii::$app->user->can('administrateTrainings') || $model->_isAuthor) {
                                         echo Html::a('Статистика',['stat', 'id' => $model->id]);
                                     }
                                     ?>

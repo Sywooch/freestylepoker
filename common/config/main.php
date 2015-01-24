@@ -12,6 +12,9 @@ return [
         'trainings' => [
             'class' => 'app\modules\trainings\Module',
         ],
+        'rooms' => [
+            'class' => 'app\modules\rooms\Module',
+        ],
         'fsp' => [
             'class' => 'nill\fsp\Module',
         ],

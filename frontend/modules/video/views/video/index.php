@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'itemView' => '_index_item',
         'sorter' => [
             'class' => LinkSorter::className(),
-            'attributes' => ['author', 'date', 'val'],
+            'attributes' => ['date', 'val'],
             'options' => ['class' => 'list-inline sorter']
         ],
     ]);

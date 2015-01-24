@@ -29,13 +29,13 @@ class TrainingsController extends Controller {
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['index', 'view'],
+            'actions' => ['index', 'stat', 'view'],
             'roles' => ['ViewVideo']
         ];
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['gift', 'stat', 'cancel', 'cancel_gift'],
+            'actions' => ['gift', 'cancel', 'cancel_gift'],
             'roles' => ['administrateVideo']
         ];
 
@@ -201,14 +201,20 @@ class TrainingsController extends Controller {
      * @return mixed
      */
     public function actionStat($id) {
-        $model = new Trainings();
-        $dataProvider = $model->_stat($id);
-        $dataProvider_gift = $model->_stat_gift($id);
+        $model = $this->findModel($id);
+        if ($model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
 
-        return $this->render('buy_stat', [
-                    'dataProvider' => $dataProvider,
-                    'dataProvider_gift' => $dataProvider_gift,
-        ]);
+            $model = new Trainings();
+            $dataProvider = $model->_stat($id);
+            $dataProvider_gift = $model->_stat_gift($id);
+
+            return $this->render('buy_stat', [
+                        'dataProvider' => $dataProvider,
+                        'dataProvider_gift' => $dataProvider_gift,
+            ]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
