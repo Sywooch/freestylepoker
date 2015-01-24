@@ -120,7 +120,7 @@ use yii\helpers\Html;
             $datem = date("d.m.Y", $mktime);
             $dt = Yii::$app->formatter->asTimestamp($datem);
 
-            $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt]);
+            $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt, 'status_id' => 1]);
             echo '<i>';
             if ($fin != NULL) {
                 //echo '<a href="?TrainingsSearch[date]=' . $datem . '">' . $date . '</a> ';

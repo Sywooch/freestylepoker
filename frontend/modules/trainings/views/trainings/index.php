@@ -2,9 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\jui\DatePicker;
 use vova07\themes\admin\widgets\Box;
-use yii\grid\ActionColumn;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\trainings\models\TrainingsSearch */
@@ -68,34 +66,6 @@ $this->params['breadcrumbs'] = [
         ],
     ];
 
-    $boxButtons = $actions = [];
-    $showActions = false;
-
-    if (Yii::$app->user->can('BViewVideo')) {
-        $boxButtons[] = '{view}';
-        $actions[] = '{view}';
-        $showActions = $showActions || true;
-    }
-    if (Yii::$app->user->can('BCreateVideo')) {
-        $boxButtons[] = '{create}';
-    }
-    if (Yii::$app->user->can('BUpdateVideo')) {
-        $actions[] = '{update}';
-        $showActions = $showActions || true;
-    }
-    if (Yii::$app->user->can('BDeleteVideo')) {
-        $boxButtons[] = '{batch-delete}';
-        $actions[] = '{delete}';
-        $showActions = $showActions || true;
-    }
-
-    if ($showActions === true) {
-        $gridConfig['columns'][] = [
-            'class' => ActionColumn::className(),
-            'template' => implode(' ', $actions)
-        ];
-    }
-    $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
     ?>
 
     <div class="row">
@@ -107,7 +77,6 @@ $this->params['breadcrumbs'] = [
                         'bodyOptions' => [
                             'class' => 'table-responsive'
                         ],
-                        'buttonsTemplate' => $boxButtons,
                         'grid' => $gridId
                     ]
             );
