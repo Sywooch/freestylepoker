@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'action' => ['account'],
                 ]);
 
-                echo $form->field($model, 'nickname');
+                echo $form->field($model, 'nickname')->textInput(['style' => 'width:300px']);
                 ?>
                 <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
                 <?= Html::submitButton('Привязать', ['class' => 'btn btn-primary'], ['id' => 'sbm']) ?>
