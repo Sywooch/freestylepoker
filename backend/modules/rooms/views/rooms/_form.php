@@ -35,47 +35,50 @@ use vova07\imperavi\Widget as Imperavi;
             'pluginOptions' => [
 //            'tags' => $model->Promo,
                 'maximumInputLength' => 10,
-                //'allowClear' => true
+            //'allowClear' => true
             ],
         ]);
         ?>
     </div>
     <div class="col-sm-6">
-        <?= $form->field($model, 'info')->widget(
-                Imperavi::className(),
-                [
-                    'settings' => [
-                        'minHeight' => 70,
-                    ]
+        <?=
+        $form->field($model, 'info')->widget(
+                Imperavi::className(), [
+            'settings' => [
+                'minHeight' => 70,
+            ]
                 ]
-            ) ?>
+        )
+        ?>
     </div>
     <div class="col-sm-6">
         <?= $form->field($model, 'snippet')->textarea(['rows' => 6]) ?>
     </div>
     <div class="col-sm-6">
-        <?= $form->field($model, 'content')->widget(
-                Imperavi::className(),
-                [
-                    'settings' => [
-                        'minHeight' => 70,
-                        'imageGetJson' => Url::to(['/rooms/rooms/imperavi-get']),
-                        'imageUpload' => Url::to(['/rooms/rooms/imperavi-image-upload']),
-                    ]
+        <?=
+        $form->field($model, 'content')->widget(
+                Imperavi::className(), [
+            'settings' => [
+                'minHeight' => 70,
+                'imageGetJson' => Url::to(['/rooms/rooms/imperavi-get']),
+                'imageUpload' => Url::to(['/rooms/rooms/imperavi-image-upload']),
+            ]
                 ]
-            ) ?>
+        )
+        ?>
     </div>
     <div class="col-sm-6">
-        <?= $form->field($model, 'instruction')->widget(
-                Imperavi::className(),
-                [
-                    'settings' => [
-                        'minHeight' => 70,
-                        'imageGetJson' => Url::to(['/rooms/rooms/imperavi-get']),
-                        'imageUpload' => Url::to(['/rooms/rooms/imperavi-image-upload']),
-                    ]
+        <?=
+        $form->field($model, 'instruction')->widget(
+                Imperavi::className(), [
+            'settings' => [
+                'minHeight' => 70,
+                'imageGetJson' => Url::to(['/rooms/rooms/imperavi-get']),
+                'imageUpload' => Url::to(['/rooms/rooms/imperavi-image-upload']),
+            ]
                 ]
-            ) ?>
+        )
+        ?>
     </div>
     <div class="col-sm-6">
         <?= $form->field($model, 'bonus')->textInput(['maxlength' => 100]) ?>
@@ -84,6 +87,9 @@ use vova07\imperavi\Widget as Imperavi;
         <?=
         $form->field($model, 'logo')->widget(
                 FileAPI::className(), [
+            'crop' => true,
+            'cropResizeWidth' => 137,
+            'cropResizeHeight' => 137,
             'settings' => [
                 'url' => ['/rooms/rooms/fileapi-upload']
             ]
