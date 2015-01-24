@@ -54,11 +54,14 @@ class RoomsPromoController extends Controller
         } elseif ($alias) {
             // Найдем по алиасу
             $model = RoomsPromo::findOne(['alias' => $alias]);
+            if ($model) {
+                return $this->render('view', [
+                            'model' => $model,
+                ]);
+            } else {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
         }
-        
-        return $this->render('view', [
-                        'model' => $model,
-            ]);
     }
 
     /**
