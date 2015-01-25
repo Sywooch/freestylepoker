@@ -58,7 +58,7 @@ class RoomsAcc extends \yii\db\ActiveRecord {
         $this->user_id = \Yii::$app->user->id;
         if ($this->validate()) {
             if ($this->save()) {
-                return 'Аккаунт успешно привязан';
+                return 'Заявка отправлена';
             } else {
                 return 'Ошибка сохранения';
             }
