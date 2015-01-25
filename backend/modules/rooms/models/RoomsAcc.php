@@ -84,7 +84,7 @@ class RoomsAcc extends \yii\db\ActiveRecord {
      * @param type $email
      */
     public function request_send($email, $message) {
-        Yii::$app->mail->compose()
+        Yii::$app->mailer->compose()
                 ->setTo($email)
                 ->setFrom(Yii::$app->params['adminEmail'])
                 ->setSubject(Yii::t('ru', 'Freestylepoker - request on account of poker-room'))
