@@ -68,7 +68,8 @@ class SortableGridBehavior extends Behavior {
      * Пересортировка
      */
     private function reSort() {
-        $models = \app\modules\video\models\Video::find()->orderBy('sortOrder')->all();
+        $model = $this->owner;
+        $models = $model->find()->orderBy('sortOrder')->all();
         $i = 0;
         foreach ($models as $value) {
             $value->updateAttributes(['sortOrder' => $i]);
