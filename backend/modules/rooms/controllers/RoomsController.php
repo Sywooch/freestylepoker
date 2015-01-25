@@ -13,6 +13,8 @@ use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 use vova07\imperavi\actions\GetAction as ImperaviGet;
 use vova07\imperavi\actions\UploadAction as ImperaviUpload;
 
+use himiklab\sortablegrid\SortableGridAction;
+
 /**
  * RoomsController implements the CRUD actions for Rooms model.
  */
@@ -49,7 +51,11 @@ class RoomsController extends Controller
             'fileapi-upload' => [
                 'class' => FileAPIUpload::className(),
                 'path' => $this->module->imagesTempPath
-            ]
+            ],
+            'sort' => [
+                'class' => SortableGridAction::className(),
+                'modelName' => Rooms::className(),
+            ],
         ];
     }
 

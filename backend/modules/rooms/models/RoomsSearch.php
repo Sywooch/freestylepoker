@@ -45,6 +45,11 @@ class RoomsSearch extends Rooms
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'sortOrder' => SORT_DESC,
+                ],
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {

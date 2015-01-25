@@ -7,6 +7,8 @@ use yii\helpers\ArrayHelper;
 use vova07\fileapi\behaviors\UploadBehavior;
 use app\modules\rooms\traits\ModuleTrait;
 
+use himiklab\sortablegrid\SortableGridBehavior;
+
 /**
  * This is the model class for table "{{%rooms}}".
  *
@@ -42,6 +44,10 @@ class Rooms extends \yii\db\ActiveRecord {
                         'url' => $this->module->previewUrl
                     ],
                 ]
+            ],
+            'sort' => [
+                'class' => SortableGridBehavior::className(),
+                'sortableAttribute' => 'sortOrder'
             ],
         ];
     }

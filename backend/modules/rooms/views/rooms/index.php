@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use himiklab\sortablegrid\SortableGridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\rooms\models\RoomsSearch */
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?= SortableGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -32,13 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'net',
             'alias',
             'snippet:ntext',
+            'sortOrder',
             // 'promo',
             // 'logo',
             // 'content:ntext',
             // 'info:ntext',
             // 'instruction:ntext',
             // 'bonus',
-            // 'sortOrder',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
