@@ -25,7 +25,20 @@ use yii\helpers\Html;
             <?= Html::encode($model->bonus); ?>
         </span>
         <span class="right">
-            <?= Html::a(Html::encode('Registration'), ['view', 'alias' => $model->alias]);  ?>
+            <?php
+            if (!$model->isAccount && !\Yii::$app->user->isGuest) {
+                echo Html::a(Html::encode('Регистрация в руме'), ['view', 'alias' => $model->alias, '#' => 'accounts']);
+            } 
+            elseif (\Yii::$app->user->isGuest) {
+                echo 'Вы не авторизированы';
+            }
+            elseif($model->isAccount && $model->Account_status) {
+                echo 'Ник в руме: <b>'. $model->Account_status . '</b>';
+            }
+            else {
+                echo 'Аккаунт ожидает подтветржения';
+            }
+            ?>
         </span>
     </div>
     <div class="room_list__info">

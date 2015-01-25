@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo 'Для регистрации в покер-руме войдите на сайт';
             }
             elseif($model->isAccount && $model->Account_status) {
-                echo 'Ваш аккаунт подтвержден администратором';
+                echo 'Ник в руме: <b>'. $model->Account_status . '</b>';
             }
             else {
                 echo 'Ваш аккаунт ожидает подтветржения';

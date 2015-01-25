@@ -28,7 +28,7 @@ class RoomsAcc extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['room_id', 'user_id', 'nickname'], 'required'],
-            [['room_id', 'user_id', 'status_id'], 'integer'],
+            [['room_id', 'user_id', 'status_id', 'date'], 'integer'],
             [['nickname'], 'string', 'max' => 100]
         ];
     }
@@ -43,6 +43,7 @@ class RoomsAcc extends \yii\db\ActiveRecord {
             'user_id' => Yii::t('ru', 'User ID'),
             'status_id' => Yii::t('ru', 'Status ID'),
             'nickname' => Yii::t('ru', 'Nickname'),
+            'date' => Yii::t('ru', 'Date'),
         ];
     }
 

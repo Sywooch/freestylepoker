@@ -125,7 +125,7 @@ class Rooms extends \yii\db\ActiveRecord {
 
     /**
      * Проверка статуса привязки аккаунта
-     * @return boolean
+     * @return nickname or FALSE 
      */
     public function getAccount_status() {
         $status = RoomsAcc::findOne([
@@ -133,7 +133,9 @@ class Rooms extends \yii\db\ActiveRecord {
                     'room_id' => $this->id,
                     'status_id' => self::ACC_STAT]);
         if ($status) {
-            return true;
+            return $status->nickname;
+        } else {
+            return FALSE;
         }
     }
 
