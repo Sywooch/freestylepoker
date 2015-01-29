@@ -14,6 +14,10 @@ echo Menu::widget(
             ],
             'items' => [
                 [
+                    'label' => Yii::t('vova07/themes/site', 'Новости'),
+                    'url' => ['/blogs'],
+                ],
+                [
                     'label' => Yii::t('vova07/themes/site', 'Видео'),
                     'url' => ['/video/video/index'],
                 ],
