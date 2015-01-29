@@ -2,7 +2,7 @@
 
 namespace vova07\blogs\models;
 
-use vova07\users\traits\ModuleTrait;
+use nill\users\traits\ModuleTrait;
 use yii\db\ActiveQuery;
 
 /**
