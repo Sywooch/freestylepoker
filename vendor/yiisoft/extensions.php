@@ -218,4 +218,14 @@ return array(
             '@vova07/imperavi' => $vendorDir . '/vova07/yii2-imperavi-widget',
         ),
     ),
+    'vova07/yii2-start-blogs-module' =>
+    array(
+        'name' => 'vova07/yii2-start-blogs-module',
+        'version' => '0.2.1.0',
+        'alias' =>
+        array(
+            '@vova07/blogs' => $vendorDir . '/vova07/yii2-start-blogs-module',
+        ),
+        'bootstrap' => 'vova07\\blogs\\Bootstrap',
+    ),
 );
