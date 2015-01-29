@@ -23,9 +23,9 @@ return [
             'robotEmail' => 'no-reply@domain.com',
             'robotName' => 'Robot'
         ],
-//        'blogs' => [
-//            'class' => 'vova07\blogs\Module'
-//        ],
+        'blogs' => [
+            'class' => 'vova07\blogs\Module'
+        ],
         'comments' => [
             'class' => 'vova07\comments\Module'
         ]

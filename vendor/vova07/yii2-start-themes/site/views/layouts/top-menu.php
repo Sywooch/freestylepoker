@@ -38,6 +38,10 @@ echo Menu::widget(
                             'label' => Yii::t('vova07/themes/admin', 'Rooms Promo'),
                             'url' => ['/rooms/roomspromo/index'],
                         ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rakeback'),
+                            'url' => ['/rooms/rakeback/create'],
+                        ],
                     ]
                 ],
                 [

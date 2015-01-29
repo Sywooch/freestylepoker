@@ -80,6 +80,11 @@ echo Menu::widget(
                             'url' => ['/rooms/roomsacc/index'],
                             'visible' => Yii::$app->user->can('administrateVideo'),
                         ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rakeback'),
+                            'url' => ['/rooms/rakeback/index'],
+                            'visible' => Yii::$app->user->can('administrateVideo'),
+                        ],
                     ]
                 ],
                 [
