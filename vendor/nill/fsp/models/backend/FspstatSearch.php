@@ -85,8 +85,7 @@ class FspstatSearch extends Fspstat {
         $this->sum = $x;
 
         $query->andFilterWhere(['like', 'comment', $this->comment]);
-
-        return $dataProvider;
+        return $dataProvider; 
     }
 
 }
