@@ -20,13 +20,12 @@ use Yii;
  * @property string $link
  * @property integer $status_id
  */
-class Rakeback extends \yii\db\ActiveRecord
-{
+class Rakeback extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%rakeback}}';
     }
 
@@ -47,8 +46,7 @@ class Rakeback extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('ru', 'ID'),
             'name' => Yii::t('ru', 'Name'),
@@ -57,11 +55,12 @@ class Rakeback extends \yii\db\ActiveRecord
             'email' => Yii::t('ru', 'Email'),
             'comment' => Yii::t('ru', 'Comment'),
             'type_poker' => Yii::t('ru', 'Type Poker'),
-            'fsp' => Yii::t('ru', 'Fsp'),
-            'rooms' => Yii::t('ru', 'Rooms'),
-            'about' => Yii::t('ru', 'About'),
+            'fsp' => Yii::t('ru', 'You buy points?'),
+            'rooms' => Yii::t('ru', 'Played in partner poker rooms?'),
+            'about' => Yii::t('ru', 'How did you hear about Freestylepoker?'),
             'link' => Yii::t('ru', 'Link'),
             'status_id' => Yii::t('ru', 'Status ID'),
         ];
     }
+
 }

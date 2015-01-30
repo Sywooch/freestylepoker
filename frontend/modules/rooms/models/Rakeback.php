@@ -55,9 +55,9 @@ class Rakeback extends \yii\db\ActiveRecord {
             'email' => Yii::t('ru', 'Email'),
             'comment' => Yii::t('ru', 'Comment'),
             'type_poker' => Yii::t('ru', 'Type Poker'),
-            'fsp' => Yii::t('ru', 'Fsp'),
-            'rooms' => Yii::t('ru', 'Rooms'),
-            'about' => Yii::t('ru', 'About'),
+            'fsp' => Yii::t('ru', 'You buy points?'),
+            'rooms' => Yii::t('ru', 'Played in partner poker rooms?'),
+            'about' => Yii::t('ru', 'How did you hear about Freestylepoker?'),
             'link' => Yii::t('ru', 'Link'),
             'status_id' => Yii::t('ru', 'Status ID'),
         ];
