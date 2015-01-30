@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use vova07\select2\Widget;
+use vova07\fileapi\Widget as FileAPI;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\trainings\models\Coaching */
@@ -15,18 +16,31 @@ use vova07\select2\Widget;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="col-sm-6">
-        <?= $form->field($model, 'user_id')->widget(Widget::className(), [
-                'options' => [
-                    'prompt' => \Yii::t('ru', 'Select...'),
-                ],
-                'settings' => [
-                    'width' => '100%',
-                ],
-                'items' => $model->AllUsers,
-            ]) ?>
+        <?=
+        $form->field($model, 'user_id')->widget(Widget::className(), [
+            'options' => [
+                'prompt' => \Yii::t('ru', 'Select...'),
+            ],
+            'settings' => [
+                'width' => '100%',
+            ],
+            'items' => $model->AllUsers,
+        ])
+        ?>
     </div>
     <div class="col-sm-6">
-        <?= $form->field($model, 'photo')->textInput(['maxlength' => 32]) ?>
+        <?=
+        $form->field($model, 'photo')->widget(
+                FileAPI::className(), [
+            'crop' => true,
+            'cropResizeWidth' => 137,
+            'cropResizeHeight' => 137,
+            'settings' => [
+                'url' => ['/trainings/coaching/fileapi-upload']
+            ]
+                ]
+        )
+        ?>
     </div>
     <div class="col-sm-6">
         <?= $form->field($model, 'description')->textarea(['style' => 'height:108px']) ?>

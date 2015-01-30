@@ -18,38 +18,45 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'attribute' => 'user_id',
+                'attribute' => 'photo',
                 'format' => 'html',
                 'value' => function($model) {
-                    $video = app\modules\video\models\Video::findOne($model->video_id);
-                    return $model->user->username
-                            . '<br>'
-                            . $model->description
-                            . '<br>'
-                            . Html::a($video->title, ['/video/' . $video->alias])
-                            . '<br>'
-                            . Html::a('Link', $model->link)
-                            . ' '
-                            . Html::a('Link Forum', $model->link_forum);
-                },
+                    return Html::img('/statics/web/coaching/previews/' . $model->photo, ['class' => 'img_coaching']);
+                }
                     ],
                     [
-                        'attribute' => 'type_id',
+                        'attribute' => 'user_id',
                         'format' => 'html',
                         'value' => function($model) {
-                            return $model->type->name
+                            $video = app\modules\video\models\Video::findOne($model->video_id);
+                            return $model->user->username
+                                    . '<br>'
+                                    . $model->description
+                                    . '<br>'
+                                    . Html::a($video->title, ['/video/' . $video->alias])
+                                    . '<br>'
+                                    . Html::a('Link', $model->link)
                                     . ' '
-                                    . $model->limit->name;
+                                    . Html::a('Link Forum', $model->link_forum);
                         },
-                    ],
+                            ],
+                            [
+                                'attribute' => 'type_id',
+                                'format' => 'html',
+                                'value' => function($model) {
+                                    return $model->type->name
+                                            . ' '
+                                            . $model->limit->name;
+                                },
+                            ],
 //                    'photo',
-                    'fsp',
-                ],
-            ]);
-            ?>
+                            'fsp',
+                        ],
+                    ]);
+                    ?>
 
 </div>

@@ -7,6 +7,8 @@ use app\modules\video\models\VideoLimits;
 use app\modules\video\models\VideoType;
 use nill\users\models\backend\User;
 use yii\helpers\ArrayHelper;
+use vova07\fileapi\behaviors\UploadBehavior;
+use app\modules\trainings\traits\ModuleTrait;
 
 /**
  * This is the model class for table "{{%coaching}}".
@@ -24,12 +26,30 @@ use yii\helpers\ArrayHelper;
  */
 class Coaching extends \yii\db\ActiveRecord
 {
+    
+    use ModuleTrait;
+    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%coaching}}';
+    }
+    
+    public function behaviors() {
+        return [
+            'uploadBehavior' => [
+                'class' => UploadBehavior::className(),
+                'attributes' => [
+                    'photo' => [
+                        'path' => $this->module->previewPath,
+                        'tempPath' => $this->module->imagesTempPath,
+                        'url' => $this->module->previewUrl
+                    ],
+                ]
+            ],
+        ];
     }
 
     /**
