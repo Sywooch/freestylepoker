@@ -19,11 +19,22 @@ echo Menu::widget(
                 ],
                 [
                     'label' => Yii::t('vova07/themes/site', 'Видео'),
-                    'url' => ['/video/video/index'],
-                ],
-                [
-                    'label' => Yii::t('vova07/themes/site', 'Золотой фонд'),
-                    'url' => ['/video/video_goldfund/index'],
+                    'url' => '#',
+                    'template' => '<a href="{url}" class="dropdown-toggle" data-toggle="dropdown">{label} <i class="icon-angle-down"></i></a>',
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/site', 'Видео'),
+                            'url' => ['/video/video/index'],
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/site', 'Золотой фонд'),
+                            'url' => ['/video/video_goldfund/index'],
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/site', 'Урок дня'),
+                            'url' => ['/video/lessons/index'],
+                        ]
+                    ]
                 ],
                 [
                     'label' => Yii::t('vova07/themes/site', 'Тренировки'),
