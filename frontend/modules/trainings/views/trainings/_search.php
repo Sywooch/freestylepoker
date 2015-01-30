@@ -105,6 +105,7 @@ use yii\helpers\Html;
         echo "<a href='?TrainingsSearch[date]=" . $date_next . "'> >></a>";
         echo '<br>';
 
+        // дней в месяце
         $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $dates_month = array();
         for ($i = 1; $i <= $num; $i++) {

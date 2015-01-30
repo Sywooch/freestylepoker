@@ -71,7 +71,7 @@ class Fspstat extends \yii\db\ActiveRecord {
         ];
         return $scenarios;
     }
-    
+
     public function beforeSave($insert) {
         parent::beforeSave($insert);
         // установить правильный формат даты
@@ -117,6 +117,23 @@ class Fspstat extends \yii\db\ActiveRecord {
         $sum = $this->fsp + $gold;
         $user->updateAttributes(['gold' => $sum]);
         return;
+    }
+
+    public static function month() {
+        $month[1] = "Январь";
+        $month[2] = "Февраль";
+        $month[3] = "Март";
+        $month[4] = "Апрель";
+        $month[5] = "Май";
+        $month[6] = "Июнь";
+        $month[7] = "Июль";
+        $month[8] = "Август";
+        $month[9] = "Сентябрь";
+        $month[10] = "Октябрь";
+        $month[11] = "Ноябрь";
+        $month[12] = "Декабрь";
+        
+        return $month;
     }
 
 }

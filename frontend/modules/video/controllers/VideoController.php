@@ -37,7 +37,7 @@ class VideoController extends Controller {
         $behaviors['access']['rules'][] = [
             'allow' => true,
             'actions' => ['gift', 'cancel', 'cancel_gift'],
-            'roles' => ['createVideo']
+            'roles' => ['createVideo', 'administrateVideo']
         ];
 
         $behaviors['verbs'] = [
