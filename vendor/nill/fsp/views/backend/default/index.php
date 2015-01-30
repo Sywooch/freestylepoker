@@ -19,6 +19,7 @@ $gridConfig = [
     'id' => $gridId,
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
+    'summary' => $searchModel->sum,
     'columns' => [
         'id',
         [
@@ -31,8 +32,16 @@ $gridConfig = [
             'attribute' => 'date',
             'format' => 'datetime',
             'filter' => Html::activeDropDownList(
-                            $searchModel, 'date' , \nill\fsp\models\backend\Fspstat::month(), ['class' => 'form-control', 'prompt' => 'Выбрать']),
+                    $searchModel, 'date', \nill\fsp\models\backend\Fspstat::month(), ['class' => 'form-control', 'prompt' => 'Выбрать']),
         ],
+//        [
+//            'label' => 'Sum',
+//            'value' => function ($model) {
+//                if ($model->fsp > 0) {
+//                    return $model->fsp + $model->fsp;
+//                }
+//            }
+//        ]
     ]
 ];
 ?>

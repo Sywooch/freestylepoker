@@ -10,13 +10,14 @@ use nill\fsp\models\backend\Fspstat;
 /**
  * FspstatSearch represents the model behind the search form about `nill\fsp\models\backend\Fspstat`.
  */
-class FspstatSearch extends Fspstat
-{
+class FspstatSearch extends Fspstat {
+
+    public $sum;
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'user_id', 'fsp', 'date', 'target_id', 'group_id'], 'integer'],
             [['comment'], 'safe'],
@@ -26,8 +27,7 @@ class FspstatSearch extends Fspstat
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,27 +39,28 @@ class FspstatSearch extends Fspstat
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Fspstat::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
+        
+
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-        
-        if($this->date) {
+
+        if ($this->date) {
             $year = date('Y');
             $num = cal_days_in_month(CAL_GREGORIAN, $this->date, $year);
-            
-            $date1 = date('01.' . $this->date. '.' .$year);
-            $date2 = date($num. '.' .$this->date. '.' .$year);
+
+            $date1 = date('01.' . $this->date . '.' . $year);
+            $date2 = date($num . '.' . $this->date . '.' . $year);
             $date1 = \Yii::$app->formatter->asTimestamp($date1);
             $date2 = \Yii::$app->formatter->asTimestamp($date2);
-            
+
             $query->andFilterWhere(['between', 'date', $date1, $date2]);
         }
 
@@ -71,9 +72,21 @@ class FspstatSearch extends Fspstat
             'target_id' => $this->target_id,
             'group_id' => $this->group_id,
         ]);
+        
+        $sum = $query->asArray()->all();
+        $x = 0;
+
+        foreach ($sum as $key => $value) {
+            if ($value['fsp'] < 0) {
+                $x = $value['fsp'] + $x;
+            }
+        }
+        
+        $this->sum = $x;
 
         $query->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }
+
 }
