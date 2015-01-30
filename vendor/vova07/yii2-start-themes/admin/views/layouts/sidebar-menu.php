@@ -55,9 +55,21 @@ echo Menu::widget(
                 ],
                 [
                     'label' => Yii::t('vova07/themes/admin', 'Trainings'),
-                    'url' => ['/trainings/trainings/index'],
+                    'url' => '#',
                     'icon' => 'fa-youtube-play',
                     'visible' => Yii::$app->user->can('administrateTrainings') || Yii::$app->user->can('BViewTrainings'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Trainings'),
+                            'url' => ['/trainings/trainings/index'],
+                            'visible' => Yii::$app->user->can('administrateTrainings'),
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Coaching'),
+                            'url' => ['/trainings/coaching/index'],
+                            'visible' => Yii::$app->user->can('administrateTrainings'),
+                        ]
+                    ]
                 ],
                 [
                     'label' => Yii::t('vova07/themes/admin', 'Poker-rooms'),
@@ -99,47 +111,47 @@ echo Menu::widget(
 //                'icon' => 'fa-book',
 //                'visible' => Yii::$app->user->can('administrateBlogs') || Yii::$app->user->can('BViewBlogs'),
 //            ],
-            [
-                'label' => Yii::t('vova07/themes/admin', 'Comments'),
-                'url' => ['/comments/default/index'],
-                'icon' => 'fa-comments',
-                'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels') || Yii::$app->user->can('BViewComments'),
-                'items' => [
-                    [
-                        'label' => Yii::t('vova07/themes/admin', 'Comments'),
-                        'url' => ['/comments/default/index'],
-                        'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewComments'),
-                    ],
-                    [
-                        'label' => Yii::t('vova07/themes/admin', 'Models management'),
-                        'url' => ['/comments/models/index'],
-                        'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels'),
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Comments'),
+                    'url' => ['/comments/default/index'],
+                    'icon' => 'fa-comments',
+                    'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels') || Yii::$app->user->can('BViewComments'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Comments'),
+                            'url' => ['/comments/default/index'],
+                            'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewComments'),
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Models management'),
+                            'url' => ['/comments/models/index'],
+                            'visible' => Yii::$app->user->can('administrateComments') || Yii::$app->user->can('BViewCommentsModels'),
+                        ]
                     ]
-                ]
-            ],
-            [
-                'label' => Yii::t('vova07/themes/admin', 'Access control'),
-                'url' => '#',
-                'icon' => 'fa-gavel',
-                'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles') || Yii::$app->user->can('BViewPermissions') || Yii::$app->user->can('BViewRules'),
-                'items' => [
-                    [
-                        'label' => Yii::t('vova07/themes/admin', 'Permissions'),
-                        'url' => ['/rbac/permissions/index'],
-                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewPermissions')
-                    ],
-                    [
-                        'label' => Yii::t('vova07/themes/admin', 'Roles'),
-                        'url' => ['/rbac/roles/index'],
-                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles')
-                    ],
-                    [
-                        'label' => Yii::t('vova07/themes/admin', 'Rules'),
-                        'url' => ['/rbac/rules/index'],
-                        'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRules')
+                ],
+                [
+                    'label' => Yii::t('vova07/themes/admin', 'Access control'),
+                    'url' => '#',
+                    'icon' => 'fa-gavel',
+                    'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles') || Yii::$app->user->can('BViewPermissions') || Yii::$app->user->can('BViewRules'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Permissions'),
+                            'url' => ['/rbac/permissions/index'],
+                            'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewPermissions')
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Roles'),
+                            'url' => ['/rbac/roles/index'],
+                            'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRoles')
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Rules'),
+                            'url' => ['/rbac/rules/index'],
+                            'visible' => Yii::$app->user->can('administrateRbac') || Yii::$app->user->can('BViewRules')
+                        ]
                     ]
-                ]
-            ],
+                ],
             ]
         ]
 );

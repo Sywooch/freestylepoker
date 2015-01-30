@@ -27,7 +27,18 @@ echo Menu::widget(
                 ],
                 [
                     'label' => Yii::t('vova07/themes/site', 'Тренировки'),
-                    'url' => ['/trainings/trainings/index'],
+                    'url' => '#',
+                    'template' => '<a href="{url}" class="dropdown-toggle" data-toggle="dropdown">{label} <i class="icon-angle-down"></i></a>',
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/site', 'Тренировки'),
+                            'url' => ['/trainings/trainings/index'],
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/site', 'Тренера'),
+                            'url' => ['/trainings/coaching/index'],
+                        ]
+                    ]
                 ],
                 [
                     'label' => Yii::t('vova07/themes/admin', 'Poker-rooms'),
