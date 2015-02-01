@@ -31,26 +31,21 @@ use yii\widgets\Breadcrumbs;
                         <?= Yii::$app->name ?>
                     </a>
                 </div>
-                    <div class="navbar-left">
-                        <div class="site_time">
-                            <?= '<i class="icon-time"> </i>'.  date('H:i'); ?>
-                        </div>
-                    </div>
-                <div class="navbar-right">
-                    <?php
-                    if (!Yii::$app->user->isGuest) {
-                        echo '<div class="usertop">';
-                        $user_id = Yii::$app->user->id;
-                        $user = nill\users\models\User::findOne($user_id);
-                        echo $user->username;
-                        echo "<br><a class='usertop_fsp' href='/videousr/'>";
-                        echo $user->gold == null ? '0 F$P' : $user->gold . ' F$P';
-                        echo '</a>'
-                        . \nill\comment_widget\Widget_cc::widget()
-                        . '</div>';
-                    }
-                    ?>
-
+                <div class="collapse navbar-collapse">
+                        <?php
+                        if (!Yii::$app->user->isGuest) {
+                            echo '<div class="usertop">';
+                            $user_id = Yii::$app->user->id;
+                            $user = nill\users\models\User::findOne($user_id);
+                            echo $user->username;
+                            echo "<br><a href='/videousr/'>";
+                            echo $user->gold==null ? '0 F$P' : $user->gold . ' F$P';
+                            echo '</a>'
+                            . \nill\comment_widget\Widget_cc::widget()
+                            . '</div>';
+                        }
+                        ?>
+                    <?= $this->render('//layouts/top-menu') ?>
                 </div>
             </div>
         </header>
@@ -60,36 +55,28 @@ use yii\widgets\Breadcrumbs;
             <section id="title" class="emerald">
                 <div class="container">
                     <div class="row">
-                        <?= $this->render('//layouts/top-menu') ?>
+                        <div class="col-sm-6">
+                            <h1><?= $this->title ?></h1>
+                            <?php if (isset($this->params['subtitle'])) : ?>
+                                <p><?= $this->params['subtitle'] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-sm-6">
+                            <?=
+                            Breadcrumbs::widget(
+                                    [
+                                        'options' => [
+                                            'class' => 'breadcrumb pull-right'
+                                        ],
+                                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
+                                    ]
+                            )
+                            ?>
+                        </div>
                     </div>
                 </div>
             </section><!--/#title-->
         <?php endif; ?>
-        
-            <section id="" class="breadcrumb">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <span><?= $this->title ?></span>
-                        <?php if (isset($this->params['subtitle'])) : ?>
-                            <p><?= $this->params['subtitle'] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="col-sm-6">
-                        <?=
-                        Breadcrumbs::widget(
-                                [
-                                    'options' => [
-                                        'class' => 'breadcrumb pull-right'
-                                    ],
-                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
-                                ]
-                        )
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <?= Alert::widget(); ?>
 

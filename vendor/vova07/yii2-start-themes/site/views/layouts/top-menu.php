@@ -10,7 +10,10 @@ use vova07\themes\site\widgets\Menu;
 echo Menu::widget(
         [
             'options' => [
-                'class' => isset($footer) ? 'pull-right' : 'nav navbar-nav navbar-right'
+                'class' => isset($footer) ? 'pull-right' : 'nav navbar-nav'
+            ],
+            'itemOptions' => [
+                'class' => 'm-2'
             ],
             'items' => [
                 [

@@ -101,9 +101,21 @@ echo Menu::widget(
                 ],
                 [
                     'label' => Yii::t('vova07/themes/admin', 'FSP'),
-                    'url' => ['/fsp/default/form'],
+                    'url' => '#',
                     'icon' => 'fa-money',
-                    'visible' => Yii::$app->user->can('administrateTrainings') || Yii::$app->user->can('BViewTrainings'),
+                    'visible' => Yii::$app->user->can('administrateVideo') || Yii::$app->user->can('BViewVideo'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Add F$P user'),
+                            'url' => ['/fsp/default/form'],
+                            'visible' => Yii::$app->user->can('administrateTrainings'),
+                        ],
+                        [
+                            'label' => Yii::t('vova07/themes/admin', 'Statistic F$P users'),
+                            'url' => ['/fsp/default/index'],
+                            'visible' => Yii::$app->user->can('administrateTrainings'),
+                        ]
+                    ]
                 ],
 //            [
 //                'label' => Yii::t('vova07/themes/admin', 'Blogs'),
