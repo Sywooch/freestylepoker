@@ -5,7 +5,6 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\trainings\models\TrainingsSearch */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="trainings-search">
@@ -80,10 +79,10 @@ use yii\helpers\Html;
         $date = new DateTime($date);
         $date_next = $date->modify('+1 month');
         //$date_next = $date->format('01.m.Y');
-        
-        if($date->format('d.m.Y') == date('01.m.Y')) {
-        $dayr = date('d');
-        $date_next = $date->format($dayr.'.m.Y');
+
+        if ($date->format('d.m.Y') == date('01.m.Y')) {
+            $dayr = date('d');
+            $date_next = $date->format($dayr . '.m.Y');
         } else {
             $date_next = $date->format('01.m.Y');
         }
@@ -91,14 +90,14 @@ use yii\helpers\Html;
         $date = $pd;
         $date = new DateTime($date);
         $date_prev = $date->modify('-1 month');
-        
-        if($date->format('d.m.Y') == date('01.m.Y')) {
-        $dayr = date('d');
-        $date_prev = $date->format($dayr.'.m.Y');
+
+        if ($date->format('d.m.Y') == date('01.m.Y')) {
+            $dayr = date('d');
+            $date_prev = $date->format($dayr . '.m.Y');
         } else {
             $date_prev = $date->format('01.m.Y');
         }
-        
+
 
         echo "<a href='?TrainingsSearch[date]=" . $date_prev . "'><< </a>";
         echo $monthm;
@@ -124,7 +123,6 @@ use yii\helpers\Html;
             $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt, 'status_id' => 1]);
             echo '<i>';
             if ($fin != NULL) {
-                //echo '<a href="?TrainingsSearch[date]=' . $datem . '">' . $date . '</a> ';
                 echo Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem], 'month' => $month]) . ' ';
             } else {
                 echo $date . ' ';
@@ -149,6 +147,11 @@ use yii\helpers\Html;
 
 </div>
 <?php
+
+/**
+ * Вывод календаря
+ */
+
 $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
 $pd = $get['TrainingsSearch'];
 $pd = $pd['date'];
@@ -157,78 +160,33 @@ $month = explode(".", $pd);
 
 if (!$pd) {
     if (Yii::$app->request->get() && $month[1] != date('m')) {
-        $x = 'not';
-        $dater[0] = 1;
-        $x0 = $dater[0];
-        $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
-        $x1 = $dater[0] + 1;
-        $x1 = str_pad($x1, 2, '0', STR_PAD_LEFT);
-        $x2 = $dater[0] + 2;
-        $x2 = str_pad($x2, 2, '0', STR_PAD_LEFT);
-        $x3 = $dater[0] + 3;
-        $x3 = str_pad($x3, 2, '0', STR_PAD_LEFT);
-        $x4 = $dater[0] + 4;
-        $x4 = str_pad($x4, 2, '0', STR_PAD_LEFT);
-        $x5 = $dater[0] + 5;
-        $x5 = str_pad($x5, 2, '0', STR_PAD_LEFT);
-        $x6 = $dater[0] + 6;
-        $x6 = str_pad($x6, 2, '0', STR_PAD_LEFT);
+        $this->registerJs(setDate(1));
     } else {
-        $x = date('d');
-        $x0 = date('d');
-        $x1 = date('d') + 1;
-        $x2 = date('d') + 2;
-        $x3 = date('d') + 3;
-        $x4 = date('d') + 4;
-        $x5 = date('d') + 5;
-        $x6 = date('d') + 6;
+        $this->registerJs(setDate(date('d'), date('d')));
     }
 } else {
     if (Yii::$app->request->get() && $month[1] != date('m')) {
-        $x = 'not';
         $dater = explode(".", $pd);
-        $x0 = $dater[0];
-        $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
-        $x1 = $dater[0] + 1;
-        $x1 = str_pad($x1, 2, '0', STR_PAD_LEFT);
-        $x2 = $dater[0] + 2;
-        $x2 = str_pad($x2, 2, '0', STR_PAD_LEFT);
-        $x3 = $dater[0] + 3;
-        $x3 = str_pad($x3, 2, '0', STR_PAD_LEFT);
-        $x4 = $dater[0] + 4;
-        $x4 = str_pad($x4, 2, '0', STR_PAD_LEFT);
-        $x5 = $dater[0] + 5;
-        $x5 = str_pad($x5, 2, '0', STR_PAD_LEFT);
-        $x6 = $dater[0] + 6;
-        $x6 = str_pad($x6, 2, '0', STR_PAD_LEFT);
+        $this->registerJs(setDate($dater[0]));
     } else {
-        $x = date('d');
         $dater = explode(".", $pd);
-        $x0 = $dater[0];
-        $x0 = str_pad($x0, 2, '0', STR_PAD_LEFT);
-        $x1 = $dater[0] + 1;
-        $x1 = str_pad($x1, 2, '0', STR_PAD_LEFT);
-        $x2 = $dater[0] + 2;
-        $x2 = str_pad($x2, 2, '0', STR_PAD_LEFT);
-        $x3 = $dater[0] + 3;
-        $x3 = str_pad($x3, 2, '0', STR_PAD_LEFT);
-        $x4 = $dater[0] + 4;
-        $x4 = str_pad($x4, 2, '0', STR_PAD_LEFT);
-        $x5 = $dater[0] + 5;
-        $x5 = str_pad($x5, 2, '0', STR_PAD_LEFT);
-        $x6 = $dater[0] + 6;
-        $x6 = str_pad($x6, 2, '0', STR_PAD_LEFT);
+        $this->registerJs(setDate($dater[0], date('d')));
     }
 }
 
-$k = ''
-        . '$("pre i:contains(' . $x . ')").css("background", "red");'
-        . '$("pre i:contains(' . $x0 . ')").css("background", "#ccb89d");'
-        . '$("pre i:contains(' . $x1 . ')").css("background", "#5cb85c");'
-        . '$("pre i:contains(' . $x2 . ')").css("background", "#5cb85c");'
-        . '$("pre i:contains(' . $x3 . ')").css("background", "#5cb85c");'
-        . '$("pre i:contains(' . $x4 . ')").css("background", "#5cb85c");'
-        . '$("pre i:contains(' . $x5 . ')").css("background", "#5cb85c");'
-        . '$("pre i:contains(' . $x6 . ')").css("background", "#5cb85c");'
-        . '';
-$this->registerJs($k);
+function setDate($date, $x = 'not') {
+    for($i=0; $i < 7; $i++) {
+        $date_inc = $date + $i;
+        $arr[$i] = str_pad($date_inc, 2, '0', STR_PAD_LEFT);
+    }
+    return $style = ''
+            . '$("pre i:contains(' . $x . ')").css("background", "red");'
+            . '$("pre i:contains(' . $arr[0] . ')").css("background", "#ccb89d");'
+            . '$("pre i:contains(' . $arr[1] . ')").css("background", "#5cb85c");'
+            . '$("pre i:contains(' . $arr[2] . ')").css("background", "#5cb85c");'
+            . '$("pre i:contains(' . $arr[3] . ')").css("background", "#5cb85c");'
+            . '$("pre i:contains(' . $arr[4] . ')").css("background", "#5cb85c");'
+            . '$("pre i:contains(' . $arr[5] . ')").css("background", "#5cb85c");'
+            . '$("pre i:contains(' . $arr[6] . ')").css("background", "#5cb85c");'
+            . '';
+}
