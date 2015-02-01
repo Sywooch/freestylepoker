@@ -39,7 +39,6 @@
 .nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
     text-decoration: none;
     background-color: #3e6187;
-
 }
 .breadcrumb {
     padding: 0px;
