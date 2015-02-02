@@ -36,7 +36,7 @@ use vova07\themes\site\widgets\Alert;
 
         <section id="title" class="emerald">
             <div class="container">
-                <div class="row">
+                <div class="row top-menu">
                     <?= $this->render('//layouts/top-menu') ?>
                 </div>
             </div>

@@ -74,6 +74,14 @@ echo Menu::widget(
                     ]
                 ],
                 [
+                    'label' => Yii::t('vova07/themes/site', 'F$P'),
+                    'url' => ['/users/guest/login'],
+                ],
+                [
+                    'label' => Yii::t('vova07/themes/site', 'Форум'),
+                    'url' => ['/users/guest/login'],
+                ],
+                [
                     'label' => Yii::t('vova07/themes/site', 'Sign In'),
                     'url' => ['/users/guest/login'],
                     'visible' => Yii::$app->user->isGuest

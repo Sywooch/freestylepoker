@@ -59,28 +59,22 @@ use yii\widgets\Breadcrumbs;
         <?php if (!isset($this->params['noTitle'])) : ?>
             <section id="title" class="emerald">
                 <div class="container">
-                    <div class="row">
+                    <div class="row top-menu">
                         <?= $this->render('//layouts/top-menu') ?>
                     </div>
                 </div>
             </section><!--/#title-->
         <?php endif; ?>
         
-            <section id="" class="breadcrumb">
+            <section id="" class="breadcrumbs">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <span><?= $this->title ?></span>
-                        <?php if (isset($this->params['subtitle'])) : ?>
-                            <p><?= $this->params['subtitle'] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="col-sm-6">
+                    <div>
                         <?=
                         Breadcrumbs::widget(
                                 [
                                     'options' => [
-                                        'class' => 'breadcrumb pull-right'
+                                        'class' => 'breadcrumb pull-left'
                                     ],
                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
                                 ]

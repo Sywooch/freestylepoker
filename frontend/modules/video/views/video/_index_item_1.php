@@ -10,9 +10,15 @@ use yii\widgets\Pjax;
  */
 ?>
 <div class="col-sm-12">
-    <h4>
+    <h3>
         <?= Html::a(Html::encode($model->title), ['view', 'alias' => $model->alias]); ?>
-    </h4>
+        <?php //  Html::a(Html::encode($model->title), ['view', 'id' => $model->id, 'alias' => $model->alias]);  ?>
+
+        <?= Html::img('/statics/web/video/previews/' . $model->preview, ['style' => 'width:100px; float:right; padding:0px']) ?>
+    </h3>
+</div>
+<div class="col-sm-12">
+    <?= '<b>Автор: </b>' . $model->author ?>
 </div>
 <div class="col-sm-12">
     <?= '<b>Описание: </b>' . $model->description; ?>
