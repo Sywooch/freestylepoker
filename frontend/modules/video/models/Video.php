@@ -454,6 +454,39 @@ class Video extends \yii\db\ActiveRecord {
         ]);
         return $dataProvider;
     }
+    
+    /**
+     * Получить список типов
+     * @return array
+     */
+    public function getTyper() {
+        $models = VideoType::find()->asArray()->all();
+        $result = ArrayHelper::map($models, 'id', 'name');
+        return $result;
+    }
+    
+    /**
+     * Получить текущее лимиты
+     * @param type $type_id
+     * @return type
+     */
+    public function getCurrentLimits($type_id) {
+        $model = VideoLimits::find()->where(['type_id' => $type_id])->asArray()->all();
+        $limits = ArrayHelper::map($model, 'sortOrder', 'name');
+        return $limits;
+    }
+    
+    /**
+     * Пуличить лимиты соответствующие типу
+     * @return array
+     */
+    public static function getPartLimits($type_id) {
+        $model = VideoLimits::find()->where(['type_id' => $type_id])->asArray()->all();
+        foreach ($model as $key => $value) {
+            $limits[] = ['id' => $value['sortOrder'], 'name' => $value['name']];
+        }
+        return $limits;
+    }
 
 //    /**
 //     * 

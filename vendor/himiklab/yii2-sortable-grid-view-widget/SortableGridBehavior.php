@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @link https://github.com/himiklab/yii2-sortable-grid-view-widget
  * @copyright Copyright (c) 2014 HimikLab
@@ -9,8 +8,8 @@
 namespace himiklab\sortablegrid;
 
 use yii\base\Behavior;
-use yii\db\ActiveRecord;
 use yii\base\InvalidConfigException;
+use yii\db\ActiveRecord;
 
 /**
  * Behavior for sortable Yii2 GridView widget.
@@ -32,52 +31,40 @@ use yii\base\InvalidConfigException;
  * @author HimikLab
  * @package himiklab\sortablegrid
  */
-class SortableGridBehavior extends Behavior {
-
+class SortableGridBehavior extends Behavior
+{
     /** @var string database field name for row sorting */
     public $sortableAttribute = 'sortOrder';
 
-    public function events() {
+    public function events()
+    {
         return [ActiveRecord::EVENT_BEFORE_INSERT => 'beforeInsert'];
     }
 
-    public function gridSort($items) {
+    public function gridSort($items)
+    {
         /** @var ActiveRecord $model */
         $model = $this->owner;
         if (!$model->hasAttribute($this->sortableAttribute)) {
             throw new InvalidConfigException("Model does not have sortable attribute `{$this->sortableAttribute}`.");
         }
 
-        $model::getDb()->transaction(function () use ($model, $items) {
-            $i = 0;
-            foreach ($items as $item) {
-                /** @var \yii\db\ActiveRecord $row */
-                $row = $model::findOne($item);
-                if ($row->{$this->sortableAttribute} != $i) {
-                    $row->updateAttributes([$this->sortableAttribute => $i]);
-                }
-                ++$i;
+        $newOrder = [];
+        $models = [];
+        foreach ($items as $old => $new) {
+            $models[$new] = $model::findOne($new);
+            $newOrder[$old] = $models[$new]->{$this->sortableAttribute};
+        }
+        $model::getDb()->transaction(function () use ($models, $newOrder) {
+            foreach ($newOrder as $modelId => $orderValue) {
+                /** @var ActiveRecord[] $models */
+                $models[$modelId]->updateAttributes([$this->sortableAttribute => $orderValue]);
             }
         });
-        
-        // Вызов пересортировки
-        $this->reSort();
     }
 
-    /**
-     * Пересортировка
-     */
-    private function reSort() {
-        $model = $this->owner;
-        $models = $model->find()->orderBy('sortOrder')->all();
-        $i = 0;
-        foreach ($models as $value) {
-            $value->updateAttributes(['sortOrder' => $i]);
-            ++$i;
-        }
-    }
-
-    public function beforeInsert() {
+    public function beforeInsert()
+    {
         /** @var ActiveRecord $model */
         $model = $this->owner;
         if (!$model->hasAttribute($this->sortableAttribute)) {
@@ -85,8 +72,6 @@ class SortableGridBehavior extends Behavior {
         }
 
         $maxOrder = $model->find()->max($model->tableName() . '.' . $this->sortableAttribute);
-
         $model->{$this->sortableAttribute} = $maxOrder + 1;
     }
-
 }

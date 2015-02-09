@@ -53,7 +53,9 @@ class Videoparsed extends \yii\db\ActiveRecord {
         $videoparsed->video_id = $id;
         $videoparsed->user_id = Yii::$app->user->id;
         $videoparsed->save();
-        return Yii::t('ru', 'Parsed');
+        return '<i class="icon-check"> </i>'
+                . \yii\helpers\Html::a(
+                        'Разобранное', ['deleteparsed', 'id' => $id], ['data-pjax' => '#checked-parsed' . $id]);
     }
 
     /**
@@ -65,9 +67,10 @@ class Videoparsed extends \yii\db\ActiveRecord {
         $videoparsed = self::findOne(['video_id' => $id, 'user_id' => Yii::$app->user->id]);
         if ($videoparsed != NULL) {
             $videoparsed->delete();
-            return Yii::t('ru', 'No Parsed');
-        }
-        else {
+            return '<i class="icon-check-empty"> </i>'
+                . \yii\helpers\Html::a(
+                        'Разобранное', ['addparsed', 'id' => $id], ['data-pjax' => '#checked-parsed' . $id]);
+        } else {
             throw new \yii\db\Exception('This record does not exist.');
         }
     }

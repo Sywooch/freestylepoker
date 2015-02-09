@@ -5,6 +5,7 @@ namespace app\modules\video\models;
 use Yii;
 use app\modules\video\models\VideoType;
 use yii\helpers\ArrayHelper;
+use himiklab\sortablegrid\SortableGridBehavior;
 
 /**
  * This is the model class for table "{{%video_limits}}".
@@ -25,6 +26,15 @@ class VideoLimits extends \yii\db\ActiveRecord
     {
         return '{{%video_limits}}';
     }
+    
+    public function behaviors() {
+        return [
+            'sort' => [
+                'class' => SortableGridBehavior::className(),
+                'sortableAttribute' => 'sortOrder'
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -33,7 +43,7 @@ class VideoLimits extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'type_id'], 'required'],
-            [['type_id'], 'integer'],
+            [['type_id', 'sortOrder'], 'integer'],
             [['name'], 'string', 'max' => 256],
         ];
     }
@@ -47,6 +57,7 @@ class VideoLimits extends \yii\db\ActiveRecord
             'id' => Yii::t('ru', 'ID'),
             'name' => Yii::t('ru', 'Name'),
             'type_id' => Yii::t('ru', 'Type ID'),
+            'sortOrder' => Yii::t('ru', 'sortOrder'),
         ];
     }
     

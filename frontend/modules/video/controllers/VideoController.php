@@ -12,6 +12,7 @@ use app\modules\video\models\Videoparsed;
 use yii\filters\AccessControl;
 use nill\comment_widget\models\CommentsClock;
 use app\modules\video\models\VideoRating;
+use yii\helpers\Json;
 
 /**
  * VideoController implements the CRUD actions for Video model.
@@ -30,7 +31,7 @@ class VideoController extends Controller {
 
         $behaviors['access']['rules'][] = [
             'allow' => true,
-            'actions' => ['index', 'view', 'deleteparsed', 'addparsed', 'stat', 'rating'],
+            'actions' => ['index', 'view', 'deleteparsed', 'addparsed', 'stat', 'rating', 'getlimits'],
             'roles' => ['ViewVideo']
         ];
 
@@ -46,6 +47,7 @@ class VideoController extends Controller {
                 'index' => ['get', 'post'],
                 'view' => ['get', 'post'],
                 'gift' => ['post'],
+                'getlimits' => ['post'],
                 'stat' => ['get'],
                 'cancel' => ['get'],
                 'cancel_gift' => ['get'],
@@ -226,6 +228,25 @@ class VideoController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * Получить список зависимых от тапа лимитов (вызывется в форме)
+     * @return JSON 
+     */
+    public function actionGetlimits() {
+        $out = [];
+        $post = Yii::$app->request->post();
+        if (isset($post)) {
+            $parents = $post['depdrop_parents'];
+            if ($parents != null) {
+                $type_id = $parents[0];
+                $out = Video::getPartLimits($type_id);
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
     }
 
 }

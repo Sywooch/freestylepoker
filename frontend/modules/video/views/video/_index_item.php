@@ -10,33 +10,27 @@ use yii\widgets\Pjax;
  */
 ?>
 <div class="col-sm-12">
-    <h4>
+    <p>
         <?= Html::a(Html::encode($model->title), ['view', 'alias' => $model->alias]); ?>
-    </h4>
+    </p>
 </div>
 <div class="col-sm-12">
-    <?= '<b>Описание: </b>' . $model->description; ?>
+    <?= $model->description; ?>
 </div>
 <div class="col-sm-12">
     <?php
-    echo '<b>Теги: </b>';
+    echo 'Теги: ';
     $tags = explode(",", $model->tags);
     foreach ($tags as $value) {
-        echo '<a href="?VideoSearch[tags]=' . $value . '">#' . $value . '</a> ';
+        echo '<a class="tag" href="?VideoSearch[tags]=' . $value . '">' . $value . '</a>, ';
     }
     ?>
 </div>
-<div class="col-sm-3">
-    <?= '<b>Дата: </b>' . $model->_date; ?>
-</div>
-<div class="col-sm-9">
-    <?= '<b>Цена: </b>' . $model->val . ' ' . Yii::t('ru', 'Val') ?>
+<div class="col-sm-2">
+    <?= '<b class="icon-comment"> </b>' . $model->CommentsCount . ' '; ?>
 </div>
 <div class="col-sm-3">
-    <?= '<b>Продолжительность: </b>' . $model->duration . ' мин.' ?>
-</div>
-<div class="col-sm-3">
-    <?= '<b>Комментарии: </b>' . $model->CommentsCount . ' '; ?>
+    <?= '<b class="icon-time"> </b>' . $model->duration . ' мин.' ?>
 </div>
 <?php
 // Если видео куплено отображать другим цветом
@@ -44,26 +38,32 @@ if ($model->_isBuy != NULL || $model->_isAuthor || \Yii::$app->user->can('admini
     $this->registerCss("div.item[data-key='{$model->id}']  { background: #00FFAE; }");
 }
 ?>
-<div id="parsed-<?= $model->id ?>">
+<div class="col-sm-4 parsed" id="parsed-<?= $model->id ?>">
     <?php
     if ($model->_isBuy != NULL || $model->val == NULL) {
         if (!Yii::$app->user->isGuest) {
             if ($model->_isParsed != NULL) {
-                echo Html::a(
-                        '[x] Убрать из разобраного', ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id]);
+                echo '<span id="iparsed' . $model->id . '"><i class="icon-check"> </i>'
+                . Html::a(
+                        'Разобранное', ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
+                . '</span>';
             } else {
-                echo Html::a(
-                        '(&) Отметить разобранным', ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id]);
+                echo '<span id="iparsed' . $model->id . '"><i class="icon-check-empty"> </i>'
+                . Html::a(
+                        'Разобранное', ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
+                . '</span>';
             }
         } else {
             echo
             'Вы не зарегестрированы';
         }
-    }
-    else {
-        echo 'Разобрать нельзя';
+    } else {
+        echo ' - ';
     }
     ?>
 </div>
-<?php Pjax::begin(['id' => 'checked-parsed' . $model->id, 'linkSelector' => '#parsed-' . $model->id . ' a', 'enablePushState' => false]); ?>
+<div class="col-sm-3">
+    <?= '<i>Рейтинг: </i>' . $model->rating ?>
+</div>
+<?php Pjax::begin(['id' => 'iparsed' . $model->id, 'linkSelector' => '#parsed-' . $model->id . ' a', 'enablePushState' => false]); ?>
 <?php Pjax::end(); ?>

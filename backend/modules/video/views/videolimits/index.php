@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use himiklab\sortablegrid\SortableGridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\video\models\VideoLimitsSearch */
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?=
-    GridView::widget([
+    SortableGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'type_id',
                 'value' => 'type.name'
             ],
+            'sortOrder',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]);

@@ -8,6 +8,7 @@ use app\modules\video\models\VideoLimitsSearch;
 use vova07\admin\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use himiklab\sortablegrid\SortableGridAction;
 
 /**
  * VideolimitsController implements the CRUD actions for VideoLimits model.
@@ -24,7 +25,7 @@ class VideolimitsController extends Controller
         $behaviors['access']['rules'] = [
             [
                 'allow' => true,
-                'actions' => ['index', 'view'],
+                'actions' => ['index', 'view', 'sort'],
                 'roles' => ['BViewVideo']
             ]
         ];
@@ -46,6 +47,7 @@ class VideolimitsController extends Controller
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),
             'actions' => [
+                'sort' => ['post'],
                 'index' => ['get'],
                 'create' => ['get', 'post'],
                 'update' => ['get', 'put', 'post'],
@@ -54,6 +56,19 @@ class VideolimitsController extends Controller
         ];
 
         return $behaviors;
+    }
+    
+    /**
+     * Actions
+     * @return type
+     */
+    public function actions() {
+        return [
+            'sort' => [
+                'class' => SortableGridAction::className(),
+                'modelName' => VideoLimits::className(),
+            ],
+        ];
     }
 
     /**
