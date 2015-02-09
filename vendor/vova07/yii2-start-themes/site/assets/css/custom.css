@@ -328,14 +328,14 @@ a.page_size_active {
     line-height: 1.538;
     font-weight: normal;
 }
-.video_content a {
+.video_content a, .video_view__info a {
     font-size: 15px;
     font-family: "Tahoma";
     color: rgb(62, 97, 135);
     line-height: 1.714;
     text-align: left;
 }
-.video_content .tag {
+.video_content .tag, .tag {
     font-size: 13px;
     font-family: "Tahoma";
     color: #537599;
@@ -361,7 +361,7 @@ a.page_size_active {
     padding: 2px 8px;
     border-radius: 5px;
 }
-.video_fsp .buyed {
+.buyed {
     background: url('../images/fsp.png') no-repeat;
     padding: 0 21px 0;
 }
@@ -387,4 +387,70 @@ a.page_size_active {
 }
 .video_column__buyed td {
     border: 1px solid #9ac43d !important;
+}
+.video_view_header {
+    background: #eeeff1;
+}
+.video_view_header h3 {
+    padding: 14px 70px;
+    font-weight: normal;
+    font-size: 20px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+    line-height: 1.2;
+}
+.video_view_header__left {
+    background: #477db6;
+    width: 52px;
+    height: 52px;
+    float:left;
+}
+.video_view_header__left i {
+    color: #fff;
+    padding: 20px 21px;
+    display: block;
+}
+.video_view__gold  {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: #f7f7f7;
+    padding: 18px;
+}
+.video_view__gold {
+    font-size: 16px;
+}
+.cl, .rating-box span {
+    font-size: 14px;
+    font-family: "Tahoma";
+    color: rgb(172, 172, 172);
+}
+button.buy {
+    border-radius: 0px;
+    background: #537599;
+    width:100%;
+}
+.rating-box {
+    font-size: 22px;
+    color: #f59314;
+}
+.course {
+    font-size: 13px;
+    font-family: "Tahoma";
+    color: rgb(62, 97, 135);
+    text-decoration: underline;
+    line-height: 1.385;
+}
+.video_view {
+    padding-right: 0px;
+}
+.video_view_course i{
+    font-size: 22px;
+    color: #477db6;
+}
+.video_view__info {
+    margin-top: 10px;
+}
+.video_view__info b {
+    margin-left: 40px;
 }

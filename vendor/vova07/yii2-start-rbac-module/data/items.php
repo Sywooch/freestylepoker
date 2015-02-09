@@ -83,6 +83,8 @@ return [
         'children' => [
             'user',
             'accessBackend',
+            'viewComments',
+            'createComments',
             'BCreateTrainings',
             'BUpdateTrainings',
             'BViewTrainings',

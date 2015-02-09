@@ -4,8 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 ?>
 
-<div>
-    Средняя оценка: 
+<div class="rating-box">
+    <span>Средняя оценка: </span>
     <b><?= $rating ?></b>
     <?php
     if ((!$is_rating && !$val && !Yii::$app->user->isGuest) || (!$is_rating && $is_buy)) {
@@ -47,7 +47,6 @@ use yii\widgets\Pjax;
 
     <?php } else { ?>
         <br>
-        Ваша оценка:
         <?php
         $my_rating = (empty($is_rating->rating)) ? 0 : $is_rating->rating;
         for ($i = 0; $i < $my_rating; $i++) {
