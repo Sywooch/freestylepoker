@@ -16,12 +16,12 @@ use yii\helpers\Url;
         <div class="media" data-comment="parent" data-comment-id="<?= $comment->id ?>">
             <?php $avatar = $comment->author->profile->avatar_url ? $comment->author->profile->urlAttribute('avatar_url') : Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/blog/avatar3.png')[1]; ?>
             <div class="pull-left">
-                <img src="<?= $avatar ?>" class="avatar width-75" alt="<?= $comment->author->profile->fullName ?>"/>
+                <img src="<?= $avatar ?>" class="avatar img-circle width-50" alt="<?= $comment->author->profile->fullName ?>"/>
             </div>
             <div class="media-body">
-                <div class="" data-comment="append">
+                <div class="well" data-comment="append">
                     <div class="media-heading">
-                        <strong><?= $comment->author->username ?></strong>&nbsp;
+                        <strong><?= $comment->author->profile->fullName ?></strong>&nbsp;
                         <small><?= $comment->created ?></small>
                         <?php if ($comment->parent_id) { ?>
                             &nbsp;
@@ -55,7 +55,6 @@ use yii\helpers\Url;
                             </div>
                         <?php } ?>
                     </div>
-                    <hr>
                     <?php if ($comment->isDeleted) { ?>
                         <?= Module::t('comments', 'FRONTEND_WIDGET_COMMENTS_DELETED_COMMENT_TEXT') ?>
                     <?php } else { ?>

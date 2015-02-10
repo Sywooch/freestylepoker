@@ -73,8 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <br>
             <br>
-            <?= 'КОНСПЕКТЫ: <hr>' 
-                . '<h3 class="icon-paper-clip"></h3> <span class="consp">' . $model->conspects. '</span>' ?>
+            <?= "<a href={$model->conspects}>Практика к тренировке: 3 барреля СБ против ББ</a>" ?>
             <div class="gift" id="gifter">
                 <?php
                 if (Yii::$app->user->can('administrateVideo')) {

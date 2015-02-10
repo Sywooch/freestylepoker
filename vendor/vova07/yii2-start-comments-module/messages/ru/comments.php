@@ -44,11 +44,10 @@ return [
     'FRONTEND_WIDGET_COMMENTS_DELETED_COMMENT_TEXT' => 'Комментарий был удалён',
     'FRONTEND_WIDGET_COMMENTS_DELETE_CONFIRMATION' => 'Вы уверены что хотите удалить этот комментарий?',
     'FRONTEND_WIDGET_COMMENTS_FORM_SUBMIT' => 'Опубликовать комментарий',
-    'FRONTEND_WIDGET_COMMENTS_FORM_TITLE' => 'Комментарии',
+    'FRONTEND_WIDGET_COMMENTS_FORM_TITLE' => 'Оставить комментарий',
     'FRONTEND_WIDGET_COMMENTS_REPLY' => 'Ответить',
     'FRONTEND_WIDGET_COMMENTS_UPDATE' => 'Редактировать',
     'STATUS_ACTIVE' => 'Активен',
     'STATUS_BANNED' => 'Забанен',
     'STATUS_DELETED' => 'Удалён',
-    'TEXT_MESSAGE' => 'Текст сообщения...',
 ];

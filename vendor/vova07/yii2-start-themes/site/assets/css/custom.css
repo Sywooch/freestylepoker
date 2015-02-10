@@ -425,11 +425,6 @@ a.page_size_active {
     font-family: "Tahoma";
     color: rgb(172, 172, 172);
 }
-small {
-    font-size: 12px;
-    font-family: "Tahoma";
-    color: rgb(172, 172, 172);
-}
 button.buy {
     border-radius: 0px;
     background: #537599;
@@ -446,14 +441,6 @@ button.buy {
     text-decoration: underline;
     line-height: 1.385;
 }
-.consp a {
-    font-size: 13px;
-    font-family: "Tahoma";
-    color: rgb(62, 97, 135);
-    text-decoration: underline;
-    line-height: 1.385;
-    font-style: italic;
-}
 .video_view {
     padding-right: 0px;
 }
@@ -466,35 +453,4 @@ button.buy {
 }
 .video_view__info b {
     margin-left: 40px;
-}
-button.btn_comment {
-    border-radius: 0px;
-    background: #537599;
-    width:220px;
-    float: right;
-}
-#comments-list {
-    clear: both;
-    margin-top: 70px;
-}
-.width-75 {
-    width: 75px;
-}
-#comments-list hr {
-    margin-top: 0px; 
-    margin-bottom: 0px; 
-}
-#comment-content {
-    height: 100px;
-    background: #f7f7f7;
-}
-#comments-list .pull-right a {
-  background-color: rgb(238, 239, 241);
-  font-size: 12px;
-  font-family: "Tahoma";
-  color: rgb(111, 116, 120);
-  padding: 6px;
-}
-#comments-list .pull-right a:hover {
-  background-color: rgb(211, 211, 211);
 }
