@@ -71,14 +71,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
                 ?>
             </div>
-            <br>
-            <br>
-            <?= 'КОНСПЕКТЫ: <hr>' 
-                . '<h3 class="icon-paper-clip"></h3> <span class="consp">' . $model->conspects. '</span>' ?>
+            <?php
+            if ($model->conspects) {
+               echo '<br>КОНСПЕКТЫ: <hr>'
+                        . '<h3 class="icon-paper-clip"></h3> <span class="consp">' . $model->conspects . '</span>';
+            }
+            ?>
             <div class="gift" id="gifter">
                 <?php
                 if (Yii::$app->user->can('administrateVideo')) {
-                    echo '<br><br>Подарить видео:';
+                    echo '<br><br>'
+                    . '<div class="admin_func">'
+                    . 'Подарить видео:';
                     $gift_form = ActiveForm::begin([
                                 'id' => 'gift',
                                 'method' => 'post',
@@ -97,15 +101,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])->label(false);
                     ?>
                     <?= $gift_form->field($model, 'id')->hiddenInput()->label(false); ?>
-                    <?= Html::submitButton('Подарить', ['class' => 'btn btn-primary'], ['id' => 'gift-sbm']) ?>
+                    <?= Html::submitButton('Подарить', ['class' => 'btn btn_gift'], ['id' => 'gift-sbm']) ?>
                     <?php
                     ActiveForm::end();
                     Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
                     Pjax::end();
-                    echo '<br>';
+                    echo '</div><br>';
                 }
                 if (Yii::$app->user->can('administrateVideo') || $model->_isAuthor) {
-                    echo Html::a('Статистика', ['stat', 'id' => $model->id]);
+                    echo Html::a('Статистика', ['stat', 'id' => $model->id], ['class' => 'stat']);
                 }
                 ?>
             </div>

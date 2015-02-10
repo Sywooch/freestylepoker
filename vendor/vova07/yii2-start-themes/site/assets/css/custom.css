@@ -468,10 +468,16 @@ button.buy {
     margin-left: 40px;
 }
 button.btn_comment {
-    border-radius: 0px;
-    background: #537599;
     width:220px;
     float: right;
+}
+button.btn_gift {
+    width: 100%;
+}
+button.btn {
+    border-radius: 0px;
+    background: #537599;
+    color: #fff;
 }
 #comments-list {
     clear: both;
@@ -488,13 +494,17 @@ button.btn_comment {
     height: 100px;
     background: #f7f7f7;
 }
-#comments-list .pull-right a {
+#comments-list .pull-right a, a.stat {
   background-color: rgb(238, 239, 241);
   font-size: 12px;
   font-family: "Tahoma";
   color: rgb(111, 116, 120);
   padding: 6px;
 }
-#comments-list .pull-right a:hover {
+#comments-list .pull-right a:hover, a.stat:hover {
   background-color: rgb(211, 211, 211);
+}
+.admin_func {
+    background: #f7f7f7;
+    padding: 10px;
 }
