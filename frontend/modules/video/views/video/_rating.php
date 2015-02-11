@@ -5,7 +5,7 @@ use yii\widgets\Pjax;
 ?>
 
 <div class="rating-box">
-    <span>Средняя оценка: </span>
+    <span><?= \Yii::t('ru', 'Average rating:') ?></span>
     <b><?= $rating ?></b>
     <?php
     if ((!$is_rating && !$val && !Yii::$app->user->isGuest) || (!$is_rating && $is_buy)) {

@@ -22,16 +22,16 @@ $dir = \Yii::$app->controller->id;
     <div class="video-filter">
         <div class="video_filter__title">
             <div class="col-sm-8">
-                Фильтры 
+                <?= \Yii::t('ru', 'Filters'); ?>
                 <?= Html::a('', '#', ['class' => 'btn-show icon-double-angle-down']) ?>
             </div>
             <div class="col-sm-4">
-                <?= $form->field($model, 'title')->textInput(['placeholder' => 'Поиск'])->label(false) ?>
+                <?= $form->field($model, 'title')->textInput(['placeholder' => \Yii::t('ru', 'Search')])->label(false) ?>
             </div>
         </div>
         <div class="video_filter__content">
             <div class="col-sm-4">
-                <?= $form->field($model, 'author_id')->dropDownList($model->authors, ['prompt' => 'Автор...'])->label(false) ?>
+                <?= $form->field($model, 'author_id')->dropDownList($model->authors, ['prompt' => \Yii::t('ru', 'Author')])->label(false) ?>
             </div>
             <div class="col-sm-2">
                 <?= $form->field($model, 'is_buy')->checkbox() ?>
@@ -40,16 +40,16 @@ $dir = \Yii::$app->controller->id;
                 <?= $form->field($model, 'is_not_parsed')->checkbox() ?>
             </div>
             <div class="col-sm-2">
-                <?= $form->field($model, 'from_val')->textInput(['placeholder' => 'Цена от'])->label(false) ?>
+                <?= $form->field($model, 'from_val')->textInput(['placeholder' => \Yii::t('ru', 'Price from')])->label(false) ?>
             </div>
             <div class="col-sm-2">
-                <?= $form->field($model, 'to_val')->textInput(['placeholder' => 'Цена до'])->label(false) ?>
+                <?= $form->field($model, 'to_val')->textInput(['placeholder' => \Yii::t('ru', 'Price to')])->label(false) ?>
             </div>
 
             <br>
 
             <div class="col-sm-4">
-                <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'type_id', 'prompt' => Yii::t('ru', 'Тип...')])->label(false); ?>
+                <?= $form->field($model, 'type_id')->dropDownList($model->typer, ['id' => 'type_id', 'prompt' => \Yii::t('ru', 'Type')])->label(false); ?>
             </div>
             <div class="col-sm-2">
                 <?= $form->field($model, 'no_val')->checkbox() ?>
@@ -59,7 +59,7 @@ $dir = \Yii::$app->controller->id;
             </div>
             <div class="col-sm-4 text-right page_size">
                 <?php
-                echo 'Видео на странице: ' .
+                echo \Yii::t('ru', 'The number of videos on the page: ') .
                 Html::a('10', '?page_size=10', ['id' => 'p10']);
                 echo ' ' .
                 Html::a('20', '?page_size=20', ['id' => 'p20']);
@@ -76,9 +76,9 @@ $dir = \Yii::$app->controller->id;
                     'data' => $model->getCurrentLimits($model->type_id),
                     'pluginOptions' => [
                         'depends' => ['type_id'],
-                        'placeholder' => Yii::t('ru', 'Select...'),
+                        'placeholder' => \Yii::t('ru', 'Select...'),
                         'url' => Url::to(['video/getlimits/']),
-                        'loadingText' => 'Загрузка ...'
+                        'loadingText' => \Yii::t('ru', 'Download ...')
                     ]
                 ])->label(false);
                 ?>
@@ -92,7 +92,7 @@ $dir = \Yii::$app->controller->id;
                         'depends' => ['type_id'],
                         'placeholder' => Yii::t('ru', 'Select...'),
                         'url' => Url::to(['video/getlimits/']),
-                        'loadingText' => 'Загрузка ...'
+                        'loadingText' => \Yii::t('ru', 'Download ...')
                     ]
                 ])->label(false);
                 ?>

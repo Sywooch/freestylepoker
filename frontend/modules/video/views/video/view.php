@@ -32,14 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ])
             ?>
             <div class="video_view__gold">
-                <span class="cl">Цена: </span><?php echo $val = (!empty($model->val)) ? $model->val . ' &nbsp;<span class="buyed"></span> <br>' : 'Бесплатно' ?>
+                <span class="cl"><?= \Yii::t('ru', 'Price') ?>: </span><?php echo $val = (!empty($model->val)) ? $model->val . ' &nbsp;<span class="buyed"></span> <br>' : \Yii::t('ru', 'Free video') ?>
                 <br><?= $model->message ?>
                 <?php
                 $options = [
                     'class' => 'btn btn-primary buy',
                     'data-toggle' => 'modal',
                     'data-target' => '#myModal',
-                    'title' => 'Купить доступ к просмотру'
+                    'title' => \Yii::t('ru', 'Buy video')
                 ];
 
                 if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
 
                 if (!empty($model->val)) {
-                    echo Html::button('Купить', $options);
+                    echo Html::button(\Yii::t('ru', 'Buy'), $options);
                 }
                 ?>
             </div>
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 if ($model->ids != NULL || $model->ids != '') {
                     $course = explode(",", $model->ids);
-                    echo 'ВИДЕО, ВХОДЯЩИЕ В КУРС: <hr>';
+                    echo \Yii::t('ru', 'VIDEO INCLUDED IN THE COURSE:') . ' <hr>';
                     foreach ($course as $value) {
                         $video_model = $model->getvideomodel($value);
                         echo '<i class="icon-play-circle"></i> ';
@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php
             if ($model->conspects) {
-               echo '<br>КОНСПЕКТЫ: <hr>'
+               echo '<br>' . \Yii::t('ru', 'OUTLINE:') . ' <hr>'
                         . '<h3 class="icon-paper-clip"></h3> <span class="consp">' . $model->conspects . '</span>';
             }
             ?>
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if (Yii::$app->user->can('administrateVideo')) {
                     echo '<br><br>'
                     . '<div class="admin_func">'
-                    . 'Подарить видео:';
+                    . \Yii::t('ru', 'Make the gift') ;
                     $gift_form = ActiveForm::begin([
                                 'id' => 'gift',
                                 'method' => 'post',
@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])->label(false);
                     ?>
                     <?= $gift_form->field($model, 'id')->hiddenInput()->label(false); ?>
-                    <?= Html::submitButton('Подарить', ['class' => 'btn btn_gift'], ['id' => 'gift-sbm']) ?>
+                    <?= Html::submitButton(\Yii::t('ru', 'Make the gift:'), ['class' => 'btn btn_gift'], ['id' => 'gift-sbm']) ?>
                     <?php
                     ActiveForm::end();
                     Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo '</div><br>';
                 }
                 if (Yii::$app->user->can('administrateVideo') || $model->_isAuthor) {
-                    echo Html::a('Статистика', ['stat', 'id' => $model->id], ['class' => 'stat']);
+                    echo Html::a(\Yii::t('ru', 'Stat'), ['stat', 'id' => $model->id], ['class' => 'stat']);
                 }
                 ?>
             </div>
@@ -117,9 +117,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-xs-9">
             <iframe width="745" height="400" src="<?= $model->embed ?>" frameborder="0" allowfullscreen></iframe>
             <div class="video_view__info">
-                <span class="cl">Автор: </span><?= $model->user->username; ?>
+                <span class="cl"><?= \Yii::t('ru', 'Author')?>: </span><?= $model->user->username; ?>
                 <b class="cl"><i class="icon-calendar"></i> </b><?= \Yii::$app->formatter->asDate($model->date); ?>
-                <b class="cl"><i class="icon-time"></i> </b><?= $model->duration . ' мин.'; ?>
+                <b class="cl"><i class="icon-time"></i> </b><?= $model->duration . \Yii::t('ru', ' min.'); ?>
                 <div class="right parsed" id="parsed-<?= $model->id ?>">
                     <?php
                     if ($model->_isBuy != NULL || $model->val == NULL) {
@@ -127,17 +127,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             if ($model->_isParsed != NULL) {
                                 echo '<span id="iparsed' . $model->id . '"><i class="icon-check"> </i>'
                                 . Html::a(
-                                        'Разобранное', ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
+                                        \Yii::t('ru', 'Parsed'), ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
                                 . '</span>';
                             } else {
                                 echo '<span id="iparsed' . $model->id . '"><i class="icon-check-empty"> </i>'
                                 . Html::a(
-                                        'Разобранное', ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
+                                        \Yii::t('ru', 'Parsed'), ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
                                 . '</span>';
                             }
                         } else {
                             echo
-                            'Вы не зарегестрированы';
+                            \Yii::t('ru', 'You are not logged in');
                         }
                     } else {
                         echo ' - ';
@@ -152,10 +152,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <br>
             <?php
-            echo 'Теги: ';
+            echo \Yii::t('ru', 'Tags: ');
             $tags = explode(",", $model->tags);
             foreach ($tags as $value) {
-                echo '<a class="tag" href="?VideoSearch[tags]=' . $value . '">' . $value . '</a>, ';
+                echo Html::a(Html::encode($value), ['', 'VideoSearch[tags]' => $value], ['class' => 'tag']) . ', ';
             }
             ?>
             <?php
@@ -179,17 +179,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Купить видео "<?= $model->title ?>"</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?= \Yii::t('ru', 'Close')?></span></button>
+                <h4 class="modal-title" id="myModalLabel"><?= \Yii::t('ru', 'Buy')?> "<?= $model->title ?>"</h4>
             </div>
             <div class="modal-body">
-                Вы действительно желаете купить это видео?
+                <?= \Yii::t('ru', 'Do you really want to buy this video?')?>
             </div>
             <div class="modal-footer">
                 <?php $form = ActiveForm::begin(); ?>
                 <?= $form->field($model, 'val')->hiddenInput()->label(false); ?>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
-                <?= Html::submitButton('Да, несомненно', ['class' => 'btn btn-primary']) ?>
+                <button type="button" class="btn btn-default" data-dismiss="modal"> <?= \Yii::t('ru', 'No')?></button>
+                <?= Html::submitButton(\Yii::t('ru', 'Yes, of course'), ['class' => 'btn btn-primary']) ?>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>

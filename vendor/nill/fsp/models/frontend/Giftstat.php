@@ -84,7 +84,7 @@ class Giftstat extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getFrom() {
-        return $this->hasOne(Users::className(), ['id' => 'from_id']);
+        return $this->hasOne(User::className(), ['id' => 'from_id']);
     }
 
     /**

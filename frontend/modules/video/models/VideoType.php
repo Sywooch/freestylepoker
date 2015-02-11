@@ -29,9 +29,9 @@ class VideoType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
+            [['id', 'name', 'description'], 'required'],
             [['id'], 'integer'],
-            [['name'], 'string']
+            [['name', 'description'], 'string']
         ];
     }
 
@@ -43,6 +43,7 @@ class VideoType extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('ru', 'ID'),
             'name' => Yii::t('ru', 'Name'),
+            'description' => Yii::t('ru', 'Description'),
         ];
     }
     

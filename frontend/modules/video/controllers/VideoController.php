@@ -185,13 +185,14 @@ class VideoController extends Controller {
     public function actionStat($id) {
         $model = $this->findModel($id);
         if ($model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
-            $model = new Video();
+            
             $dataProvider = $model->_stat($id);
             $dataProvider_gift = $model->_stat_gift($id);
 
             return $this->render('buy_stat', [
                         'dataProvider' => $dataProvider,
                         'dataProvider_gift' => $dataProvider_gift,
+                        'is_training' => $model->id_training,
             ]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

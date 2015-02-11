@@ -19,10 +19,10 @@ use yii\widgets\Pjax;
 </div>
 <div class="col-sm-12">
     <?php
-    echo 'Теги: ';
+    echo \Yii::t('ru', 'Tags: ');
     $tags = explode(",", $model->tags);
     foreach ($tags as $value) {
-        echo '<a class="tag" href="?VideoSearch[tags]=' . $value . '">' . $value . '</a>, ';
+        echo Html::a(Html::encode($value), ['', 'VideoSearch[tags]' => $value], ['class' => 'tag']) . ', ';
     }
     ?>
 </div>
@@ -30,12 +30,12 @@ use yii\widgets\Pjax;
     <?= '<b class="icon-comment"> </b>' . $model->CommentsCount . ' '; ?>
 </div>
 <div class="col-sm-3">
-    <?= '<b class="icon-time"> </b>' . $model->duration . ' мин.' ?>
+    <?= '<b class="icon-time"> </b>' . $model->duration . \Yii::t('ru', ' min.') ?>
 </div>
 <?php
 // Если видео куплено отображать другим цветом
-if ($model->_isBuy != NULL || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
-    $this->registerCss("div.item[data-key='{$model->id}']  { background: #00FFAE; }");
+if ($model->_isBuy != NULL || $model->_isAuthor) {
+    $this->registerCss("tr[data-key='{$model->id}']  { background: #FAFBF8; }");
 }
 ?>
 <div class="col-sm-4 parsed" id="parsed-<?= $model->id ?>">
@@ -45,17 +45,17 @@ if ($model->_isBuy != NULL || $model->_isAuthor || \Yii::$app->user->can('admini
             if ($model->_isParsed != NULL) {
                 echo '<span id="iparsed' . $model->id . '"><i class="icon-check"> </i>'
                 . Html::a(
-                        'Разобранное', ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
+                        \Yii::t('ru', 'Parsed'), ['deleteparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
                 . '</span>';
             } else {
                 echo '<span id="iparsed' . $model->id . '"><i class="icon-check-empty"> </i>'
                 . Html::a(
-                        'Разобранное', ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
+                        \Yii::t('ru', 'Parsed'), ['addparsed', 'id' => $model->id], ['data-pjax' => '#checked-parsed' . $model->id])
                 . '</span>';
             }
         } else {
             echo
-            'Вы не зарегестрированы';
+            \Yii::t('ru', 'You are not logged in');
         }
     } else {
         echo ' - ';
@@ -63,7 +63,7 @@ if ($model->_isBuy != NULL || $model->_isAuthor || \Yii::$app->user->can('admini
     ?>
 </div>
 <div class="col-sm-3">
-    <?= '<i>Рейтинг: </i>' . $model->rating ?>
+    <?= "<i>" . \Yii::t('ru', 'Rating:') . $model->rating . "</i>" ?>
 </div>
 <?php Pjax::begin(['id' => 'iparsed' . $model->id, 'linkSelector' => '#parsed-' . $model->id . ' a', 'enablePushState' => false]); ?>
 <?php Pjax::end(); ?>

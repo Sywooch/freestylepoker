@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="video-goldfund-search">
+<div class="video-goldfund-search row">
 
     <?php
     $form = ActiveForm::begin([
@@ -17,10 +17,10 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <?= $form->field($model, 'is_buy')->checkbox(['onclick' => 'submit()']) ?>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-10">
         <?= $form->field($model, 'is_parsed')->checkbox(['onclick' => 'submit()']) ?>
     </div>
 

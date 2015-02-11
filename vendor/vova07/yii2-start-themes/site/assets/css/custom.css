@@ -321,7 +321,7 @@ a.page_size_active {
 .video_preview__column {
     padding:0px !important;
 }
-.video_header th {
+.video_header th, .gold_header th {
     font-size: 14px;
     font-family: "Tahoma";
     color: rgb(175, 185, 192);
@@ -352,10 +352,10 @@ a.page_size_active {
     font-family: "Tahoma";
     font-weight: bold;
 }
-.video_fsp .icon-ok {
+.video_fsp .icon-ok, .gold_table__row .icon-ok {
     color: #7eaf15;
 }
-.video_fsp .not_buyed {
+.video_fsp .not_buyed, .gold_table__row .not_buyed {
     background: #7eaf15;
     color:#fff;
     padding: 2px 8px;
@@ -495,16 +495,68 @@ button.btn {
     background: #f7f7f7;
 }
 #comments-list .pull-right a, a.stat {
-  background-color: rgb(238, 239, 241);
-  font-size: 12px;
-  font-family: "Tahoma";
-  color: rgb(111, 116, 120);
-  padding: 6px;
+    background-color: rgb(238, 239, 241);
+    font-size: 12px;
+    font-family: "Tahoma";
+    color: rgb(111, 116, 120);
+    padding: 6px;
 }
 #comments-list .pull-right a:hover, a.stat:hover {
-  background-color: rgb(211, 211, 211);
+    background-color: rgb(211, 211, 211);
 }
 .admin_func {
     background: #f7f7f7;
     padding: 10px;
+}
+.video-goldfund-search {
+    clear:both;
+}
+.gold_table_title {
+    font-size: 19px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+    text-align: left;
+    float: left;
+}
+.gold_table_percent {
+    border-radius: 50%;
+    background-color: rgb(126, 175, 21);
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    font-weight: bold;
+    padding-top: 10px;
+    display: inline-block;
+}
+.gold_fund_caption {
+    height: 50px;
+}
+.gold_description {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: #f7f7f7;
+    padding: 10px;
+}
+.gold_limit__column {
+    border: none !important;
+    background: #eeeff1 !important;
+}
+.gold_table__row {
+    border-right: none !important;
+    border-left: none !important;
+    background: #f7f7f7 !important;
+    text-align: center;
+}
+.gold_table__title {
+    text-align: left;
+}
+.gold_header th {
+    border-right: none !important;
+    border-left: none !important;
+}
+.gold_column__buyed td.gold_table__row {
+    border-top: 1px solid #9ac43d !important;
+    border-bottom: 1px solid #9ac43d !important;
+    background: #f6f8f2 !important;
 }

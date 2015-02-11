@@ -12,17 +12,16 @@ use vova07\themes\admin\widgets\Box;
 use vova07\themes\admin\widgets\GridView;
 use yii\helpers\Html;
 
-$get = Yii::$app->request->get('id');
-$model = \app\modules\video\models\Video::findOne($get);
-if($model->id_training) {
-    echo 'У этого видео есть тренировка <br>';
-    $model = app\modules\trainings\models\Trainings::findOne($model->id_training);
-    echo Html::a('Статистика',['/trainings/trainings/stat', 'id' => $model->id]);
+// Если привязана тренировка выводим ссылку на статистику
+if ($is_training) {
+    echo \Yii::t('ru', 'This video has training') . ': ';
+    echo Html::a(\Yii::t('ru', 'View stat'), ['/trainings/trainings/stat', 'id' => $is_training]);
 }
 
-$this->title = yii::t('ru', 'Video Users');
-$this->params['subtitle'] = yii::t('ru', 'Buy Panel');
-$this->params['subtitle2'] = yii::t('ru', 'Gift Panel');
+
+$this->title = \Yii::t('ru', 'Video Users');
+$this->params['subtitle'] = \Yii::t('ru', 'Buy Panel');
+$this->params['subtitle2'] = \Yii::t('ru', 'Gift Panel');
 $this->params['breadcrumbs'] = [
     $this->title
 ];
@@ -33,19 +32,23 @@ $gridConfig = [
     //'filterModel' => $searchModel,
     'columns' => [
         'user.username',
-        'fsp',
+        [
+            'label' => \Yii::t('ru', 'F$P'),
+            'attribute' => 'fsp'
+        ],
         'comment',
         [
             'attribute' => 'date',
             'format' => 'datetime',
         ],
         [
+            'label' => \Yii::t('ru', 'Cancel'),
             'attribute' => 'cancel',
             'format' => 'html',
             'value' => function ($model) {
                 if ($model->fsp < 0 && \Yii::$app->user->can('administrateVideo')) {
                     return Html::a(
-                                    Yii::t('ru', 'Cancel'), ['cancel', 'id' => $model['target_id'], 'user_id' => $model['user_id']]
+                                    \Yii::t('ru', 'Cancel'), ['cancel', 'id' => $model['target_id'], 'user_id' => $model['user_id']]
                     );
                 } else {
                     return '';
@@ -69,12 +72,19 @@ $gridConfig = [
                     'format' => 'datetime',
                 ],
                 [
+                    'label' => \Yii::t('ru', 'Who made gift'),
+                    'attribute' => 'from_id',
+                    'format' => 'html',
+                    'value' => 'from.username'
+                ],
+                [
+                    'label' => \Yii::t('ru', 'Cancel'),
                     'attribute' => 'cancel',
                     'format' => 'html',
                     'value' => function ($model) {
                         if ($model->category == 1 && \Yii::$app->user->can('administrateVideo')) {
                             return Html::a(
-                                            Yii::t('ru', 'Cancel'), ['cancel_gift', 'id' => $model['target_id'], 'to_id' => $model['to_id']]
+                                            \Yii::t('ru', 'Cancel'), ['cancel_gift', 'id' => $model['target_id'], 'to_id' => $model['to_id']]
                             );
                         } else {
                             return '';

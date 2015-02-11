@@ -47,14 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 //'attribute' => 'preview',
                 'contentOptions' => ['class' => 'video_preview__column'],
-                'label' => 'Видео',
+                'label' => \Yii::t('ru', 'Video'),
                 'format' => 'html',
                 'value' => function($model) {
             return Html::img('/statics/web/video/previews/' . $model->preview, ['class' => 'video_preview']);
         },
             ],
             [
-                'label' => 'Описание',
+                'label' => \Yii::t('ru', 'Description'),
                 'contentOptions' => ['class' => 'video_content'],
                 'attribute' => 'title',
                 'format' => 'raw',
@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
             ],
             [
-                'label' => 'Автор',
+                'label' => \Yii::t('ru', 'Author'),
                 'contentOptions' => ['class' => 'video_author'],
                 'attribute' => 'user.username',
                 'enableSorting' => false,
@@ -88,17 +88,17 @@ $this->params['breadcrumbs'][] = $this->title;
         }
             ],
             [
-                'label' => 'Цена',
+                'label' => \Yii::t('ru', 'Price'),
                 'attribute' => 'val',
                 'contentOptions' => ['class' => 'video_fsp'],
                 'format' => 'raw',
                 'enableSorting' => false,
                 'value' => function($model) {
             if ($model->val == NULL) {
-                return '<span class="not_buyed">Бесплатно</span>';
+                return '<span class="not_buyed">'. \Yii::t('ru', 'Free video') . '</span>';
             } else {
                 if ($model->_isBuy) {
-                    return '<i class="icon-ok"> </i>Куплено';
+                    return '<i class="icon-ok"> </i>'. \Yii::t('ru', 'Buyed video');
                 } else {
                     return '<span class="fsp">' . $model->val . '</span>&nbsp;<span class="buyed"></span>';
                 }
