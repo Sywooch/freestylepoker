@@ -8,16 +8,16 @@ use yii\helpers\Html;
  * and open the template in the editor.
  */
 ?>
-<div class="col-sm-2 box box-succes">
-    <div class="lesson">
+<div class="col-sm-4 lesson">
+    <div class="lesson_title">
         <?= Html::a(Html::encode($model->title), ['view', 'alias' => $model->alias]); ?>
     </div>
     <div class="center">
-        <?= Html::img('/statics/web/video/previews/' . $model->preview, ['style' => 'padding:0px; width:100%']) ?>
+        <?= Html::img('/statics/web/video/previews/' . $model->preview, ['style' => 'padding:0px; width:257px']) ?>
     </div>
-    <div class="lesson">
-        <?= '<b>Автор: </b>' . $model->author ?>
+    <div class="lesson_footer">
+        <small><i class="icon-calendar"></i> <?= \Yii::$app->formatter->asDate($model->date); ?></small>
+         <span class="lesson_author"><?= \Yii::t('ru', 'Author')?>: <?= $model->user->username; ?></span>
         <?= '<br>' ?>
-        <?= '<b>Дата: </b>' . \Yii::$app->formatter->asDate($model->date) ?>
     </div>
 </div>

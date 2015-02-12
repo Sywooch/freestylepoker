@@ -117,4 +117,5 @@ return[
     'Do you really want to buy this video?' => 'Вы действительно желаете купить это видео?',
     'Yes, of course' => 'Да, несомненно',
     'No' => 'Нет',
+    'Author video:' => 'Автор видео:',
 ];

@@ -240,9 +240,6 @@ a {
 .img_coaching {
     width: 100px;
 }
-.lesson {
-    padding: 10px;
-}
 .video-filter a {
     color:#537599;
 }
@@ -565,4 +562,33 @@ button.btn {
 }
 .border-top {
     border-top:1px solid #DDD !important;
+}
+#lessonssearch-author_id {
+    width: 300px;
+}
+.lessonssearch_title {
+    float:left;
+    padding: 7px 15px 0 0;
+}
+.video-lessons .lesson_title a{
+    font-size: 16px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+    text-align: left;
+}
+.lesson_title {
+    padding-bottom: 10px;
+}
+.video-lessons .lesson:first-child {
+    padding-left: 0px;
+}
+.lesson_author {
+    font-size: 13px;
+    font-family: "Tahoma";
+    color: #537599;
+    font-style: italic;
+    float: right;
+}
+.lesson_footer {
+    padding-top: 10px;
 }

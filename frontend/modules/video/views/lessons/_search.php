@@ -17,8 +17,11 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <div class="col-sm-12">
-        <?= $form->field($model, 'author_id')->dropDownList($model->authors, ['prompt' => 'Выбрать...', 'onchange' => 'submit()']) ?>
+    <div class="col-sm-12 row">
+        <?= '<div class="lessonssearch_title">' . \Yii::t('ru', 'Author video:') . '</div>' ?>
+        <?= $form->field($model, 'author_id')
+            ->dropDownList($model->authors, ['prompt' => \Yii::t('ru', 'Select...'), 'onchange' => 'submit()'])
+            ->label(false) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
