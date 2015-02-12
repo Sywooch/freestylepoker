@@ -556,7 +556,13 @@ button.btn {
     border-left: none !important;
 }
 .gold_column__buyed td.gold_table__row {
-    border-top: 1px solid #9ac43d !important;
+    border-top: 1px double #9ac43d !important;
     border-bottom: 1px solid #9ac43d !important;
     background: #f6f8f2 !important;
+}
+.gold_column__buyed td.gold_table__title {
+    border-left: 3px solid #9ac43d !important;
+}
+.border-top {
+    border-top:1px solid #DDD !important;
 }

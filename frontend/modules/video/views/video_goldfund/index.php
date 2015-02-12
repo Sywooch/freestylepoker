@@ -51,7 +51,15 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute' => 'limit_id',
-                        'contentOptions' => ['class' => 'gold_limit__column'],
+                        'contentOptions' => function ($model) {
+                    static $b;
+                    if ($b != $model->limit['name']) {
+                        $b = $model->limit['name'];
+                        return ['class' => 'gold_limit__column border-top'];
+                    } else {
+                        return ['class' => 'gold_limit__column'];
+                    }
+                },
                         'format' => 'html',
                         //'value' => 'limit.name',
                         'enableSorting' => false,
