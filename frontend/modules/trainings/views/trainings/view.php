@@ -48,7 +48,9 @@ Modal::begin([
                             <?= '<span class="cl">' . \Yii::t('ru', 'Type') . ':</span> ' . $model->type->name . ' ' . $model->limit->name ?></div>
                         <div class="right centered-text">
                             <?php
-                            if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateTraining')) {
+                            if (\Yii::$app->user->isGuest) {
+                                echo '';
+                            } else if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateTraining')) {
                                 echo '<a class="training_btn_go">' . $model->password . ' '
                                 . '<i class="icon-chevron-sign-right"></i> </a>';
                             } elseif (!$model->_isBuy && $model->val) {
@@ -114,7 +116,11 @@ Modal::begin([
                                 ?>
                             </div>
                             <?php
-                            if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateTraining') || empty($model->val)) {
+                            if (\Yii::$app->user->isGuest) {
+                                echo Html::tag('div', Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/login.png')[1])
+                                        . Html::a('Войдите', ['/login']) . ' или '
+                                        . Html::a('Зарегистрируйтесь', ['/signup']), ['class' => 'login_please right']);
+                            } elseif ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateTraining') || empty($model->val)) {
                                 echo Html::a(Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/trainings-w.png')[1], ['class' => 'trainings_logo'])
                                         . \Yii::t('ru', 'Go to training'), $model->url, ['class' => 'training_but right']);
                             } else {

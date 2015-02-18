@@ -96,26 +96,22 @@ $this->params['breadcrumbs'] = [
                                     'label' => '',
                                     'format' => 'raw',
                                     'value' => function($model) {
-                                        if (!$model->val) {
+                                        if (\Yii::$app->user->isGuest) {
+                                            return Html::tag('div', Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/login.png')[1])
+                                                            . Html::a('Войдите', ['/login']) . ' или<br>'
+                                                            . Html::a('Зарегистрируйтесь', ['/signup']), ['class' => 'login_please']);
+                                        } elseif ($model->_isBuy) {
+                                            //return Html::a($model->password . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go', 'onClick' => 'copyr(this)']);
+                                            return Html::tag('div', $model->password
+                                                            . Html::a(Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url), ['class' => 'training_btn_go']);
+                                        } elseif (!$model->val) {
                                             return Html::a(\Yii::t('ru', 'Go') . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go']);
-                                        }
-                                        if (!$model->_isBuy && $model->val) {
-//                                    return '<a href="" data-toggle="modal" data-target="#myModal" class="training_btn_go btn btn-primary buy">' . \Yii::t('ru', 'Buy') . ' '
-//                                            . '</a>';
+                                        } elseif (!$model->_isBuy && $model->val) {
                                             return Html::button(\Yii::t('ru', 'Buy'), [
                                                         'class' => 'training_btn btn btn-primary buy',
                                                         'data-toggle' => 'modal',
                                                         'data-target' => '#training' . $model->id]
                                             );
-                                        }
-                                        if ($model->_isBuy) {
-                                            //return Html::a($model->password . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go', 'onClick' => 'copyr(this)']);
-                                            return Html::tag('div', 
-                                                    $model->password 
-                                                    . Html::a(Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url), 
-                                                    ['class' => 'training_btn_go']);
-                                            
-                                            // Html::a($model->password . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go']);
                                         }
                                     }
                                         ],

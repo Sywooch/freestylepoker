@@ -826,3 +826,18 @@ a.training_but:hover {
 .trainings_row:hover {
     background: #F7F7F7;
 }
+.login_please {
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(169, 180, 188);
+  line-height: 1.429;
+  text-align: center;
+}
+.login_please a {
+  padding: 10px;
+  text-decoration: underline;
+  font-size: 14px;
+  font-family: "Arial";
+  color: rgb(169, 180, 188);
+  line-height: 1.429;
+}
