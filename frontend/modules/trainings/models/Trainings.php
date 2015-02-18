@@ -113,6 +113,29 @@ class Trainings extends \yii\db\ActiveRecord {
             return true;
         }
     }
+    
+    /**
+     * Связь автор-пользователь
+     * @return type
+     */
+    public function getUser() {
+        // VideoUsr has_many Video via Video.video_id -> id
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLimit() {
+        return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType() {
+        return $this->hasOne(VideoType::className(), ['id' => 'type_id']);
+    }
 
     /**
      * Получить список типов

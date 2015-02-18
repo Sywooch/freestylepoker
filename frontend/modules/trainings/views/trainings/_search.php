@@ -44,7 +44,8 @@ use yii\helpers\Html;
     } else {
         $k = "я";
     }
-    echo "Сегодня:  $textday, $daym $monthm$k $year г.";
+
+    // echo "Сегодня:  $textday, $daym $monthm$k $year г.";
 
     function dates_month($pd, $year) {
 
@@ -97,43 +98,53 @@ use yii\helpers\Html;
         } else {
             $date_prev = $date->format('01.m.Y');
         }
-
-
-        echo "<a href='?TrainingsSearch[date]=" . $date_prev . "'><< </a>";
-        echo $monthm;
-        echo "<a href='?TrainingsSearch[date]=" . $date_next . "'> >></a>";
-        echo '<br>';
-
+        ?>
+        <h4 class="dateline center">
+            <?php
+            echo "<a class='dateline_prev left' href='?TrainingsSearch[date]=" . $date_prev . "'>"
+            . "<i class='icon-chevron-left'></i></a>";
+            echo '<span class="">' . $monthm . ', ' . date('Y') . '</span>';
+            echo "<a class='dateline_next right' href='?TrainingsSearch[date]=" . $date_next . "'> "
+            . "<i class='icon-chevron-right'></i></a>";
+            echo '<br>';
+            ?>
+        </h4>
+        <?php
         // дней в месяце
         $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $dates_month = array();
+        echo '<div class="dateline_day">';
         for ($i = 1; $i <= $num; $i++) {
             $mktime = mktime(0, 0, 0, $month, $i, $year);
             $dnum = date("w", $mktime);
             $textday = $day[$dnum];
-            echo $textday . ' ';
+            // echo $textday . ' ';
         }
-        echo '<br>';
+        echo '</div>';
+        echo '<div class="dateline_numbers">';
         for ($i = 1; $i <= $num; $i++) {
             $mktime = mktime(0, 0, 0, $month, $i, $year);
             $date = date("d", $mktime);
             $datem = date("d.m.Y", $mktime);
             $dt = Yii::$app->formatter->asTimestamp($datem);
 
+            $dnum = date("w", $mktime);
+            $textday = $day[$dnum];
+
             $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt, 'status_id' => 1]);
-            echo '<i>';
+            echo '<div class="left dateline_number-' . $num . ' ">' . $textday . '<hr class="null">';
             if ($fin != NULL) {
-                echo Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem], 'month' => $month]) . ' ';
+                echo '<span>' . Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem], 'month' => $month]) . '</span>';
             } else {
-                echo $date . ' ';
+                echo '<span>' . $date  . '</span>';
             }
-            echo '</i>';
             $dates_month[$i] = $date;
+            echo '</div>';
         }
+        echo '</div>';
         //return $dates_month;
     }
 
-    echo"<pre>";
     if (\Yii::$app->request->get()) {
         $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
         $pd = $get['TrainingsSearch'];
@@ -141,17 +152,14 @@ use yii\helpers\Html;
     } else {
         $pd = date('d.m.Y');
     }
-    dates_month($pd, 2015);
-    echo"</pre>";
+    dates_month($pd, date('Y'));
     ?>  
 
 </div>
 <?php
-
 /**
  * Вывод календаря
  */
-
 $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
 $pd = $get['TrainingsSearch'];
 $pd = $pd['date'];
@@ -175,18 +183,18 @@ if (!$pd) {
 }
 
 function setDate($date, $x = 'not') {
-    for($i=0; $i < 7; $i++) {
+    for ($i = 0; $i < 7; $i++) {
         $date_inc = $date + $i;
         $arr[$i] = str_pad($date_inc, 2, '0', STR_PAD_LEFT);
     }
     return $style = ''
-            . '$("pre i:contains(' . $x . ')").css("background", "red");'
-            . '$("pre i:contains(' . $arr[0] . ')").css("background", "#ccb89d");'
-            . '$("pre i:contains(' . $arr[1] . ')").css("background", "#5cb85c");'
-            . '$("pre i:contains(' . $arr[2] . ')").css("background", "#5cb85c");'
-            . '$("pre i:contains(' . $arr[3] . ')").css("background", "#5cb85c");'
-            . '$("pre i:contains(' . $arr[4] . ')").css("background", "#5cb85c");'
-            . '$("pre i:contains(' . $arr[5] . ')").css("background", "#5cb85c");'
-            . '$("pre i:contains(' . $arr[6] . ')").css("background", "#5cb85c");'
+            . '$(".dateline_numbers div span:contains(' . $x . ')").addClass("dateline_d_0");'
+            . '$(".dateline_numbers div span:contains(' . $arr[0] . ')").addClass("dateline_d_1");'
+            . '$(".dateline_numbers div span:contains(' . $arr[1] . ')").addClass("dateline_d");'
+            . '$(".dateline_numbers div span:contains(' . $arr[2] . ')").addClass("dateline_d");'
+            . '$(".dateline_numbers div span:contains(' . $arr[3] . ')").addClass("dateline_d");'
+            . '$(".dateline_numbers div span:contains(' . $arr[4] . ')").addClass("dateline_d");'
+            . '$(".dateline_numbers div span:contains(' . $arr[5] . ')").addClass("dateline_d");'
+            . '$(".dateline_numbers div span:contains(' . $arr[6] . ')").addClass("dateline_d dateline_d_l");'
             . '';
 }

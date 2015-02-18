@@ -106,7 +106,9 @@ return[
     'Video' => 'Видео',
     'Price' => 'Цена',
     'Free video' => 'Бесплатно',
+    'Free training' => 'Бесплатно',
     'Buyed video' => 'Куплено',
+    'Buyed' => 'Куплено',
     'Buy video' => 'Купить доступ к просмотру',
     'Buy' => 'Купить',
     'VIDEO INCLUDED IN THE COURSE:' => 'ВИДЕО, ВХОДЯЩИЕ В КУРС:',
@@ -118,4 +120,8 @@ return[
     'Yes, of course' => 'Да, несомненно',
     'No' => 'Нет',
     'Author video:' => 'Автор видео:',
+    'Trainings' => 'Тренировки',
+    'Go' => 'Перейти',
+    'Trainer' => 'Тренер',
+    'Go to training' => 'Посетить тренировку',
 ];

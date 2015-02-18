@@ -92,9 +92,7 @@ class TrainingsController extends Controller {
             } else {
                 $model->buy();
             }
-            return $this->render('view', [
-                        'model' => $model,
-            ]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('view', [
                         'model' => $model,

@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use vova07\themes\admin\widgets\Box;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\trainings\models\TrainingsSearch */
@@ -16,73 +16,111 @@ $this->params['breadcrumbs'] = [
 ?>
 <div class="trainings-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4> <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/trainings.png')[1], ['class' => 'trainings_logo']) ?>
+        <?= Html::encode($this->title) ?></h4>
+    <div class="row">
+        <div class="col-sm-8">
+            Посещай онлайн тренировки и повышай свой уровень игры вместе с нами.
+        </div>
+        <div class="col-sm-4">
+            <div class="left small">
+                Добавься в скайп и получай<br> уведомления о тренировках
+            </div>
+            <div class="skype right">
+                freestylepoker
+            </div>
+        </div>
+    </div>
+
+
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?=
-        Html::a(Yii::t('ru', 'Create {modelClass}', [
-                    'modelClass' => 'Trainings',
-                ]), ['create'], ['class' => 'btn btn-success'])
-        ?>
-    </p>
-
-    <?php
-    $gridId = 'blogs-grid';
-    $gridConfig = [
-        'id' => $gridId,
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
-            'id',
-            [
-                    'attribute' => 'title',
-                    'format' => 'html',
-                    'enableSorting' => false,
-                    'value' => function ($model) {
-                        $is_buy = \app\modules\trainings\models\TrainingsUsr::findOne(['training_id' => $model->id, 'user_id' => \Yii::$app->user->id]);
-                        if ($is_buy != NULL || $model->_isAuthor || \Yii::$app->user->can('administrateVideo')) {
-                            return Html::a(
-                                            $model['title'], ['trainings/view', 'alias' => $model['alias']], ['class' => 'label label-success large']
-                            );
-                        } else {
-                            return Html::a(
-                                            $model['title'], ['trainings/view', 'alias' => $model['alias']]
-                            );
-                        }
-                    }
+    <div class="row col-sm-12">
+        <?php
+        echo GridView::widget([
+            'id' => 'trainings',
+            'dataProvider' => $dataProvider,
+            'caption' => yii::t('ru', 'Trainings'),
+            'layout' => "{items}",
+            'rowOptions' => function ($model) {
+                return ['class' => 'trainings_row'];
+            },
+                    'showHeader' => false,
+                    'tableOptions' => ['class' => 'trainings_table'],
+                    'columns' => [
+                        [
+                            'attribute' => 'date',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return '<div class="trainings_date">' . \Yii::$app->formatter->asDate($model->date)
+                                        . '</div><div class="trainings_time">' . \Yii::$app->formatter->asTime($model->time_start, 'H:i') . ' - '
+                                        . \Yii::$app->formatter->asTime($model->time_end, 'H:i') . ' МСК</div>';
+                            }
                         ],
-            'description:ntext',
-            'val',
-            // 'author_id',
-            // 'alias',
-            'date:date',
-            // 'password',
-            'type_id',
-            'limit_id',
-            'time_start',
-            'time_end',
-        ],
-    ];
-
-    ?>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <?php
-            Box::begin(
-                    [
-                        'title' => $this->params['subtitle'],
-                        'bodyOptions' => [
-                            'class' => 'table-responsive'
-                        ],
-                        'grid' => $gridId
-                    ]
-            );
-            ?>
-            <?= GridView::widget($gridConfig); ?>
-            <?php Box::end(); ?>
-        </div>
-
+                        [
+                            'attribute' => 'title',
+                            'format' => 'raw',
+                            'enableSorting' => false,
+                            'value' => function ($model) {
+                                return $this->render('view', [
+                                            'model' => $model,
+                                ]);
+                            }
+                                ],
+                                [
+                                    'label' => '',
+                                    'format' => 'html',
+                                    'value' => function( $model) {
+                                        return $model->type->name . ' ' . $model->limit->name;
+                                    }
+                                ],
+                                [
+                                    'label' => \Yii::t('ru', 'Price'),
+                                    'attribute' => 'val',
+                                    'contentOptions' => ['class' => 'training_table__row'],
+                                    'format' => 'raw',
+                                    'enableSorting' => false,
+                                    'value' => function($model) {
+                                if ($model->val == NULL) {
+                                    return '<span class="not_buyed">' . \Yii::t('ru', 'Free training') . '</span>';
+                                } else {
+                                    if ($model->_isBuy) {
+                                        return '<i class="icon-ok"> </i>' . \Yii::t('ru', 'Buyed');
+                                    } else {
+                                        return '<span class="fsp">' . $model->val . '</span>&nbsp;<span class="buyed"></span>';
+                                    }
+                                }
+                            }
+                                ],
+                                [
+                                    'label' => '',
+                                    'format' => 'raw',
+                                    'value' => function($model) {
+                                        if (!$model->val) {
+                                            return Html::a(\Yii::t('ru', 'Go') . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go']);
+                                        }
+                                        if (!$model->_isBuy && $model->val) {
+//                                    return '<a href="" data-toggle="modal" data-target="#myModal" class="training_btn_go btn btn-primary buy">' . \Yii::t('ru', 'Buy') . ' '
+//                                            . '</a>';
+                                            return Html::button(\Yii::t('ru', 'Buy'), [
+                                                        'class' => 'training_btn btn btn-primary buy',
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#training' . $model->id]
+                                            );
+                                        }
+                                        if ($model->_isBuy) {
+                                            //return Html::a($model->password . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go', 'onClick' => 'copyr(this)']);
+                                            return Html::tag('div', 
+                                                    $model->password 
+                                                    . Html::a(Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url), 
+                                                    ['class' => 'training_btn_go']);
+                                            
+                                            // Html::a($model->password . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go']);
+                                        }
+                                    }
+                                        ],
+                                    ],
+                                ]);
+                                ?>
     </div>
+</div>

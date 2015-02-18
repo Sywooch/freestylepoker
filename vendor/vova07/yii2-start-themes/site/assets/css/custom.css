@@ -349,10 +349,10 @@ a.page_size_active {
     font-family: "Tahoma";
     font-weight: bold;
 }
-.video_fsp .icon-ok, .gold_table__row .icon-ok {
+.video_fsp .icon-ok, .gold_table__row .icon-ok, .training_table__row .icon-ok {
     color: #7eaf15;
 }
-.video_fsp .not_buyed, .gold_table__row .not_buyed {
+.video_fsp .not_buyed, .gold_table__row .not_buyed, .training_table__row .not_buyed {
     background: #7eaf15;
     color:#fff;
     padding: 2px 8px;
@@ -427,10 +427,11 @@ small {
     font-family: "Tahoma";
     color: rgb(172, 172, 172);
 }
-button.buy {
+button.buy, a.buy {
     border-radius: 0px;
     background: #537599;
     width:100%;
+    color:#fff;
 }
 .rating-box {
     font-size: 22px;
@@ -471,7 +472,7 @@ button.btn_comment {
 button.btn_gift {
     width: 100%;
 }
-button.btn {
+button.btn, .but {
     border-radius: 0px;
     background: #537599;
     color: #fff;
@@ -591,4 +592,237 @@ button.btn {
 }
 .lesson_footer {
     padding-top: 10px;
+}
+#content h4 {
+    text-transform: uppercase;
+}
+.trainings_logo {
+    padding: 0px 9px 0 0;
+}
+.skype {
+    background-image: url('../images/skype.png');
+    background-repeat: no-repeat;
+    background-color: #eeeff1;
+    width: 136px;
+    height: 30px;
+    padding-left: 42px;
+    padding-top: 5px;
+    font-size: 13px;
+    font-family: "Tahoma";
+    color: #537599;
+    font-style: italic;
+}
+.left {
+    float:left;
+}
+.small {
+    font-size: 12px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+}
+
+.dateline_next {
+
+}
+.dateline {
+    text-transform: none;
+}
+.dateline_day {
+    width: 100%;
+    font-family: "Tahoma";
+    text-align: center;
+    word-spacing: 15px;
+    color: rgb(197, 180, 180);
+}
+.dateline_numbers {
+    font-family: "Tahoma";
+    width: 100%;
+    text-align: center;
+    word-spacing: 15px;
+}
+.dateline_numbers a {
+    background:#eeeff1; 
+    display:block;
+    color:#000;
+}
+.dateline_number-28 {
+    width:35px;
+}
+.dateline_number-30 {
+    width:32px;
+}
+.dateline_number-31 {
+    width:31px;
+}
+.null {
+    padding:0px;
+    margin:0px;
+}
+.dateline_numbers div span {
+    display:block;
+}
+.dateline_d_0 {
+    background:#7eaf15;
+    color:#fff;
+}
+.dateline_d_1{
+    background:#537599; 
+    border-bottom: 1px solid #537599;
+    border-top: 1px solid #537599;
+    color:#fff;
+}
+.dateline_d_1 a {
+    background:#537599; 
+    color:#fff;
+}
+.dateline_d {
+    border-top: 1px solid #537599;
+    border-bottom: 1px solid #537599;
+}
+.dateline_d_l {
+    border-right: 1px solid #537599;
+}
+.trainings-search {
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+#trainings caption {
+    font-size: 19px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+    text-align: left;
+}
+.trainings_table {
+    border-top: #66c0ff 1px solid;
+    padding:10px;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.trainings_table td {
+    padding: 8px;
+    line-height: 1.428571429;
+    vertical-align: top;
+}
+.trainings_time {
+    font-size: 14px;
+    font-family: "Tahoma";
+    color: rgb(126, 175, 21);
+}
+.trainings_date {
+    font-size: 16px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+}
+a.training_title {
+    font-size: 16px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+    text-decoration: underline;
+}
+a.training_author {
+    font-size: 13px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+}
+.training_btn_go {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: rgb(247, 247, 247);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 8px 0 0 0px;
+    height: 38px;
+    display: block;
+    color: rgb(82, 94, 103);
+}
+.training_btn {
+    text-transform: uppercase;
+    height: 38px;
+}
+.training_btn_go i {
+    font-size: 18px;
+    color: #C8CFD7;
+    float:right;
+    padding-right: 10px;
+}
+a:hover.training_btn_go i {
+    color: #7EB015;
+
+}
+.training_btn_go a:hover i {
+    color: #7EB015;
+
+}
+a:hover.training_btn_go {
+    color: #000;
+}
+
+.modal-content {
+    border-radius: 0px; 
+}
+.training-modal .modal-dialog {
+    width: 1020px;
+    padding-top: 150px;
+}
+.training-modal .modal-header {
+    padding: 0px;
+}
+.training-modal .modal-header h4 {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    font-family: "Tahoma";
+    color: rgb(82, 94, 103);
+}
+.training-modal {
+    font-family: "Tahoma";
+}
+.b_r {
+    border-right: 1px solid #ccc;
+}
+.training_line div:first-child {
+    padding-right: 10px;
+    padding-left: 0px;
+}
+.training_line div button, .training_line div a {
+    width: 150px;
+}
+.training_line div {
+    padding-left: 20px;
+}
+.training_but {
+    background-color: rgb(126, 175, 21);
+    width: 225px;
+    height: 40px;
+    font-size: 13px;
+    font-family: "Tahoma";
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 2.769;
+    text-align: center;
+}
+a.training_but:hover {
+    background-color: #7ECC15;
+}
+.trainer {
+    line-height: 40px;
+}
+.centered-text {
+    text-align: center;
+}
+.admin-block {
+    border-top: 1px solid #ccc;
+    margin-top: 21px;
+    padding-top: 20px;
+}
+.ofw {
+    overflow: auto;
+}
+.trainings_row:hover {
+    background: #F7F7F7;
 }
