@@ -134,7 +134,7 @@ use yii\helpers\Html;
             $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt, 'status_id' => 1]);
             echo '<div class="left dateline_number-' . $num . ' ">' . $textday . '<hr class="null">';
             if ($fin != NULL) {
-                echo '<span>' . Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem], 'month' => $month]) . '</span>';
+                echo '<span>' . Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem]]) . '</span>';
             } else {
                 echo '<span>' . $date  . '</span>';
             }

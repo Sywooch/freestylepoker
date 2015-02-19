@@ -94,9 +94,11 @@ class TrainingsController extends Controller {
             }
             return $this->redirect(['index']);
         } else {
-            return $this->render('view', [
-                        'model' => $model,
-            ]);
+            if (Yii::$app->request->isPjax) {
+                return $this->render('view', [
+                            'model' => $model,
+                ]);
+            }
         }
     }
 

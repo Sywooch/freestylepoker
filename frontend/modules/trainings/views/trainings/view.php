@@ -13,11 +13,12 @@ use yii\bootstrap\Modal;
 //$this->params['breadcrumbs'][] = ['label' => 'Trainings', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 
-echo Html::a($model['title'], '', [
+echo Html::a($model['title'], '#_t' . $model->id, [
     'class' => 'training_title',
-    'data-toggle' => 'modal',
-    'data-target' => '#training' . $model->id]
-) . '<br>' . \Yii::t('ru', 'Trainer') . ': ' . Html::a(
+    'id' => '_t' . $model->id,
+//    'data-toggle' => 'modal',
+//    'data-target' => '#training' . $model->id
+]) . '<br>' . \Yii::t('ru', 'Trainer') . ': ' . Html::a(
         $model->user->username, ['trainings/view', 'alias' => $model['alias']], ['class' => 'training_author']
 );
 Modal::begin([
@@ -175,3 +176,18 @@ Modal::begin([
     </div><!--/.col-md-8-->
 </div><!--/.row-->
 <?php Modal::end(); ?>
+
+<?php
+$js = "
+        $(document).ready(function () {
+        $('#_t" . $model->id . "').click(function(){
+            $('#training" . $model->id . "').modal();
+            });
+        $(''+location.hash).click();
+        });";
+
+$this->registerJs($js);
+?>
+
+
+
