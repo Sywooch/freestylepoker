@@ -103,17 +103,17 @@ class Trainings extends \yii\db\ActiveRecord {
         // сохраним владельца
         return $this->author_id = Yii::$app->user->id;
     }
-    
+
     /**
      * Проверка авторства
      * @return boolean
      */
     public function get_isAuthor() {
-        if($this->author_id == Yii::$app->user->id) {
+        if ($this->author_id == Yii::$app->user->id) {
             return true;
         }
     }
-    
+
     /**
      * Связь автор-пользователь
      * @return type
@@ -122,14 +122,14 @@ class Trainings extends \yii\db\ActiveRecord {
         // VideoUsr has_many Video via Video.video_id -> id
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getLimit() {
         return $this->hasOne(VideoLimits::className(), ['id' => 'limit_id']);
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -304,7 +304,8 @@ class Trainings extends \yii\db\ActiveRecord {
                 throw new UserException(\Yii::t('ru', 'Error'));
             }
         } else {
-            throw new UserException(\Yii::t('ru', 'Error: This training was not buyed or buying was canceled before'));
+            Yii::$app->session->setFlash(
+                    'success', \Yii::t('ru', 'Error: This training was not buyed or buying was canceled before'));
         }
     }
 
@@ -327,7 +328,8 @@ class Trainings extends \yii\db\ActiveRecord {
             $giftstat = new Giftstat();
             $giftstat->gift_stat_update($to_id, $id, $comment, self::GIFT_CATEGORY_CANCELED, self::GROUP_VIDEO);
         } else {
-            throw new UserException(\Yii::t('ru', 'Error: Gift is not found or was canceled'));
+            Yii::$app->session->setFlash(
+                    'success', \Yii::t('ru', 'Error: Gift is not found or was canceled'));
         }
     }
 

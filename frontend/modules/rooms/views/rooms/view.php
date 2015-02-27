@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 use app\modules\rooms\models\RoomsPromo;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
@@ -14,40 +13,54 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('ru', 'Rooms'), 'url' => ['i
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rooms-view">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="box box-success row">
+    <div class="row">
         <div class="col-sm-12">
-            <?= Html::img('/statics/web/rooms/previews/' . $model->logo, ['style' => 'padding:10px; float:left']) ?>
-            <h4>
-                <?= Html::encode($model->title); ?>
-            </h4>
-            <?= Html::encode($model->snippet); ?>
+            <div class="room_logo">
+                <?= Html::img('/statics/web/rooms/previews/' . $model->logo, []) ?>
+                <div class="room_net"><?= \Yii::t('ru', 'Network:') . ' ' . Html::encode($model->net) ?></div>
+            </div>
+            <h4><?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/rooms.png')[1], ['class' => 'trainings_logo']) ?> 
+                <?= Html::encode($this->title) ?></h4>
+            <p class="title_description">
+                <?= Html::encode($model->snippet); ?>
+            </p>
+            <div class="room_help">
+                <div class="room_arrow"></div>
+                <div class="room_help_text">
+                    При возникновении вопросов наша служба поддержки всегда готова вам помочь.
+                    <div class="room_help_ico">
+                        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/skype_r.png')[1]) ?>     
+                        ev.freestylepoker&nbsp;&nbsp;&nbsp;
+                        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/mail.png')[1]) ?> 
+                        freestylepoker.ev@gmail.com
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-sm-12 room__info">
-            <h4>
+            <span class="room__tab_title">
                 Особенности:
-            </h4>
+            </span>
             <hr>
             <?= $model->info; ?>
         </div>
         <div class="col-sm-12 room__content">
-            <h4>
+            <span class="room__tab_title">
                 Описание:
-            </h4>
+            </span>
             <hr>
             <?= $model->content; ?>
         </div>
         <div class="col-sm-12 room__promo">
-            <h4>
+            <span class="room__tab_title">
                 Акции:
-            </h4>
+            </span>
             <hr>
             <?php
             foreach ($model->promo as $value) {
                 $promo = RoomsPromo::findOne($value);
                 echo '<div class="promo col-sm-4">';
-                echo Html::a(Html::encode($promo->name), ['roomspromo/view', 'alias' => $promo->alias]);
+                echo Html::a(Html::encode($promo->name), ['roomspromo/view', 'alias' => $promo->alias], ['class' => 'room__promo_title']);
                 echo '<br>';
                 echo $promo->text;
                 echo '<br>';
@@ -56,27 +69,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
         </div>
         <div class="col-sm-12 room__instruction">
-            <h4>
+            <span class="room__tab_title">
                 Инструкции:
-            </h4>
+            </span>
             <hr>
             <?= $model->instruction; ?>
         </div>
 
         <div class="col-sm-12 accounts" id="accounts">
-            <h4>
+            <span class="room__tab_title">
                 Привязать аккаунт:
-            </h4>
+            </span>
             <hr>
             <?php
             if (!$model->isAccount && !\Yii::$app->user->isGuest) {
+
+                echo '<div class="room__form">';
+
                 $form = ActiveForm::begin([
                             'id' => 'account',
                             'method' => 'post',
                             'action' => ['account'],
                 ]);
 
-                echo $form->field($model, 'nickname')->textInput(['style' => 'width:300px']);
+                echo $form->field($model, 'nickname')->textInput(['class' => 'room__field_nick', 'placeholder' => \Yii::t('ru', 'Nickname')])->label(false);
                 ?>
                 <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
                 <?= Html::submitButton('Привязать', ['class' => 'btn btn-primary'], ['id' => 'sbm']) ?>
@@ -84,15 +100,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ActiveForm::end();
                 Pjax::begin(['id' => 'accounts', 'formSelector' => '#account', 'enablePushState' => false]);
                 Pjax::end();
-                echo '<br>';
-            } 
-            elseif (\Yii::$app->user->isGuest) {
-                echo 'Для регистрации в покер-руме войдите на сайт';
-            }
-            elseif($model->isAccount && $model->Account_status) {
-                echo 'Ник в руме: <b>'. $model->Account_status . '</b>';
-            }
-            else {
+                echo '</div><br>';
+            } elseif (\Yii::$app->user->isGuest) {
+                echo Html::tag('div', Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/login.png')[1])
+                        . Html::a('Войдите', ['/login']) . ' или '
+                        . Html::a('Зарегистрируйтесь', ['/signup']), ['class' => 'login_please left']);
+            } elseif ($model->isAccount && $model->Account_status) {
+                echo 'Ник в руме: <b>' . $model->Account_status . '</b>';
+            } else {
                 echo 'Ваш аккаунт ожидает подтветржения';
             }
             ?>

@@ -9,57 +9,65 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="rakeback-form">
-    <div class="col-sm-12">
-        Во всех покер румах, с каждого разыгрываемого банка взимается комиссия - рэйк. 
-        Так за месяц игры может набежать солидная сумма. 
-        Часть рейка мы возвращаем, эта часть называется рэйкбек.
-        <br>
-        <br>
-    </div>
     <div class="col-sm-4">
-
-        <h4>Как это работает?</h4>
-
+        <div class="vertical-line right"></div>
+        <span class="rb_left_title">Как это работает?</span>
+        <br><br>
         Мы максимально упрощаем способ 
         получения рэйкбека, 
-        всё происходит в 3 шага:<br><br>
+        всё происходит в 3 шага:
+        <br><br>
         <ul class="faq unstyled">
-            <li><span class="number number_red">1</span>
+            <li><span class="rb_number">1.</span>
                 <div>
                     Вы заполняете и 
                     отправляете форму справа
                     (проверьте правильность данных)
                 </div>
             </li>
-            <li><span class="number number_red">2</span>
+            <li><span class="rb_number">2.</span>
                 <div>
                     Наш оператор просматривает
                     заявку и звонит, предлагая
                     подходящие вам условия 
                 </div>
             </li>
-            <li><span class="number number_red">3</span>
+            <li><span class="rb_number">3.</span>
                 <div>
                     Вы регистрируетесь в руме
                     и играете по лучшим условиям
                 </div>
             </li>
         </ul>
-
-    </div>
-    <div class="col-sm-4 xbs">
-        <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'name')->textInput(['maxlength' => 32]) ?>
-        <?= $form->field($model, 'phone')->textInput() ?>
-        <?= $form->field($model, 'skype')->textInput(['maxlength' => 32]) ?>
-        <?= $form->field($model, 'email')->textInput(['maxlength' => 32]) ?>
-        <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+        <br><br>
+        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/rakeback_1.png')[1], ['class' => 'rb_imgs']) ?>
+        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/arr.png')[1], ['class' => 'rb_imgs']) ?>
+        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/rakeback_2.png')[1], ['class' => 'rb_imgs']) ?>
+        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/arr.png')[1], ['class' => 'rb_imgs']) ?>
+        <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/rakeback_3.png')[1], ['class' => 'rb_imgs']) ?>
     </div>
     <div class="col-sm-4">
-
-        <?= $form->field($model, 'type_poker')->textInput() ?>
-
-        <?= $form->field($model, 'link')->textInput(['maxlength' => 32]) ?>
+        <div class="rb_require col-sm-12">
+            <span class="rb_require_title">Контакты для связи</span>
+            <p>- обязательные поля</p>
+            <?php $form = ActiveForm::begin(); ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => 32, 'placeholder' => \Yii::t('ru', 'Name')])->label(false) ?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => 32, 'placeholder' => \Yii::t('ru', 'Email')])->label(false) ?>
+            <span class="rb_require_ts">Если вы ввели логин skype, то телефон писать не обязательно, и наоборот.</span>
+            <?= $form->field($model, 'skype')->textInput(['maxlength' => 32, 'placeholder' => \Yii::t('ru', 'Skype')])->label(false) ?>
+            <?= $form->field($model, 'phone')->textInput(['placeholder' => \Yii::t('ru', 'Phone')])->label(false) ?>
+        </div>
+        <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? Yii::t('ru', 'Send') : Yii::t('ru', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <span class="rb_3_title">Дополнительная информация поможет подобрать лучшие условия для вас</span>
+        <br><br>
+        <?= $form->field($model, 'type_poker')->textInput(['placeholder' => \Yii::t('ru', 'Type Poker')])->label(false) ?>
+        <span class="rb_3_prof">Ваш профиль на других покерных ресурсах</span>
+        <?= $form->field($model, 'link')->textInput(['maxlength' => 32, 'placeholder' => \Yii::t('ru', 'Link')])->label(false) ?>
 
         <?php // $form->field($model, 'about')->textarea(['rows' => 6]) ?>
         <?=
@@ -75,30 +83,22 @@ use yii\widgets\ActiveForm;
         $form->field($model, 'about')->textInput([
             'maxlength' => 32,
             'style' => 'display:none',
-            'class' => 'about',
+            'class' => 'about form-control',
             'name' => false,
         ])->label(false)
         ?>
-
+        <hr>
         <?= $form->field($model, 'fsp')->radioList(['1' => 'Да', '0' => 'Нет']) ?>
-
         <?= $form->field($model, 'rooms')->radioList(['1' => 'Да', '0' => 'Нет']) ?>
+        <hr>
     </div>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('ru', 'Send') : Yii::t('ru', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+
 
     <?php ActiveForm::end(); ?>
 
 </div>
 <style>
-    .xbs {
-        border-style: solid;
-        border-width: 1px;
-        border-color: rgb(218, 225, 232);
-        background-color: rgb(231, 231, 231);
-    }
     .rb_q {
         float: left;
     }

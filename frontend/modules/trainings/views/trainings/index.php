@@ -12,6 +12,11 @@ $this->params['subtitle'] = yii::t('ru', 'Trainings Panel');
 $this->params['breadcrumbs'] = [
     $this->title
 ];
+
+$js = "$(document).ready(function(){
+    $('.pop').popover({delay:'100', html:true, placement:'left'});
+});";
+$this->registerJs($js);
 ?>
 <div class="trainings-index">
 
@@ -69,9 +74,10 @@ $this->params['breadcrumbs'] = [
                                 [
                                     'label' => '',
                                     'format' => 'html',
+                                    'contentOptions' => ['class' => 'training_table__row'],
                                     'value' => function( $model) {
-                                        return $model->type->name . ' ' . $model->limit->name;
-                                    }
+                                return $model->type->name . ' ' . $model->limit->name;
+                            }
                                 ],
                                 [
                                     'label' => \Yii::t('ru', 'Price'),
@@ -101,16 +107,29 @@ $this->params['breadcrumbs'] = [
                                                             . Html::a('Зарегистрируйтесь', ['/signup']), ['class' => 'login_please']);
                                         } elseif ($model->_isBuy) {
                                             //return Html::a($model->password . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go', 'onClick' => 'copyr(this)']);
-                                            return Html::tag('div', $model->password
-                                                            . Html::a(Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url), ['class' => 'training_btn_go']);
+//                                            return Html::tag('div', $model->password
+//                                                            . Html::a(Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url), ['class' => 'training_btn_go']);
+                                            if ($model->password) {
+                                                return Html::tag('div', \Yii::t('ru', 'See')
+                                                                . Html::a(Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url), ['class' => 'training_btn_go pop',
+                                                            'rel' => 'popover',
+                                                            'data-content' => "1. " . \Yii::t('ru', 'Copy password') . " <b>" . $model->password . "</b>. <br><br> 2. "
+                                                            . \Yii::t('ru', 'Go to link') . " <a href='" . $model->url . "'>" . $model->url . "</a>"
+                                                ]);
+                                            } else {
+                                                return
+                                                        Html::a(\Yii::t('ru', 'See') . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go', 'target' => '_blank']);
+                                            }
                                         } elseif (!$model->val) {
                                             return Html::a(\Yii::t('ru', 'Go') . Html::tag('i', '', ['class' => 'icon-chevron-sign-right']), $model->url, ['class' => 'training_btn_go']);
                                         } elseif (!$model->_isBuy && $model->val) {
-                                            return Html::button(\Yii::t('ru', 'Buy'), [
-                                                        'class' => 'training_btn btn btn-primary buy',
-                                                        'data-toggle' => 'modal',
-                                                        'data-target' => '#training' . $model->id]
-                                            );
+                                            $options = [
+                                                'class' => 'training_btn btn btn-primary buy',
+                                                'data-toggle' => 'modal',
+                                                'data-target' => '#myModal' . $model->id,
+                                                'title' => 'Купить доступ к просмотру'
+                                            ];
+                                            return Html::button(\Yii::t('ru', 'Buy'), $options);
                                         }
                                     }
                                         ],

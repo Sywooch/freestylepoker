@@ -96,13 +96,13 @@ class Video extends \yii\db\ActiveRecord {
             return true;
         }
     }
-    
+
     /**
      * Проверка авторства
      * @return boolean
      */
     public function get_isAuthor() {
-        if($this->author_id == Yii::$app->user->id) {
+        if ($this->author_id == Yii::$app->user->id) {
             return true;
         }
     }
@@ -269,7 +269,7 @@ class Video extends \yii\db\ActiveRecord {
         $result = ArrayHelper::map($model, 'id', 'username');
         return $result;
     }
-    
+
     /**
      * Связь автор-пользователь
      * @return type
@@ -375,7 +375,8 @@ class Video extends \yii\db\ActiveRecord {
                 throw new UserException(\Yii::t('ru', 'Error'));
             }
         } else {
-            throw new UserException(\Yii::t('ru', 'Error: This video was not buyed or buying was canceled before'));
+            Yii::$app->session->setFlash(
+                    'success', \Yii::t('ru', 'Error: This video was not buyed or buying was canceled before'));
         }
     }
 
@@ -421,7 +422,8 @@ class Video extends \yii\db\ActiveRecord {
                 $this->cancel_course($video_model->ids, $to_id);
             }
         } else {
-            throw new UserException(\Yii::t('ru', 'Error: Gift is not found or was canceled'));
+            Yii::$app->session->setFlash(
+                    'success', \Yii::t('ru', 'Error: Gift is not found or was canceled'));
         }
     }
 
@@ -454,7 +456,7 @@ class Video extends \yii\db\ActiveRecord {
         ]);
         return $dataProvider;
     }
-    
+
     /**
      * Получить список типов
      * @return array
@@ -464,7 +466,7 @@ class Video extends \yii\db\ActiveRecord {
         $result = ArrayHelper::map($models, 'id', 'name');
         return $result;
     }
-    
+
     /**
      * Получить текущее лимиты
      * @param type $type_id
@@ -475,7 +477,7 @@ class Video extends \yii\db\ActiveRecord {
         $limits = ArrayHelper::map($model, 'sortOrder', 'name');
         return $limits;
     }
-    
+
     /**
      * Пуличить лимиты соответствующие типу
      * @return array

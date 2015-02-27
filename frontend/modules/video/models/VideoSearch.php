@@ -60,6 +60,14 @@ class VideoSearch extends Video {
      */
     public function search($params) {
 
+        if (isset($params['author'])) {
+            if (!isset($params['VideoSearch'])) {
+                $params['VideoSearch'] = array();
+            }
+            $params['VideoSearch']['author_id'] = $params['author'];
+            unset($params['author']);
+        }
+
         // COOKIES SET
         if (!empty(Yii::$app->request->get('page_size'))) {
             \Yii::$app->response->cookies->add(new \yii\web\Cookie([
@@ -143,8 +151,8 @@ class VideoSearch extends Video {
                         TrainingsUsr::tableName() . '.user_id' => Yii::$app->user->id])
                     ->where([VideoUsr::tableName() . '.id' => NULL])
                     ->andwhere([TrainingsUsr::tableName() . '.id' => NULL])
-                   ->andWhere(['!=',Video::tableName() . '.val', 'NULL']);
-                   // ->andWhere([Video::tableName() . '.val' => 120]);
+                    ->andWhere(['!=', Video::tableName() . '.val', 'NULL']);
+            // ->andWhere([Video::tableName() . '.val' => 120]);
         }
 
         if ($this->is_parsed && !Yii::$app->user->isGuest) {

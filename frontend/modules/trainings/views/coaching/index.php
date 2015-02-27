@@ -10,53 +10,92 @@ use yii\grid\GridView;
 $this->title = Yii::t('ru', 'Coachings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="coaching-index">
+<div class="coaching-index row">
+    <div class="col-sm-9">
+        <h4> <?= Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/trainers.png')[1], ['class' => 'trainings_logo']) ?>
+            <?= Html::encode($this->title) ?></h4>
+        Лучшие тренера нашей школы готовы передать свои знания! Выбери кто из них тебе больше подходит.
+        <br><br>
+        <?=
+        GridView::widget([
+            'id' => 'trainings',
+            'headerRowOptions' => ['class' => 'coaching_header'],
+            'dataProvider' => $dataProvider,
+            'layout' => "{items}",
+            'rowOptions' => function ($model) {
+        return ['class' => 'coaching_row'];
+    },
+            'tableOptions' => ['class' => 'coaching_table'],
+            'columns' => [
+                [
+                    'attribute' => 'photo',
+                    'enableSorting' => false,
+                    'headerOptions' => ['class' => 'coaching_table__photo'],
+                    'contentOptions' => ['class' => 'coaching_table__photo'],
+                    'label' => \Yii::t('ru', 'Trainer'),
+                    'format' => 'html',
+                    'value' => function($model) {
+                return Html::img('/statics/web/coaching/previews/' . $model->photo, ['class' => 'img_coaching']);
+            }
+                ],
+                [
+                    'attribute' => 'user_id',
+                    'label' => '',
+                    'headerOptions' => ['class' => 'coaching_table__info'],
+                    'contentOptions' => ['class' => 'coaching_table__info'],
+                    'format' => 'html',
+                    'value' => function($model) {
+                $video = app\modules\video\models\Video::findOne($model->video_id);
+                return '<span class="coaching_name">' . $model->user->username . '</span>'
+                        . '<br>'
+                        . '<span class="coaching_desc">' . $model->description . '</span>'
+                        . '<br>'
+                        . Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/video.png')[1], ['class' => 'trainings_logo'])
+                        . Html::a(\Yii::t('ru', 'Intro video'), ['/video/' . $video->alias], ['class' => 'coaching_link'])
+                        . Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/c_forum.png')[1], ['class' => 'trainings_logo'])
+                        . Html::a(\Yii::t('ru', 'Forum'), $model->link_forum, ['class' => 'coaching_link'])
+                        . Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/video_gr.png')[1], ['class' => 'trainings_logo'])
+                        . Html::a(\Yii::t('ru', 'All videos'), '/video/?author=' . $model->user->id, ['class' => 'coaching_link'])
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'photo',
-                'format' => 'html',
-                'value' => function($model) {
-                    return Html::img('/statics/web/coaching/previews/' . $model->photo, ['class' => 'img_coaching']);
-                }
-                    ],
-                    [
-                        'attribute' => 'user_id',
-                        'format' => 'html',
-                        'value' => function($model) {
-                            $video = app\modules\video\models\Video::findOne($model->video_id);
-                            return $model->user->username
-                                    . '<br>'
-                                    . $model->description
-                                    . '<br>'
-                                    . Html::a($video->title, ['/video/' . $video->alias])
-                                    . '<br>'
-                                    . Html::a('Link', $model->link)
-                                    . ' '
-                                    . Html::a('Link Forum', $model->link_forum);
-                        },
-                            ],
-                            [
-                                'attribute' => 'type_id',
-                                'format' => 'html',
-                                'value' => function($model) {
-                                    return $model->type->name
-                                            . ' '
-                                            . $model->limit->name;
-                                },
-                            ],
-//                    'photo',
-                            'fsp',
-                        ],
-                    ]);
-                    ?>
-
+                        //. Html::a('Link', $model->link)
+                        . ' ';
+            },
+                ],
+                [
+                    'attribute' => 'type_id',
+                    'enableSorting' => false,
+                    'headerOptions' => ['class' => 'coaching_table__type'],
+                    'contentOptions' => ['class' => 'coaching_table__type'],
+                    'label' => \Yii::t('ru', 'Specialization'),
+                    'format' => 'html',
+                    'value' => function($model) {
+                return $model->type->name
+                        . ' '
+                        . $model->limit->name;
+            },
+                ],
+                [
+                    'label' => \Yii::t('ru', 'fsp/h'),
+                    'enableSorting' => false,
+                    'headerOptions' => ['class' => 'coaching_table__fsp'],
+                    'contentOptions' => ['class' => 'coaching_table__fsp'],
+                    'format' => 'html',
+                    'attribute' => 'fsp',
+                    'value' => function ($model) {
+                return '<span class="fsp">'
+                        . $model->fsp
+                        . Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/fsp.png')[1], ['class' => 'fsp'])
+                        . '</span>';
+            }
+                ],
+            ],
+        ]);
+        ?>
+    </div>
+    <div class="col-sm-3">
+        <h4><i class="icon-info-sign"></i> ИНФОРМАЦИЯ</h4>
+        <hr>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
 </div>

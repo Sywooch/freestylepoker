@@ -101,10 +101,10 @@ use yii\helpers\Html;
         ?>
         <h4 class="dateline center">
             <?php
-            echo "<a class='dateline_prev left' href='?TrainingsSearch[date]=" . $date_prev . "'>"
+            echo "<a class='dateline_prev left' href='?date=" . $date_prev . "'>"
             . "<i class='icon-chevron-left'></i></a>";
             echo '<span class="">' . $monthm . ', ' . date('Y') . '</span>';
-            echo "<a class='dateline_next right' href='?TrainingsSearch[date]=" . $date_next . "'> "
+            echo "<a class='dateline_next right' href='?date=" . $date_next . "'> "
             . "<i class='icon-chevron-right'></i></a>";
             echo '<br>';
             ?>
@@ -134,7 +134,7 @@ use yii\helpers\Html;
             $fin = app\modules\trainings\models\Trainings::findOne(['date' => $dt, 'status_id' => 1]);
             echo '<div class="left dateline_number-' . $num . ' ">' . $textday . '<hr class="null">';
             if ($fin != NULL) {
-                echo '<span>' . Html::a($date, ['', 'TrainingsSearch' => ['date' => $datem]]) . '</span>';
+                echo '<span>' . Html::a($date, ['', 'date' =>  $datem]) . '</span>';
             } else {
                 echo '<span>' . $date  . '</span>';
             }
@@ -147,8 +147,7 @@ use yii\helpers\Html;
 
     if (\Yii::$app->request->get()) {
         $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
-        $pd = $get['TrainingsSearch'];
-        $pd = $pd['date'];
+        $pd = $get['date'];
     } else {
         $pd = date('d.m.Y');
     }
@@ -161,8 +160,7 @@ use yii\helpers\Html;
  * Вывод календаря
  */
 $get = (empty(Yii::$app->request->get())) ? NULL : Yii::$app->request->get();
-$pd = $get['TrainingsSearch'];
-$pd = $pd['date'];
+$pd = $get['date'];
 
 $month = explode(".", $pd);
 

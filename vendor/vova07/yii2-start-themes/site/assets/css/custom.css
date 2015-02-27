@@ -1,3 +1,10 @@
+@font-face {
+    font-family: OpenSans; /* Имя шрифта */
+    src: url(../fonts/opensans/OpenSans-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+body {
+    font-family: OpenSans !important;
+}
 .width-50 {
     width: 50px;
 }
@@ -10,9 +17,18 @@
     }
 }
 
+p.title_description {
+    font-size: 14px;
+    color: rgb(82, 94, 103);
+}
+h4 {
+    font-size: 16px;
+    color: rgb(82, 94, 103);
+    text-transform: uppercase;
+}
 .site_time {
     font-size: 17px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(169, 180, 188);
     line-height: 4;
     text-align: left;
@@ -99,7 +115,7 @@ html {height: 100%;}
 }
 
 .wet-asphalt a:not(.btn) {
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
     font-weight: bold;
     line-height: 1.44;
@@ -208,35 +224,7 @@ a {
 .right {
     float: right;
 }
-.room_list__title {
-    background: #eee;
-    padding:1px 10px;
-}
-.room_list__bonus {
-    padding: 10px;
-    background: #fff;
-    border-bottom: 1px solid #ccc;
-}
-.room_list__bonus__span {
-    background: #0078ae;
-    color: #fff;
-    padding: 10px;
-}
-.room_list__info {
-    padding: 20px 20px;
-}
-.room__info {
-    clear: both;
-    padding: 20px 20px;
-}
-.promo {
-    background: #eee;
-    margin:10px 10px;
-}
-.room__instruction {
-    clear: both;
-    padding: 20px 20px;
-}
+
 .img_coaching {
     width: 100px;
 }
@@ -246,7 +234,7 @@ a {
 .video_filter__title {
     padding: 20px 0 10px;
     font-size: 14px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(169, 180, 188);
     line-height: 1.538;
     border-bottom: 1px solid rgb(218, 225, 232);
@@ -318,35 +306,35 @@ a.page_size_active {
 .video_preview__column {
     padding:0px !important;
 }
-.video_header th, .gold_header th {
+.video_header th, .gold_header th, .coaching_header th{
     font-size: 14px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(175, 185, 192);
     line-height: 1.538;
     font-weight: normal;
 }
 .video_content a, .video_view__info a {
     font-size: 15px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(62, 97, 135);
     line-height: 1.714;
     text-align: left;
 }
 .video_content .tag, .tag {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: #537599;
     text-decoration: underline;
     font-style: italic;
 }
 .video_content {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(111, 116, 120);
 }
 .parsed a {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     font-weight: bold;
 }
 .video_fsp .icon-ok, .gold_table__row .icon-ok, .training_table__row .icon-ok {
@@ -370,13 +358,13 @@ a.page_size_active {
 }
 .video_date {
     font-size: 14px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(172, 172, 172);
 }
 
 .video_author {
     font-size: 14px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(83, 117, 153);
 }
 .video_column__buyed {
@@ -392,7 +380,7 @@ a.page_size_active {
     padding: 14px 70px;
     font-weight: normal;
     font-size: 20px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
     line-height: 1.2;
 }
@@ -419,12 +407,12 @@ a.page_size_active {
 }
 .cl, .rating-box span {
     font-size: 14px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(172, 172, 172);
 }
 small {
     font-size: 12px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(172, 172, 172);
 }
 button.buy, a.buy {
@@ -439,14 +427,14 @@ button.buy, a.buy {
 }
 .course {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(62, 97, 135);
     text-decoration: underline;
     line-height: 1.385;
 }
 .consp a {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(62, 97, 135);
     text-decoration: underline;
     line-height: 1.385;
@@ -495,7 +483,7 @@ button.btn, .but {
 #comments-list .pull-right a, a.stat {
     background-color: rgb(238, 239, 241);
     font-size: 12px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(111, 116, 120);
     padding: 6px;
 }
@@ -506,12 +494,16 @@ button.btn, .but {
     background: #f7f7f7;
     padding: 10px;
 }
+
+/* *************** GOLD **************** */
+/******************************************/
+
 .video-goldfund-search {
     clear:both;
 }
 .gold_table_title {
     font-size: 19px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
     text-align: left;
     float: left;
@@ -564,6 +556,10 @@ button.btn, .but {
 .border-top {
     border-top:1px solid #DDD !important;
 }
+
+/* *************** LESSONS **************** */
+/******************************************/
+
 #lessonssearch-author_id {
     width: 300px;
 }
@@ -573,7 +569,7 @@ button.btn, .but {
 }
 .video-lessons .lesson_title a{
     font-size: 16px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
     text-align: left;
 }
@@ -585,7 +581,7 @@ button.btn, .but {
 }
 .lesson_author {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: #537599;
     font-style: italic;
     float: right;
@@ -596,7 +592,11 @@ button.btn, .but {
 #content h4 {
     text-transform: uppercase;
 }
-.trainings_logo {
+
+/* *************** TRAININGS **************** */
+/******************************************/
+
+.trainings_logo, .section_logo {
     padding: 0px 9px 0 0;
 }
 .skype {
@@ -608,7 +608,7 @@ button.btn, .but {
     padding-left: 42px;
     padding-top: 5px;
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: #537599;
     font-style: italic;
 }
@@ -617,7 +617,7 @@ button.btn, .but {
 }
 .small {
     font-size: 12px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
 }
 
@@ -629,13 +629,13 @@ button.btn, .but {
 }
 .dateline_day {
     width: 100%;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     text-align: center;
     word-spacing: 15px;
     color: rgb(197, 180, 180);
 }
 .dateline_numbers {
-    font-family: "Tahoma";
+    font-family: OpenSans;
     width: 100%;
     text-align: center;
     word-spacing: 15px;
@@ -688,7 +688,7 @@ button.btn, .but {
 }
 #trainings caption {
     font-size: 19px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
     text-align: left;
 }
@@ -709,23 +709,23 @@ button.btn, .but {
 }
 .trainings_time {
     font-size: 14px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(126, 175, 21);
 }
 .trainings_date {
     font-size: 16px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
 }
 a.training_title {
     font-size: 16px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
     text-decoration: underline;
 }
 a.training_author {
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
 }
 .training_btn_go {
@@ -733,12 +733,13 @@ a.training_author {
     border-width: 1px;
     border-color: rgb(218, 225, 232);
     background-color: rgb(247, 247, 247);
-    text-transform: uppercase;
+    /*    text-transform: uppercase;*/
     text-align: center;
     padding: 8px 0 0 0px;
     height: 38px;
     display: block;
     color: rgb(82, 94, 103);
+    cursor:pointer;
 }
 .training_btn {
     text-transform: uppercase;
@@ -776,11 +777,11 @@ a:hover.training_btn_go {
     padding: 15px;
     border-bottom: 1px solid #ccc;
     font-size: 16px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: rgb(82, 94, 103);
 }
 .training-modal {
-    font-family: "Tahoma";
+    font-family: OpenSans;
 }
 .b_r {
     border-right: 1px solid #ccc;
@@ -796,18 +797,34 @@ a:hover.training_btn_go {
     padding-left: 20px;
 }
 .training_but {
+    background-image: url('../images/trainings-b.png');
+    background-repeat: no-repeat;
+    background-position: 27px 8px;
+    background-color: #eeeff1;
+    width: 225px;
+    height: 40px;
+    font-size: 13px;
+    font-family: OpenSans;
+    text-transform: uppercase;
+    line-height: 2.769;
+    text-align: center;
+    padding-left: 30px;
+    color: rgb(83, 117, 153);
+}
+a.training_but:hover {
+    background-image: url('../images/trainings-w.png');
+    background-repeat: no-repeat;
+    background-position: 27px 8px;
     background-color: rgb(126, 175, 21);
     width: 225px;
     height: 40px;
     font-size: 13px;
-    font-family: "Tahoma";
+    font-family: OpenSans;
     color: #fff;
     text-transform: uppercase;
     line-height: 2.769;
     text-align: center;
-}
-a.training_but:hover {
-    background-color: #7ECC15;
+    padding-left: 30px;
 }
 .trainer {
     line-height: 40px;
@@ -826,18 +843,445 @@ a.training_but:hover {
 .trainings_row:hover {
     background: #F7F7F7;
 }
+.trainings_row {
+    padding: 10px 0 10px;
+}
+/*.trainings_row td {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}*/
+.trainings_row td {
+    border-left: 1px solid #ccc;
+    display: inline-block;
+    width: 20%;
+    height: 48px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.trainings_row td:first-child {
+    border-left: none;
+}
 .login_please {
-  font-size: 14px;
-  font-family: "Arial";
-  color: rgb(169, 180, 188);
-  line-height: 1.429;
-  text-align: center;
+    font-size: 14px;
+    font-family: "Arial";
+    color: rgb(169, 180, 188);
+    line-height: 1.429;
+    text-align: center;
 }
 .login_please a {
-  padding: 10px;
-  text-decoration: underline;
-  font-size: 14px;
-  font-family: "Arial";
-  color: rgb(169, 180, 188);
-  line-height: 1.429;
+    padding: 10px;
+    text-decoration: underline;
+    font-size: 14px;
+    font-family: "Arial";
+    color: rgb(169, 180, 188);
+    line-height: 1.429;
+}
+.modal button {
+    margin-left: 0px; 
+    border: 0;
+}
+.training_table__row {
+    text-align: center;
+}
+
+/* *************** COACHING **************** */
+/******************************************/
+
+.img_coaching {
+    border-radius:50%;
+}
+.coaching_row td {
+    padding: 10px;
+}
+.coaching_row {
+    margin-top: 14px;
+    display: block;
+    width: 745px;
+}
+td.coaching_table__type {
+    width: 120px;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #ccc;
+}
+td.coaching_table__photo {
+    width: 120px;
+}
+td.coaching_table__fsp {
+    width: 120px;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #ccc;
+}
+td.coaching_table__info {
+    width: 435px;
+    padding: 0px;
+    border-right: 1px solid #ccc;
+}
+.coaching_name {
+    font-size: 18px;
+    font-family: OpenSans;
+    color: rgb(82, 94, 103);
+    text-decoration: underline;
+    text-align: left;
+}
+.coaching_desc {
+    font-size: 13px;
+    color: rgb(82, 94, 103);
+    line-height: 1.538;
+    margin-bottom: 7px;
+    display: inline-block;
+}
+.coaching_link {
+    font-size: 13px;
+    color: rgb(100, 171, 225);
+    text-decoration: underline;
+    line-height: 1.538;
+    padding-right: 18px;
+}
+.coaching_link:last-child {
+    padding-right: 0px;
+}
+.coaching_link:hover {
+    color:#526f90;
+}
+.coaching_header th {
+    border-bottom: 1px solid;
+    text-align: center;
+    display: inline-block;
+    height: 27px;
+}
+.coaching_header th:first-child {
+    text-align: left;
+}
+img.fsp {
+    padding-left: 5px;
+}
+.fsp {
+    font-size: 20px;
+    color: rgb(82, 94, 103);
+}
+th.coaching_table__type {
+    width: 120px;
+}
+th.coaching_table__photo {
+    width: 120px;
+}
+th.coaching_table__fsp {
+    width: 112px;
+}
+th.coaching_table__info {
+    width: 393px;
+}
+
+/* *************** ROOMS **************** */
+/******************************************/
+
+.item-room {
+    overflow: auto;
+    float: left;
+}
+.rooms-best {
+    height: 31px;
+}
+.rooms-best-correct {
+    height: 31px;
+    width: 1000px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.line-left {
+    border-bottom:1px solid #66c0ff;
+    width: 38%;
+    margin-top: 8px;
+    float:left;
+    margin-right: 20px;
+}
+.line-left-correct {
+    margin-right: 41px;
+}
+.line-right {
+    border-bottom:1px solid #66c0ff;
+    width: 38%;
+    margin-top: -19px;
+    float:right;
+}
+.room_list__box {
+    width:318px;
+    padding: 0px;
+    position: relative;
+    background: #fdfdfd;
+    border-top: 4px solid #537599;
+    border-bottom: 17px solid #537599;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 1px #d0d6db;
+    margin-right: 10px;
+    float:left;
+}
+.room_list__box:nth-last-child {
+    margin-right: 100px;
+}
+.room_all_box {
+    background: #f7f7f7;
+    width:260px;
+    margin-right: 34px;
+    margin-left: 34px;
+    border: none;
+}
+.room_list__box:hover {
+    background: #f7f7f7;
+}
+div.room_list__logo {
+    border-bottom: solid rgb(208, 214, 219) 1px;
+    background-color: rgb(253, 253, 253);
+    height: 126px;
+}
+.room_list__title {
+    border-bottom: solid rgb(208, 214, 219) 1px;
+    background: #f7f7f7;
+    padding:5px 10px;
+    height:41px;
+}
+.room_list__title a {
+    font-size: 20px;
+    color: rgb(82, 94, 103);
+}
+.room_list__bonus {
+    padding: 5px 10px;
+    background-image: url('../images/rooms_b_line.png'); 
+    background-repeat: no-repeat;
+    border-bottom: solid rgb(208, 214, 219) 1px;
+    height:31px;
+}
+.room_list__bonus a {
+    font-size: 13px;
+    color: rgb(82, 94, 103);
+    text-decoration: underline;
+}
+.room_list__bonus__span {
+    color: #fff;
+}
+.room_list__info {
+    padding: 20px 2px;
+}
+.room__info {
+    clear: both;
+    padding: 20px 20px;
+}
+.room__instruction {
+    clear: both;
+    padding: 20px 20px;
+}
+.room_list__net {
+    padding-top:5px;
+}
+.net {
+    font-style: italic;
+    font-size: 12px;
+}
+.room_list__info {
+    font-size: 13px;
+    color: rgb(111, 116, 120);
+}
+.room_all__bonus {
+    text-align: center;
+    background-color: rgb(62, 97, 135);
+    height: 30px;
+    color:#fff;
+    padding-top: 6px;
+    font-size: 14px;
+}
+.room_all__title {
+    border-bottom: solid rgb(208, 214, 219) 1px;
+    background: #f7f7f7;
+    padding:5px 10px;
+    height:57px;
+}
+.room_all__title a {
+    font-size: 16px;
+    color: rgb(62, 97, 135);
+}
+.room_all__reg, .room_list__reg{
+    font-size: 13px;
+}
+.room_all__reg a {
+    font-size: 13px;
+    color: rgb(82, 94, 103);
+    text-decoration: underline;
+}
+
+
+/* *************** ROOM **************** */
+/******************************************/
+
+.room_logo {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(208, 214, 219);
+    background-color: rgb(253, 253, 253);
+    width: 294px;
+    float:left;
+    text-align: center;
+    padding:0px;
+    overflow: auto;
+    margin-right: 27px;
+}
+.room_net {
+    background: #e4e9ee;
+    height: 22px;
+    text-align: right;
+    padding: 2px 10px;
+    font-size: 13px;
+}
+.room_help {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: #f7f7f7;
+    width: 678px;
+    height: 83px;
+    float: right;
+}
+.room_arrow {
+    margin-left: 25px;
+    margin-top: -13px;
+    border-width: 11px;
+    border-color: transparent;
+    border-style: solid;
+    border-bottom-color: #F7F7F7;
+    border-top-width: 0;
+    width: 0;
+    height: 0;
+    border-bottom-color: #999;
+}
+.room_arrow:after {
+    margin-left: -11px;
+    margin-top: 2px;
+    border-width: 11px;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-bottom-color: #F7F7F7;
+    border-top-width: 0;
+}
+.room_help_text {
+    padding:10px;
+}
+.room_help_ico {
+    padding-top:10px;
+    font-size: 13px;
+    color: rgb(83, 117, 153);
+    font-style: italic;
+}
+.room__tab_title {
+    font-size: 19px;
+    font-family: "Arial";
+    color: rgb(82, 94, 103);
+}
+.rooms-view hr {
+    border-top: #66c0ff solid 1px;
+    border-bottom: rgba(255, 255, 255, 0) solid 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.room__info {
+    font-size: 13px;
+    color: rgb(111, 116, 120);
+    line-height: 1.998;
+    text-align: left;
+}
+.promo {
+    box-shadow: 0 0 0 1px rgb(218, 225, 232);
+    background-color: rgb(247, 247, 247);
+    width: 308px;
+    border-left:7px solid #f59314;
+    background: #eee;
+    margin:10px 10px;
+    padding: 10px;
+}
+.room__promo_title {
+    font-size: 14px;
+    font-family: OpenSans;
+    color: rgb(71, 125, 182);
+}
+.room__form {
+    border: solid 1px rgb(218, 225, 232);
+    background-color: #f7f7f7;
+    width: 399px;
+    height: 68px;
+    overflow: hidden;
+}
+.room__field_nick {
+    border: solid 1px rgb(223, 223, 223);
+    background-color: #fff;
+    width: 257px;
+    height: 34px;
+    float: left;
+    margin: 0 14px;
+    padding: 10px;
+}
+
+
+/* *************** RACKEBACK **************** */
+/******************************************/
+
+
+.rakeback-create {
+    font-size: 14px;
+    color:#525e67; 
+}
+.rb_left_title {
+    font-size: 20px;
+}
+.rb_number {
+    font-size: 40px;
+    float: left;
+    color: rgb(62, 97, 135);
+    font-weight: bold;
+    text-align: left;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.rb_imgs {
+    padding: 0px 19px 0 0;
+}
+.rb_require {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: rgb(126, 175, 21);
+    padding-top: 10px;
+}
+.rb_require_title {
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+}
+.rb_require p {
+    font-size: 12px;
+    color: rgb(62, 97, 135);
+}
+.rb_require_ts {
+    font-size: 12px;
+    color:#fff;
+}
+.rb_3_title {
+    font-size: 16px;
+}
+.rb_3_prof {
+    font-size: 12px;
+}
+.rakeback-form label {
+    font-size: 14px;
+    color: rgb(82, 94, 103);
+    font-weight: normal;
+}
+.vertical-line {
+    height:500px;
+    width:1px;
+    border-left: 1px solid #e5e5e5;
 }

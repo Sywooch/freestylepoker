@@ -8,24 +8,16 @@ use yii\helpers\Html;
  * and open the template in the editor.
  */
 ?>
-<div class="room_list__box">
+<div class="room_list__box room_all_box">
+    <div class="room_all__bonus">
+        <?= Html::encode($model->bonus); ?>
+    </div>
     <div class="center room_list__logo">
         <?= Html::img('/statics/web/rooms/previews/' . $model->logo, ['style' => 'padding:0px']) ?>
     </div>
-    <div class="room_list__title">
+    <div class="room_all__title">
         <?= Html::a(Html::encode($model->title), ['view', 'alias' => $model->alias]); ?>
-        <span class="right room_list__net">
-            <small>
-                <?= \Yii::t('ru', 'Network:') ?> 
-            </small>
-            <?= Html::tag('span', Html::encode($model->net), ['class' => 'net']); ?>
-        </span>
-    </div>
-    <div class="room_list__bonus">
-        <span class="room_list__bonus__span">
-            <?= Html::encode($model->bonus); ?>
-        </span>
-        <span class="right room_list__reg">
+        <span class="right room_all__reg">
             <?php
             if (!$model->isAccount && !\Yii::$app->user->isGuest) {
                 echo Html::a(Html::encode('Регистрация'), ['view', 'alias' => $model->alias, '#' => 'accounts']);
@@ -38,6 +30,12 @@ use yii\helpers\Html;
             }
             ?>
         </span>
+        <div class="room_list__net">
+            <small>
+                <?= \Yii::t('ru', 'Network:') ?> 
+            </small>
+            <?= Html::tag('span', Html::encode($model->net), ['class' => 'net']); ?>
+        </div>
     </div>
     <div class="room_list__info">
         <?= $model->info; ?>

@@ -87,18 +87,16 @@ class TrainingsController extends Controller {
         if ($model->load(\Yii::$app->request->post())) {
             if (Yii::$app->user->isGuest) {
                 Yii::$app->session->setFlash(
-                        'success', yii::t('ru', 'Вы не авторизированы')
+                        'success', yii::t('ru', 'You are not logged in')
                 );
             } else {
                 $model->buy();
             }
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'date' => \Yii::$app->request->post('date')]);
         } else {
-            if (Yii::$app->request->isPjax) {
-                return $this->render('view', [
-                            'model' => $model,
-                ]);
-            }
+            return $this->render('view', [
+                        'model' => $model,
+            ]);
         }
     }
 

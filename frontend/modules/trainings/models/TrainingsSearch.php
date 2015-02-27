@@ -45,6 +45,12 @@ class TrainingsSearch extends Trainings {
 //        if (!($this->load($params) && $this->validate())) {
 //            return $dataProvider;
 //        }
+        if(isset($params['date'])){
+            if(!isset($params['TrainingsSearch']))
+                $params['TrainingsSearch'] = array();
+            $params['TrainingsSearch']['date'] = $params['date'];
+            unset($params['date']);
+        } 
         $this->load($params);
 
         if ($this->date != Null) {

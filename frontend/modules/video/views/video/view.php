@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo '</div><br>';
                 }
                 if (Yii::$app->user->can('administrateVideo') || $model->_isAuthor) {
-                    echo Html::a(\Yii::t('ru', 'Stat'), ['stat', 'id' => $model->id], ['class' => 'stat']);
+                    echo Html::a(\Yii::t('ru', 'Stat'), ['stat', 'id' => $model->id], ['class' => 'stat', 'target' => '_blank']);
                 }
                 ?>
             </div>

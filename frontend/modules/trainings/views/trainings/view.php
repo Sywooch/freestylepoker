@@ -13,9 +13,9 @@ use yii\bootstrap\Modal;
 //$this->params['breadcrumbs'][] = ['label' => 'Trainings', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 
-echo Html::a($model['title'], '#_t' . $model->id, [
+echo Html::a($model['title'], '#_' . $model->alias, [
     'class' => 'training_title',
-    'id' => '_t' . $model->id,
+    'id' => '_' . $model->alias,
 //    'data-toggle' => 'modal',
 //    'data-target' => '#training' . $model->id
 ]) . '<br>' . \Yii::t('ru', 'Trainer') . ': ' . Html::a(
@@ -62,13 +62,13 @@ Modal::begin([
                                 . ' &nbsp;<span class="buyed"></span> <br>' : \Yii::t('ru', 'Free video')
                                 ?>
                                 <?php
-                                $form = ActiveForm::begin([
-                                            'method' => 'post',
-                                            'action' => ['view', 'id' => $model->id],
-                                ]);
-                                echo $form->field($model, 'val')->hiddenInput()->label(false);
-                                echo Html::submitButton(\Yii::t('ru', 'Buy'), ['class' => 'training_btn btn btn-primary buy']);
-                                ActiveForm::end();
+                                $options = [
+                                    'class' => 'training_btn btn btn-primary buy',
+                                    'data-toggle' => 'modal',
+                                    'data-target' => '#myModal' . $model->id,
+                                    'title' => 'Купить доступ к просмотру'
+                                ];
+                                echo Html::button(\Yii::t('ru', 'Buy'), $options);
                             } elseif (!$model->val) {
                                 echo '';
                             }
@@ -84,27 +84,27 @@ Modal::begin([
                         <div class="gold">
                             <?php
 //                            $options = [
-//                            'class' => 'btn btn-primary',
-//                            'data-toggle' => 'modal',
-//                            'data-target' => '#myModal',
-//                            'title' => 'Купить доступ к просмотру'
+//                                'class' => 'btn btn-primary',
+//                                'data-toggle' => 'modal',
+//                                'data-target' => '#myModal',
+//                                'title' => 'Купить доступ к просмотру'
 //                            ];
 //
 //                            if ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateTraining')) {
-//                            Html::addCssClass($options, 'hide');
-//                            echo 'Ссылка: ' . $model->url;
+//                                Html::addCssClass($options, 'hide');
+//                                echo 'Ссылка: ' . $model->url;
 //                            }
 //
 //                            if (empty($model->val)) {
-//                            echo 'Ссылка: ' . $model->url;
+//                                echo 'Ссылка: ' . $model->url;
 //                            }
 //
 //                            if (Yii::$app->user->isGuest) {
-//                            Html::addCssClass($options, 'disabled');
+//                                Html::addCssClass($options, 'disabled');
 //                            }
 //
 //                            if (!empty($model->val)) {
-//                            echo Html::button('Купить', $options);
+//                                echo Html::button('Купить', $options);
 //                            }
                             ?>
                         </div>
@@ -122,49 +122,42 @@ Modal::begin([
                                         . Html::a('Войдите', ['/login']) . ' или '
                                         . Html::a('Зарегистрируйтесь', ['/signup']), ['class' => 'login_please right']);
                             } elseif ($model->_isBuy == true || $model->_isAuthor || \Yii::$app->user->can('administrateTraining') || empty($model->val)) {
-                                echo Html::a(Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/trainings-w.png')[1], ['class' => 'trainings_logo'])
-                                        . \Yii::t('ru', 'Go to training'), $model->url, ['class' => 'training_but right']);
+                                echo Html::a(\Yii::t('ru', 'Go to training'), $model->url, ['class' => 'training_but right']);
                             } else {
                                 ?>
-                                <div class="training_but right">
-                                    <?=
-                                    Html::img(Yii::$app->assetManager->publish('@vova07/themes/site/assets/images/trainings-w.png')[1], ['class' => 'trainings_logo']);
-                                    echo \Yii::t('ru', 'Go to training')
-                                    ?>
-                                </div>
                             <?php } ?>
                         </div>
                         <div class="admin-block">
-                            <div class="gift" id="gifter">
+                            <div class="gift">
                                 <?php
                                 if (Yii::$app->user->can('administrateTrainings')) {
                                     $gift_form = ActiveForm::begin([
-                                                'id' => 'gift',
+                                                'id' => 'gift' . $model->id,
                                                 'method' => 'post',
                                                 'action' => ['gift'],
                                     ]);
-                                    ?>
-                                    <?=
-                                    $gift_form->field($model, 'author')->widget(Widget::className(), [
+
+                                    echo $gift_form->field($model, 'author')->widget(Widget::className(), [
                                         'options' => [
-                                            'prompt' => \Yii::t('ru', 'Select...'),
+                                            'prompt' => \Yii::t('ru', 'Select user...'),
+                                            'id' => 'gift_' . $model->id,
                                         ],
                                         'settings' => [
                                             'width' => '100%',
                                         ],
                                         'items' => $model->AllUsers,
-                                    ])
+                                    ])->label(\Yii::t('ru', 'Make the gift'));
                                     ?>
                                     <?= $gift_form->field($model, 'id')->hiddenInput()->label(false); ?>
                                     <?= Html::submitButton('Подарить', ['class' => 'btn btn-primary'], ['id' => 'gift-sbm']) ?>
+                                    <div id="gifter<?= $model->id ?>"></div>
                                     <?php
                                     ActiveForm::end();
-                                    Pjax::begin(['id' => 'gifter', 'formSelector' => '#gift', 'enablePushState' => false]);
+                                    Pjax::begin(['id' => 'gifter' . $model->id, 'formSelector' => '#gift' . $model->id, 'enablePushState' => false]);
                                     Pjax::end();
-                                    echo '<br>';
                                 }
                                 if (Yii::$app->user->can('administrateTrainings') || $model->_isAuthor) {
-                                    echo Html::a('Статистика', ['stat', 'id' => $model->id]);
+                                    echo Html::a('Статистика', ['stat', 'id' => $model->id], ['class' => 'stat right', 'target' => '_blank']);
                                 }
                                 ?>
                             </div>
@@ -180,7 +173,18 @@ Modal::begin([
 <?php
 $js = "
         $(document).ready(function () {
-        $('#_t" . $model->id . "').click(function(){
+        
+        $('.close').click(function(){
+            location.hash='';
+        });
+        
+        $('#training" . $model->id . "').keyup(function(event){
+            if (event.keyCode == 27) {
+                location.hash='';
+            }
+        });
+
+        $('#_" . $model->alias . "').click(function(){
             $('#training" . $model->id . "').modal();
             });
         $(''+location.hash).click();
@@ -189,5 +193,30 @@ $js = "
 $this->registerJs($js);
 ?>
 
-
-
+<!-- Modal -->
+<div class="modal fade" id="myModal<?= $model->id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Купить видео "<?= $model->title ?>"</h4>
+            </div>
+            <div class="modal-body">
+                Вы действительно желаете купить это видео?
+            </div>
+            <div class="modal-footer">
+                <?php
+                $form = ActiveForm::begin([
+                            'method' => 'post',
+                            'action' => ['view', 'id' => $model->id],
+                ]);
+                echo $form->field($model, 'val')->hiddenInput()->label(false);
+                echo Html::hiddenInput('date', \Yii::$app->request->get('date'));
+                echo Html::button(\Yii::t('ru', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']);
+                echo Html::submitButton(\Yii::t('ru', 'Buy'), ['class' => 'btn btn-primary']);
+                ActiveForm::end();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
