@@ -1285,3 +1285,34 @@ div.room_list__logo {
     width:1px;
     border-left: 1px solid #e5e5e5;
 }
+
+
+/* *************** ROOMS PROMO **************** */
+/******************************************/
+
+.roomspromo_row:hover {
+    background: #F7F7F7;
+}
+.roomspromo_row {
+    padding: 10px 0 10px;
+}
+.roomspromo_row td {
+    border-left: 1px solid #ccc;
+    display: inline-block;
+    height: 117px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.roomspromo_row td:first-child {
+    border-left: none;
+}
+.roomspromo_row_img {
+    width:130px;
+}
+.roomspromo_row_name {
+    width:130px;
+    text-align: center;
+}
+.roomspromo_row_text {
+    width: 720px;;
+}
