@@ -2,230 +2,279 @@
 
 $vendorDir = dirname(__DIR__);
 
-return array(
-    'nill/comment_widget' =>
-    array(
-        'name' => 'nill/comment_widget',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@nill/comment_widget' => $vendorDir . '/nill/comment_widget',
-        ),
+return array (
+  'nill/blogs_category' => 
+  array (
+    'name' => 'nill/yii2-blogs-category-module',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@nill/blogs_category' => $vendorDir . '/nill/yii2-blogs-category-module',
     ),
-    'vova07/yii2-select2-widget' =>
-    array(
-        'name' => 'vova07/yii2-select2-widget',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@vova07/select2' => $vendorDir . '/vova07/yii2-select2-widget',
-        ),
+    'bootstrap' => 'nill\\blogs_category\\Bootstrap',
+  ),
+  'nill/statical' => 
+  array (
+    'name' => 'nill/statical',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@nill/statical' => $vendorDir . '/nill/statical',
     ),
-    'nill/forum' =>
-    array(
-        'name' => 'nill/forum',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@nill/forum' => $vendorDir . '/nill/forum',
-        ),
+  ),
+  'nill/bankroll' => 
+  array (
+    'name' => 'nill/bankroll',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@nill/bankroll' => $vendorDir . '/nill/bankroll',
     ),
-    'vova07/yii2-start-rbac-module' =>
-    array(
-        'name' => 'vova07/yii2-start-rbac-module',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@vova07/rbac' => $vendorDir . '/vova07/yii2-start-rbac-module',
-        ),
-        'bootstrap' => 'vova07\\rbac\\Bootstrap',
+    'bootstrap' => 'nill\\bankroll\\Bootstrap',
+  ),
+  'nill/slider' => 
+  array (
+    'name' => 'nill/yii2_slider_module',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@nill/slider' => $vendorDir . '/nill/yii2_slider_module',
     ),
-    'vova07/yii2-fileapi-widget' =>
-    array(
-        'name' => 'vova07/yii2-fileapi-widget',
-        'version' => '0.1.1.0',
-        'alias' =>
-        array(
-            '@vova07/fileapi' => $vendorDir . '/vova07/yii2-fileapi-widget',
-        ),
+    'bootstrap' => 'nill\\slider\\Bootstrap',
+  ),
+  'nill/comment_widget' => 
+  array (
+    'name' => 'nill/comment_widget',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@nill/comment_widget' => $vendorDir . '/nill/comment_widget',
     ),
-    'yiisoft/yii2-swiftmailer' =>
-    array(
-        'name' => 'yiisoft/yii2-swiftmailer',
-        'version' => '2.0.1.0',
-        'alias' =>
-        array(
-            '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer',
-        ),
+  ),
+  'vova07/yii2-select2-widget' => 
+  array (
+    'name' => 'vova07/yii2-select2-widget',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@vova07/select2' => $vendorDir . '/vova07/yii2-select2-widget',
     ),
-    'yiisoft/yii2-bootstrap' =>
-    array(
-        'name' => 'yiisoft/yii2-bootstrap',
-        'version' => '2.0.1.0',
-        'alias' =>
-        array(
-            '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap',
-        ),
+  ),
+  'nill/forum' => 
+  array (
+    'name' => 'nill/forum',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@nill/forum' => $vendorDir . '/nill/forum',
     ),
-    'vova07/yii2-start-base' =>
-    array(
-        'name' => 'vova07/yii2-start-base',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@vova07/base' => $vendorDir . '/vova07/yii2-start-base',
-        ),
-        'bootstrap' => 'vova07\\base\\Bootstrap',
+  ),
+  'vova07/yii2-start-rbac-module' => 
+  array (
+    'name' => 'vova07/yii2-start-rbac-module',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@vova07/rbac' => $vendorDir . '/vova07/yii2-start-rbac-module',
     ),
-    'yiisoft/yii2-jui' =>
-    array(
-        'name' => 'yiisoft/yii2-jui',
-        'version' => '2.0.1.0',
-        'alias' =>
-        array(
-            '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
-        ),
+    'bootstrap' => 'vova07\\rbac\\Bootstrap',
+  ),
+  'vova07/yii2-fileapi-widget' => 
+  array (
+    'name' => 'vova07/yii2-fileapi-widget',
+    'version' => '0.1.1.0',
+    'alias' => 
+    array (
+      '@vova07/fileapi' => $vendorDir . '/vova07/yii2-fileapi-widget',
     ),
-    'vova07/yii2-start-site-module' =>
-    array(
-        'name' => 'vova07/yii2-start-site-module',
-        'version' => '0.1.1.0',
-        'alias' =>
-        array(
-            '@vova07/site' => $vendorDir . '/vova07/yii2-start-site-module',
-        ),
-        'bootstrap' => 'vova07\\site\\Bootstrap',
+  ),
+  'yiisoft/yii2-swiftmailer' => 
+  array (
+    'name' => 'yiisoft/yii2-swiftmailer',
+    'version' => '2.0.1.0',
+    'alias' => 
+    array (
+      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer',
     ),
-    'vova07/yii2-start-admin-module' =>
-    array(
-        'name' => 'vova07/yii2-start-admin-module',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@vova07/admin' => $vendorDir . '/vova07/yii2-start-admin-module',
-        ),
-        'bootstrap' => 'vova07\\admin\\Bootstrap',
+  ),
+  'yiisoft/yii2-bootstrap' => 
+  array (
+    'name' => 'yiisoft/yii2-bootstrap',
+    'version' => '2.0.1.0',
+    'alias' => 
+    array (
+      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap',
     ),
-    'vova07/yii2-start-themes' =>
-    array(
-        'name' => 'vova07/yii2-start-themes',
-        'version' => '0.1.2.0',
-        'alias' =>
-        array(
-            '@vova07/themes' => $vendorDir . '/vova07/yii2-start-themes',
-        ),
-        'bootstrap' => 'vova07\\themes\\Bootstrap',
+  ),
+  'vova07/yii2-start-base' => 
+  array (
+    'name' => 'vova07/yii2-start-base',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@vova07/base' => $vendorDir . '/vova07/yii2-start-base',
     ),
-    'vova07/yii2-start-comments-module' =>
-    array(
-        'name' => 'vova07/yii2-start-comments-module',
-        'version' => '0.1.0.0',
-        'alias' =>
-        array(
-            '@vova07/comments' => $vendorDir . '/vova07/yii2-start-comments-module',
-        ),
-        'bootstrap' => 'vova07\\comments\\Bootstrap',
+    'bootstrap' => 'vova07\\base\\Bootstrap',
+  ),
+  'yiisoft/yii2-jui' => 
+  array (
+    'name' => 'yiisoft/yii2-jui',
+    'version' => '2.0.1.0',
+    'alias' => 
+    array (
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
     ),
-    'yiisoft/yii2-debug' =>
-    array(
-        'name' => 'yiisoft/yii2-debug',
-        'version' => '2.0.1.0',
-        'alias' =>
-        array(
-            '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug',
-        ),
+  ),
+  'vova07/yii2-start-site-module' => 
+  array (
+    'name' => 'vova07/yii2-start-site-module',
+    'version' => '0.1.1.0',
+    'alias' => 
+    array (
+      '@vova07/site' => $vendorDir . '/vova07/yii2-start-site-module',
     ),
-    'yiisoft/yii2-gii' =>
-    array(
-        'name' => 'yiisoft/yii2-gii',
-        'version' => '2.0.1.0',
-        'alias' =>
-        array(
-            '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
-        ),
+    'bootstrap' => 'vova07\\site\\Bootstrap',
+  ),
+  'vova07/yii2-start-admin-module' => 
+  array (
+    'name' => 'vova07/yii2-start-admin-module',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@vova07/admin' => $vendorDir . '/vova07/yii2-start-admin-module',
     ),
-    'nill/users' =>
-    array(
-        'name' => 'nill/users',
-        'version' => '0.2.3.0',
-        'alias' =>
-        array(
-            '@nill/users' => $vendorDir . '/nill/users',
-        ),
-        'bootstrap' => 'nill\\users\\Bootstrap',
+    'bootstrap' => 'vova07\\admin\\Bootstrap',
+  ),
+  'vova07/yii2-start-themes' => 
+  array (
+    'name' => 'vova07/yii2-start-themes',
+    'version' => '0.1.2.0',
+    'alias' => 
+    array (
+      '@vova07/themes' => $vendorDir . '/vova07/yii2-start-themes',
     ),
-    'nill/fsp' =>
-    array(
-        'name' => 'nill/fsp',
-        'version' => '0.2.3.0',
-        'alias' =>
-        array(
-            '@nill/fsp' => $vendorDir . '/nill/fsp',
-        ),
-        'bootstrap' => 'nill\\fsp\\Bootstrap',
+    'bootstrap' => 'vova07\\themes\\Bootstrap',
+  ),
+  'vova07/yii2-start-comments-module' => 
+  array (
+    'name' => 'vova07/yii2-start-comments-module',
+    'version' => '0.1.0.0',
+    'alias' => 
+    array (
+      '@vova07/comments' => $vendorDir . '/vova07/yii2-start-comments-module',
     ),
-    'kartik-v/yii2-krajee-base' =>
-    array(
-        'name' => 'kartik-v/yii2-krajee-base',
-        'version' => '1.6.0.0',
-        'alias' =>
-        array(
-            '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
-        ),
+    'bootstrap' => 'vova07\\comments\\Bootstrap',
+  ),
+  'yiisoft/yii2-debug' => 
+  array (
+    'name' => 'yiisoft/yii2-debug',
+    'version' => '2.0.1.0',
+    'alias' => 
+    array (
+      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug',
     ),
-    'kartik-v/yii2-widget-depdrop' =>
-    array(
-        'name' => 'kartik-v/yii2-widget-depdrop',
-        'version' => '1.0.0.0',
-        'alias' =>
-        array(
-            '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop',
-        ),
+  ),
+  'yiisoft/yii2-gii' => 
+  array (
+    'name' => 'yiisoft/yii2-gii',
+    'version' => '2.0.1.0',
+    'alias' => 
+    array (
+      '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
     ),
-    'himiklab/yii2-sortable-grid-view-widget' =>
-    array(
-        'name' => 'himiklab/yii2-sortable-grid-view-widget',
-        'version' => '1.0.4.0',
-        'alias' =>
-        array(
-            '@himiklab/sortablegrid' => $vendorDir . '/himiklab/yii2-sortable-grid-view-widget',
-        ),
+  ),
+  'nill/users' => 
+  array (
+    'name' => 'nill/users',
+    'version' => '0.2.3.0',
+    'alias' => 
+    array (
+      '@nill/users' => $vendorDir . '/nill/users',
     ),
-    'himiklab/yii2-chained-dropdown-list-widget' =>
-    array(
-        'name' => 'himiklab/yii2-chained-dropdown-list-widget',
-        'version' => '1.0.0.0',
-        'alias' =>
-        array(
-            '@himiklab/chained' => $vendorDir . '/himiklab/yii2-chained-dropdown-list-widget',
-        ),
+    'bootstrap' => 'nill\\users\\Bootstrap',
+  ),
+  'nill/fsp' => 
+  array (
+    'name' => 'nill/fsp',
+    'version' => '0.2.3.0',
+    'alias' => 
+    array (
+      '@nill/fsp' => $vendorDir . '/nill/fsp',
     ),
-    'kartik-v/yii2-widget-select2' =>
-    array(
-        'name' => 'kartik-v/yii2-widget-select2',
-        'version' => '1.0.0.0',
-        'alias' =>
-        array(
-            '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
-        ),
+    'bootstrap' => 'nill\\fsp\\Bootstrap',
+  ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '1.6.0.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
     ),
-    'vova07/yii2-imperavi-widget' =>
-    array(
-        'name' => 'vova07/yii2-imperavi-widget',
-        'version' => '1.1.6.0',
-        'alias' =>
-        array(
-            '@vova07/imperavi' => $vendorDir . '/vova07/yii2-imperavi-widget',
-        ),
+  ),
+  'kartik-v/yii2-widget-depdrop' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-depdrop',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop',
     ),
-    'vova07/yii2-start-blogs-module' =>
-    array(
-        'name' => 'vova07/yii2-start-blogs-module',
-        'version' => '0.2.1.0',
-        'alias' =>
-        array(
-            '@vova07/blogs' => $vendorDir . '/vova07/yii2-start-blogs-module',
-        ),
-        'bootstrap' => 'vova07\\blogs\\Bootstrap',
+  ),
+  'himiklab/yii2-sortable-grid-view-widget' => 
+  array (
+    'name' => 'himiklab/yii2-sortable-grid-view-widget',
+    'version' => '1.0.4.0',
+    'alias' => 
+    array (
+      '@himiklab/sortablegrid' => $vendorDir . '/himiklab/yii2-sortable-grid-view-widget',
     ),
+  ),
+  'himiklab/yii2-chained-dropdown-list-widget' => 
+  array (
+    'name' => 'himiklab/yii2-chained-dropdown-list-widget',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@himiklab/chained' => $vendorDir . '/himiklab/yii2-chained-dropdown-list-widget',
+    ),
+  ),
+  'kartik-v/yii2-widget-select2' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-select2',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
+    ),
+  ),
+  'vova07/yii2-start-blogs-module' => 
+  array (
+    'name' => 'vova07/yii2-start-blogs-module',
+    'version' => '0.2.1.0',
+    'alias' => 
+    array (
+      '@vova07/blogs' => $vendorDir . '/vova07/yii2-start-blogs-module',
+    ),
+    'bootstrap' => 'vova07\\blogs\\Bootstrap',
+  ),
+  'vova07/yii2-start-users-module' => 
+  array (
+    'name' => 'vova07/yii2-start-users-module',
+    'version' => '0.2.3.0',
+    'alias' => 
+    array (
+      '@vova07/users' => $vendorDir . '/vova07/yii2-start-users-module',
+    ),
+    'bootstrap' => 'vova07\\users\\Bootstrap',
+  ),
+  'vova07/yii2-imperavi-widget' => 
+  array (
+    'name' => 'vova07/yii2-imperavi-widget',
+    'version' => '1.1.12.0',
+    'alias' => 
+    array (
+      '@vova07/imperavi' => $vendorDir . '/vova07/yii2-imperavi-widget',
+    ),
+  ),
 );

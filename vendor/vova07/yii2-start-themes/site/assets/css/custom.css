@@ -603,7 +603,7 @@ button.btn, .but {
     background-image: url('../images/skype.png');
     background-repeat: no-repeat;
     background-color: #eeeff1;
-    width: 136px;
+    padding-right: 10px;
     height: 30px;
     padding-left: 42px;
     padding-top: 5px;
@@ -1181,7 +1181,7 @@ div.room_list__logo {
     font-family: "Arial";
     color: rgb(82, 94, 103);
 }
-.rooms-view hr {
+.rooms-view hr, hr.newclass, hr.hr {
     border-top: #66c0ff solid 1px;
     border-bottom: rgba(255, 255, 255, 0) solid 1px;
     margin-top: 10px;
@@ -1290,16 +1290,12 @@ div.room_list__logo {
 /* *************** ROOMS PROMO **************** */
 /******************************************/
 
-.roomspromo_row:hover {
-    background: #F7F7F7;
-}
 .roomspromo_row {
     padding: 10px 0 10px;
+    border-bottom: 1px solid #dae1e8;
 }
 .roomspromo_row td {
-    border-left: 1px solid #ccc;
     display: inline-block;
-    height: 117px;
     margin-top: 12px;
     margin-bottom: 12px;
 }
@@ -1307,12 +1303,163 @@ div.room_list__logo {
     border-left: none;
 }
 .roomspromo_row_img {
-    width:130px;
+    vertical-align: top;
 }
-.roomspromo_row_name {
-    width:130px;
+.roomspromo_row_but {
+    width:20px;
     text-align: center;
+    vertical-align: middle;
 }
 .roomspromo_row_text {
-    width: 720px;;
+    width: 612px;
+    text-align: justify;
+    padding: 0 18px
+}
+.roomspromo_row_name {
+    font-size: 14px;
+    color: rgb(71, 125, 182);
+    line-height: 1.286;
+    margin-bottom: 10px;
+}
+.roomspromo_row_name:hover {
+    text-decoration: underline;
+}
+
+
+/* *************** ARTICLE **************** */
+/******************************************/
+
+.article_desc {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: #f7f7f7;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.article_img {
+    width: 200px;
+    height: 150px;
+    float: left;
+    margin-right: 20px;
+}
+a.article_title {
+    font-size: 20px;
+    color: #525e67;
+}
+a.article_title:hover { 
+    color:#3e6187;
+}
+.article_snippet {
+    font-size: 13px;
+    color: rgb(111, 116, 120);
+}
+.blog-item {
+    overflow: auto;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 14px;
+}
+.article_snippet_view {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(218, 225, 232);
+    background-color: #f7f7f7;
+    overflow: auto;
+    padding: 0px;
+    margin-bottom: 15px;
+}
+.article_snippet_view .article_snippet {
+    padding: 23px;
+    font-size: 14px;
+    color: rgb(82, 94, 103);
+    line-height: 1.429;
+}
+.article_title {
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+}
+.article_title_img {
+    background-color: rgb(34, 139, 218);
+    width: 52px;
+    height: 50px;
+    text-align: center;
+    float:left;
+    padding: 14px 0px 0 0;
+}
+.article_title a {
+    padding-left: 20px;
+    line-height: 2.4;
+}
+#main-slider {
+    overflow: auto;
+    height: 340px;
+}
+.wet-asphalt {
+    height: auto;
+}
+.bankroll-item {
+    width:238px;
+}
+.bankroll {
+    width:770px;
+    margin-top:15px;
+}
+.bankroll_text {
+    background-color: rgb(83, 117, 153);
+    width: 238px;
+    height: 51px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    line-height: 1.286;
+    text-align: left;
+    position: relative;
+    padding: 7px 50px 6px 18px;
+}
+.bankroll_footer {
+    background-color: rgb(62, 97, 135);
+    width: 238px;
+    height: 39px;
+    padding: 9px 18px;
+}
+.bankroll_footer a {
+    font-size: 14px;
+    color: rgb(145, 171, 190);
+    line-height: 1.143;
+}
+.bankroll_lot {
+    background-color: rgb(126, 175, 21);
+    position: absolute;
+    right: 9px;
+    top: 34px;
+    width: 48px;
+    height: 34px;
+    padding: 8px;
+    font-weight: bold;
+}
+.bankroll_title {
+    font-size: 19px;
+    font-family: "Arial";
+    color: rgb(82, 94, 103);
+}
+.bankroll-item:hover .bankroll_text {
+    background-color: rgb(62, 97, 135);
+}
+.bankroll-item:hover .bankroll_footer {
+    background-color: rgb(83, 117, 153);
+}
+.promo_all_title {
+    font-size: 16px;
+}
+.promo_table {
+    border-top: #66c0ff 1px solid;
+}
+.but_arr {
+    width: 20px;
+    height: 30px;
+    background: url('../images/but_arr.png');
+}
+.but_arr:hover {
+    background: url('../images/but_arr_a.png');
 }
