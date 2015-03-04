@@ -41,3 +41,19 @@ Comment Widget
 --------------
 
 >PJAX:: If you want to use Ajax (autoupdate) uncomment: **PJAX begin()**, **PJAX end()** and **registerJs** in - **comment_clock**
+
+Comment count
+-------------
+
+1. Add model to comments module - backend `comments/models/index/`
+
+2. Add to **view** file code how in exemple: `<?= '<b class="icon-comment"> </b>' . $model->CommentsCount . ' '; ?>`
+
+3. Add to model `CommentsCount` method: 
+```
+public function getCommentsCount() {
+        $comments_count = Comment::find()->where(['model_class' => '4232574542', 'model_id' => $this->id])->count();
+        return $comments_count;
+    }
+```
+Where `model_class` - class your model, which can be taken from paragraph **1**

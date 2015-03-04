@@ -1,0 +1,12 @@
+{
+    "name": "nill/yii2-bankroll-module",
+    "description": "bankroll module for Yii2-start",
+    "authors": [
+        {
+            "name": "Nill Mefistophell",
+            "email": "asklepiy@i.ua"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

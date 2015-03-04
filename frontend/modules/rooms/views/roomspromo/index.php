@@ -2,6 +2,8 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
+use nill\slider\widgets\Widgetslider;
+use nill\bankroll\widgets\Widgetbankroll;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\rooms\models\RoomsPromoSearch */
@@ -18,6 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
         Здесь собраны все акции покер-румов
     </p>
 
+    <?= Widgetslider::widget(['status' => 'on']) ?>
+    <?= Widgetbankroll::widget(['status' => 'on']) ?>
+
+    <div class="promo_all_title">Все акции</div>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,25 +32,33 @@ $this->params['breadcrumbs'][] = $this->title;
             return ['class' => 'roomspromo_row'];
         },
                 'showHeader' => false,
-                'tableOptions' => ['class' => 'trainings_table'],
+                'tableOptions' => ['class' => 'promo_table'],
                 'columns' => [
                     [
                         'attribute' => 'img',
                         'format' => 'raw',
                         'contentOptions' => ['class' => 'roomspromo_row_img'],
                         'value' => function ($model) {
-                    return Html::a(Html::img('/statics/web/rooms/previews/' . $model->img, ['style' => 'width:100px']), $model->alias . '/');
+                    return Html::a(Html::img('/statics/web/rooms/previews/' . $model->img, ['style' => 'width:125px']), $model->alias . '/');
                 }
-                    ],
-                    [
-                        'attribute' => 'name',
-                        'format' => 'raw',
-                        'contentOptions' => ['class' => 'roomspromo_row_name'],
                     ],
                     [
                         'attribute' => 'text',
                         'format' => 'raw',
                         'contentOptions' => ['class' => 'roomspromo_row_text'],
+                        'value' => function ($model) {
+                    return Html::a($model->name, $model->alias . '/', ['class' => 'roomspromo_row_name'])
+                            . '<br>'
+                            .   iconv_substr($model->text, 0, 200, 'UTF-8').  '...';
+                }
+                    ],
+                    [
+                        'label' => 'button',
+                        'format' => 'raw',
+                        'contentOptions' => ['class' => 'roomspromo_row_but'],
+                        'value' => function ($model) {
+                    return Html::a('<div class="but_arr"></div>', $model->alias . '/', ['class' => 'roomspromo_row_name']);
+                }
                     ],
                 ],
             ]);

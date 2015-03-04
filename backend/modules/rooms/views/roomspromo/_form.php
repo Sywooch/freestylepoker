@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vova07\fileapi\Widget as FileAPI;
+use vova07\imperavi\Widget as Imperavi;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\rooms\models\RoomsPromo */
@@ -15,7 +17,16 @@ use vova07\fileapi\Widget as FileAPI;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 128]) ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'text')->widget(
+                Imperavi::className(), [
+            'settings' => [
+                'minHeight' => 70,
+                'imageGetJson' => Url::to(['/rooms/roomspromo/imperavi-get']),
+                'imageUpload' => Url::to(['/rooms/roomspromo/imperavi-image-upload']),
+                'fileUpload' => Url::to(['/rooms/roomspromo/imperavi-file-upload'])
+            ]
+                ]
+        ) ?>
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => 100]) ?>
 

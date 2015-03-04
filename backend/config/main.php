@@ -23,6 +23,18 @@ return [
         'comments' => [
             'isBackend' => true
         ],
+        'slider' => [
+            'class' => 'nill\slider\Module',
+        ],
+        'statical' => [
+            'class' => 'nill\statical\Module',
+        ],
+        'bankroll' => [
+            'class' => 'nill\bankroll\Module',
+        ],
+        'blogs_category' => [
+            'class' => 'nill\blogs_category\Module'
+        ],
         'rbac' => [
             'class' => 'vova07\rbac\Module',
             'isBackend' => true

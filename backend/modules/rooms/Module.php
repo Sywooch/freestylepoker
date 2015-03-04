@@ -2,10 +2,10 @@
 
 namespace app\modules\rooms;
 
-class Module extends \yii\base\Module
-{
+class Module extends \yii\base\Module {
+
     public $controllerNamespace = 'app\modules\rooms\controllers';
-    
+
     /**
      * @var integer Posts per page
      */
@@ -51,10 +51,20 @@ class Module extends \yii\base\Module
      */
     public $contentUrl = '/statics/rooms/content';
 
-    public function init()
-    {
+    /**
+     * @var string Files URL
+     */
+    public $fileUrl = '/statics/rooms/files';
+    
+    /**
+     * @var string Files path
+     */
+    public $filePath = '@statics/web/rooms/files';
+
+    public function init() {
         parent::init();
 
         // custom initialization code goes here
     }
+
 }
