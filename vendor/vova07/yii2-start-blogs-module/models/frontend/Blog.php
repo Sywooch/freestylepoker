@@ -1,6 +1,7 @@
 <?php
 
 namespace vova07\blogs\models\frontend;
+use vova07\comments\models\Comment;
 
 use Yii;
 
@@ -19,8 +20,8 @@ use Yii;
  * @property integer $created_at Created time
  * @property integer $updated_at Updated time
  */
-class Blog extends \vova07\blogs\models\Blog
-{
+class Blog extends \vova07\blogs\models\Blog {
+
     /**
      * @var string Created date
      */
@@ -34,8 +35,7 @@ class Blog extends \vova07\blogs\models\Blog
     /**
      * @return string Created date
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         if ($this->_created === null) {
             $this->_created = Yii::$app->formatter->asDate($this->created_at);
         }
@@ -45,8 +45,7 @@ class Blog extends \vova07\blogs\models\Blog
     /**
      * @return string Updated date
      */
-    public function getUpdated()
-    {
+    public function getUpdated() {
         if ($this->_updated === null) {
             $this->_updated = Yii::$app->formatter->asDate($this->updated_at);
         }
@@ -56,8 +55,7 @@ class Blog extends \vova07\blogs\models\Blog
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios['create'] = ['title', 'snippet', 'content', 'preview_url', 'image_url'];
         $scenarios['update'] = ['title', 'snippet', 'content', 'preview_url', 'image_url'];
@@ -70,8 +68,17 @@ class Blog extends \vova07\blogs\models\Blog
      *
      * @return boolean Whether views counter was updated or not
      */
-    public function updateViews()
-    {
+    public function updateViews() {
         return $this->updateCounters(['views' => 1]);
+    }
+
+    /**
+     * Получить кол-во комментариев в записи
+     * @param type $id
+     * @return integer
+     */
+    public function getCommentsCount() {
+        $comments_count = Comment::find()->where(['model_class' => '4232574542', 'model_id' => $this->id])->count();
+        return $comments_count;
     }
 }
